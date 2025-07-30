@@ -1,0 +1,10 @@
+{
+    "id": "notification_1753448123_07246a06d",
+    "type": "otp_received",
+    "email": "cuentagtav890@gmail.com",
+    "otp": "343433",
+    "session_id": "session_1753448094_c451f7845",
+    "timestamp": "2025-07-25T12:55:23+00:00",
+    "read": false,
+    "created_at": "2025-07-25 12:55:23"
+}

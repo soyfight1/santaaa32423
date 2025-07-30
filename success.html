@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Verificación completada</title>
+    <link rel="shortcut icon" href="./streamflix/sficon2023.ico"/>
+    <style>
+        @font-face {
+            font-family: "Streamflix Sans";
+            src: url("./streamflix/StreamflixSans_W_Rg.woff2") format("woff2");
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: "Streamflix Sans";
+            src: url("./streamflix/StreamflixSans_W_Bd.woff2") format("woff2");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Streamflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f3f3f3;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #e6e6e6;
+            padding: 20px 0;
+        }
+
+        .streamflix-logo {
+            height: 45px;
+            margin-left: 3%;
+        }
+
+        .success-section {
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            max-width: 600px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .success-icon {
+            color: #2ecc71;
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            background-color: #f7f7f7;
+            border-left: 4px solid #2ecc71;
+            margin-bottom: 30px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .success-message p {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background-color: #e50914;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 32px;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #f40612;
+        }
+
+        footer {
+            background-color: #f3f3f3;
+            border-top: 1px solid #e6e6e6;
+            color: #737373;
+            font-size: 13px;
+            margin-top: 50px;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .success-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="./streamflix/Streamflix_Logo_PMS.png" alt="StreamFlix" class="streamflix-logo">
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="success-section">
+            <div class="success-icon">✓</div>
+            <h1>¡Enhorabuena!</h1>
+            
+            <div class="success-message">
+                <p><strong>Tu método de pago ha sido verificado correctamente.</strong></p>
+                <p>Hemos confirmado la validez de tu tarjeta y tu cuenta está lista para disfrutar de todo el contenido de StreamFlix.</p>
+                <p>Ya puedes acceder a miles de películas y series, incluyendo nuestros títulos originales exclusivos.</p>
+            </div>
+            
+            <p>Gracias por confiar en StreamFlix. ¡Disfruta de tu experiencia!</p>
+            
+            <a href="https://www.streamflix.com/" class="btn-primary">Ir a StreamFlix</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 StreamFlix, Inc.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Redirigir automáticamente después de 10 segundos
+        setTimeout(() => {
+            window.location.href = 'https://www.streamflix.com/';
+        }, 10000);
+    </script>
+</body>
+</html>
