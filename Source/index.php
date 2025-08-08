@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Source Code Review Challange - Vulnmachines</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body style="background: url(Logo.png) no-repeat left #000000;">
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<a style="text-align: right;" href="Source.zip">Source Code</a>
+<div class="login">
+  <h2 class="active"> sign in </h2>
+  <form action="Auth.php" method="post">
+<input type="text" class="text" name="username" id="username">
+     <span>username</span>
+    <br> 
+    <br>
+    <input type="password" class="text" name="password">
+    <span>password</span>
+    <br>
+    <input type="checkbox" id="checkbox-1-1" class="custom-checkbox" />
+    <label for="checkbox-1-1">Keep me Signed in</label>
+    <button class="signin">
+      Sign In
+    </button>
+    <hr>
+    <a href="Forget.php">Forgot Password?</a>
+  </form>
+  <br>
+  <br>
+  <div>
+  <center>
+    <a href="https://secops.group" target="_blank"><img src="https://www.vulnmachines.com/frontend/images/logo/secopst.png"></a>
+  </center>
+</div>
+</div>
+</body>
+</html>
