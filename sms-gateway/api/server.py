@@ -16,7 +16,17 @@ from datetime import datetime
 # Añadir path del proyecto
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from main import SMSGateway
+# Usar versión simulada si no hay módems reales
+try:
+    # Verificar si hay módems reales
+    import os
+    if not any(os.path.exists(f'/dev/ttyUSB{i}') for i in range(8)):
+        print("⚠️  No se detectaron módems físicos, usando modo SIMULACIÓN")
+        from main_simulated import SimulatedSMSGateway as SMSGateway
+    else:
+        from main import SMSGateway
+except:
+    from main_simulated import SimulatedSMSGateway as SMSGateway
 
 app = Flask(__name__)
 CORS(app)

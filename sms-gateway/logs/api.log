@@ -1,0 +1,105 @@
+2025-08-10 12:53:02,206 - INFO - 🚀 Iniciando SMS Gateway en MODO SIMULACIÓN...
+2025-08-10 12:53:02,206 - INFO - ⚠️  NOTA: Este es un modo de prueba, no se envían SMS reales
+2025-08-10 12:53:02,206 - INFO - 🔧 Creando módems virtuales...
+2025-08-10 12:53:02,206 - INFO - ✅ 8 módems virtuales creados
+⚠️  No se detectaron módems físicos, usando modo SIMULACIÓN
+ * Serving Flask app 'server'
+ * Debug mode: off
+2025-08-10 12:53:02,208 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.30.0.2:5000
+2025-08-10 12:53:02,208 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-10 12:55:22,653 - INFO - 127.0.0.1 - - [10/Aug/2025 12:55:22] "GET / HTTP/1.1" 200 -
+2025-08-10 12:55:32,862 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:55:33,466 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB2
+2025-08-10 12:55:33,466 - INFO -    → Destino: +34600000000
+2025-08-10 12:55:33,466 - INFO -    → Sender ID: AMAZON
+2025-08-10 12:55:33,466 - INFO -    → Mensaje: Tu paquete ha sido entregado...
+2025-08-10 12:55:33,466 - INFO - ✅ SMS enviado via pdu: +34600000000
+2025-08-10 12:55:33,467 - INFO - 127.0.0.1 - - [10/Aug/2025 12:55:33] "POST /api/send HTTP/1.1" 200 -
+2025-08-10 12:55:40,378 - INFO - 
+📨 Procesando envío masivo a 3 números...
+2025-08-10 12:55:40,379 - INFO - 127.0.0.1 - - [10/Aug/2025 12:55:40] "[35m[1mPOST /api/send-bulk HTTP/1.1[0m" 202 -
+2025-08-10 12:55:40,379 - INFO -   [1/3] Enviando a +34600000001...
+2025-08-10 12:55:40,379 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:55:41,442 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB2
+2025-08-10 12:55:41,442 - INFO -    → Destino: +34600000001
+2025-08-10 12:55:41,442 - INFO -    → Sender ID: PAYPAL
+2025-08-10 12:55:41,442 - INFO -    → Mensaje: Alerta de seguridad: nuevo acceso detectado...
+2025-08-10 12:55:41,442 - INFO - ✅ SMS enviado via pdu: +34600000001
+2025-08-10 12:55:42,442 - INFO -   [2/3] Enviando a +34600000002...
+2025-08-10 12:55:42,442 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:55:43,633 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB2
+2025-08-10 12:55:43,633 - INFO -    → Destino: +34600000002
+2025-08-10 12:55:43,633 - INFO -    → Sender ID: PAYPAL
+2025-08-10 12:55:43,633 - INFO -    → Mensaje: Alerta de seguridad: nuevo acceso detectado...
+2025-08-10 12:55:43,633 - INFO - ✅ SMS enviado via pdu: +34600000002
+2025-08-10 12:55:44,634 - INFO -   [3/3] Enviando a +34600000003...
+2025-08-10 12:55:44,634 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:55:45,661 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB3
+2025-08-10 12:55:45,661 - INFO -    → Destino: +34600000003
+2025-08-10 12:55:45,661 - INFO -    → Sender ID: PAYPAL
+2025-08-10 12:55:45,661 - INFO -    → Mensaje: Alerta de seguridad: nuevo acceso detectado...
+2025-08-10 12:55:45,661 - INFO - ✅ SMS enviado via pdu: +34600000003
+2025-08-10 12:55:45,662 - INFO - ✅ Envío masivo completado
+2025-08-10 12:55:51,503 - INFO - 127.0.0.1 - - [10/Aug/2025 12:55:51] "GET /api/stats HTTP/1.1" 200 -
+2025-08-10 12:55:58,236 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:55:59,645 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB2
+2025-08-10 12:55:59,645 - INFO -    → Destino: +34600000000
+2025-08-10 12:55:59,645 - INFO -    → Sender ID: BANCO
+2025-08-10 12:55:59,645 - INFO -    → Mensaje: Test sender ID: BANCO...
+2025-08-10 12:55:59,645 - INFO - ✅ SMS enviado via pdu: +34600000000
+2025-08-10 12:56:01,645 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:56:02,505 - ERROR - ❌ Error enviando SMS: Error simulado al enviar SMS
+2025-08-10 12:56:04,505 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:56:05,822 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB3
+2025-08-10 12:56:05,823 - INFO -    → Destino: +34600000000
+2025-08-10 12:56:05,823 - INFO -    → Sender ID: GOOGLE
+2025-08-10 12:56:05,823 - INFO -    → Mensaje: Test sender ID: GOOGLE...
+2025-08-10 12:56:05,823 - INFO - ✅ SMS enviado via pdu: +34600000000
+2025-08-10 12:56:07,823 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:56:09,120 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB2
+2025-08-10 12:56:09,120 - INFO -    → Destino: +34600000000
+2025-08-10 12:56:09,120 - INFO -    → Sender ID: PAYPAL
+2025-08-10 12:56:09,120 - INFO -    → Mensaje: Test sender ID: PAYPAL...
+2025-08-10 12:56:09,120 - INFO - ✅ SMS enviado via pdu: +34600000000
+2025-08-10 12:56:11,121 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:56:11,815 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB3
+2025-08-10 12:56:11,815 - INFO -    → Destino: +34600000000
+2025-08-10 12:56:11,815 - INFO -    → Sender ID: 12345
+2025-08-10 12:56:11,815 - INFO -    → Mensaje: Test sender ID: 12345...
+2025-08-10 12:56:11,815 - INFO - ✅ SMS enviado via pdu: +34600000000
+2025-08-10 12:56:13,815 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:56:14,733 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB2
+2025-08-10 12:56:14,733 - INFO -    → Destino: +34600000000
+2025-08-10 12:56:14,733 - INFO -    → Sender ID: INFO
+2025-08-10 12:56:14,733 - INFO -    → Mensaje: Test sender ID: INFO...
+2025-08-10 12:56:14,733 - INFO - ✅ SMS enviado via pdu: +34600000000
+2025-08-10 12:56:16,733 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:56:18,195 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB3
+2025-08-10 12:56:18,195 - INFO -    → Destino: +34600000000
+2025-08-10 12:56:18,195 - INFO -    → Sender ID: ALERT
+2025-08-10 12:56:18,195 - INFO -    → Mensaje: Test sender ID: ALERT...
+2025-08-10 12:56:18,195 - INFO - ✅ SMS enviado via pdu: +34600000000
+2025-08-10 12:56:20,196 - INFO - 
+📤 Procesando envío individual...
+2025-08-10 12:56:21,559 - INFO - 📱 [SIMULADO] SMS enviado desde /dev/ttyUSB2
+2025-08-10 12:56:21,560 - INFO -    → Destino: +34600000000
+2025-08-10 12:56:21,560 - INFO -    → Sender ID: MICROSOFT
+2025-08-10 12:56:21,560 - INFO -    → Mensaje: Test sender ID: MICROSOFT...
+2025-08-10 12:56:21,560 - INFO - ✅ SMS enviado via pdu: +34600000000
+2025-08-10 12:56:23,560 - INFO - 127.0.0.1 - - [10/Aug/2025 12:56:23] "POST /api/test HTTP/1.1" 200 -
+2025-08-10 12:56:36,792 - INFO - 127.0.0.1 - - [10/Aug/2025 12:56:36] "GET /api/routes HTTP/1.1" 200 -
+2025-08-10 12:57:30,075 - INFO - 127.0.0.1 - - [10/Aug/2025 12:57:30] "GET /api/stats HTTP/1.1" 200 -
