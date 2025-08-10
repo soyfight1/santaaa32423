@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Gateway - Acceso Directo</title>
+    <style>
+        body { font-family: Arial; background: #1a1a2e; color: white; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .card { background: #16213e; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        input, textarea, select { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
+        button { background: #e94560; color: white; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #c73650; }
+        .result { padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .success { background: #2ecc71; }
+        .error { background: #e74c3c; }
+        h1 { text-align: center; color: #e94560; }
+        .info { background: #0f3460; padding: 15px; border-radius: 5px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 SMS GATEWAY CONTROL</h1>
+        
+        <div class="info">
+            <h3>⚠️ INSTRUCCIONES IMPORTANTES:</h3>
+            <p>1. Esta página funciona SIN conexión a internet</p>
+            <p>2. Guarda esta página (Ctrl+S) en tu PC</p>
+            <p>3. Configura tu API endpoint abajo</p>
+            <p>4. Para usar localmente: http://localhost:5000</p>
+            <p>5. Para usar con túnel: pega la URL del túnel</p>
+        </div>
+
+        <div class="card">
+            <h2>⚙️ Configuración</h2>
+            <label>API Endpoint:</label>
+            <input type="text" id="apiUrl" value="http://localhost:5000" placeholder="http://localhost:5000 o tu URL de túnel">
+            <button onclick="testConnection()">Probar Conexión</button>
+            <div id="connectionStatus"></div>
+        </div>
+
+        <div class="card">
+            <h2>📤 Enviar SMS</h2>
+            <input type="text" id="number" placeholder="Número: +34600000000">
+            <input type="text" id="senderId" placeholder="Sender ID: BANCO" maxlength="11">
+            <textarea id="message" rows="3" placeholder="Tu mensaje aquí..."></textarea>
+            <select id="method">
+                <option value="auto">Automático</option>
+                <option value="pdu">PDU (mejor para sender ID)</option>
+                <option value="text">Texto</option>
+                <option value="flash">Flash SMS</option>
+            </select>
+            <button onclick="sendSMS()">Enviar SMS</button>
+            <div id="result"></div>
+        </div>
+
+        <div class="card">
+            <h2>📊 Estadísticas</h2>
+            <button onclick="getStats()">Ver Estadísticas</button>
+            <div id="stats"></div>
+        </div>
+
+        <div class="card">
+            <h2>📝 Comandos CURL</h2>
+            <div style="background: #000; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 12px;">
+                <p># Enviar SMS:</p>
+                <p style="color: #0f0;">curl -X POST <span id="curlUrl">http://localhost:5000</span>/api/send \<br>
+                  -H 'Content-Type: application/json' \<br>
+                  -d '{"number":"+34600000000","sender_id":"BANCO","message":"Test"}'</p>
+                <br>
+                <p># Ver estadísticas:</p>
+                <p style="color: #0f0;">curl <span id="curlUrl2">http://localhost:5000</span>/api/stats</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getApiUrl() {
+            return document.getElementById('apiUrl').value;
+        }
+
+        async function testConnection() {
+            const status = document.getElementById('connectionStatus');
+            try {
+                const response = await fetch(getApiUrl() + '/');
+                const data = await response.json();
+                status.innerHTML = '<div class="result success">✅ Conexión exitosa! API v' + data.version + '</div>';
+                updateCurlCommands();
+            } catch (error) {
+                status.innerHTML = '<div class="result error">❌ Error de conexión: ' + error.message + '</div>';
+            }
+        }
+
+        async function sendSMS() {
+            const resultDiv = document.getElementById('result');
+            const data = {
+                number: document.getElementById('number').value,
+                sender_id: document.getElementById('senderId').value,
+                message: document.getElementById('message').value,
+                method: document.getElementById('method').value
+            };
+
+            if (!data.number || !data.message) {
+                resultDiv.innerHTML = '<div class="result error">Por favor completa todos los campos</div>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<div class="result">Enviando...</div>';
+
+            try {
+                const response = await fetch(getApiUrl() + '/api/send', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.innerHTML = '<div class="result success">✅ ' + result.message + '</div>';
+                } else {
+                    resultDiv.innerHTML = '<div class="result error">❌ ' + result.message + '</div>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="result error">❌ Error: ' + error.message + '</div>';
+            }
+        }
+
+        async function getStats() {
+            const statsDiv = document.getElementById('stats');
+            try {
+                const response = await fetch(getApiUrl() + '/api/stats');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const stats = data.stats;
+                    statsDiv.innerHTML = `
+                        <div class="result success">
+                            <p>📱 Módems activos: ${stats.active_modems}</p>
+                            <p>✅ SMS enviados: ${stats.messages_sent}</p>
+                            <p>❌ SMS fallidos: ${stats.messages_failed}</p>
+                            <p>🔧 Modo: ${stats.mode || 'PRODUCTION'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                statsDiv.innerHTML = '<div class="result error">❌ Error: ' + error.message + '</div>';
+            }
+        }
+
+        function updateCurlCommands() {
+            const url = getApiUrl();
+            document.getElementById('curlUrl').textContent = url;
+            document.getElementById('curlUrl2').textContent = url;
+        }
+
+        // Test connection on load
+        window.onload = function() {
+            testConnection();
+        };
+    </script>
+</body>
+</html>

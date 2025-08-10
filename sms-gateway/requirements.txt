@@ -1,0 +1,17 @@
+pyserial==3.5
+flask==3.0.0
+flask-cors==4.0.0
+requests==2.31.0
+python-gammu==3.2.4
+sqlalchemy==2.0.23
+pymysql==1.1.0
+redis==5.0.1
+celery==5.3.4
+gunicorn==21.2.0
+python-dotenv==1.0.0
+pydantic==2.5.2
+fastapi==0.104.1
+uvicorn==0.24.0
+aiofiles==23.2.1
+asyncio==3.4.3
+websockets==12.0
