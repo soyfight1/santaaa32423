@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  # Base de datos para almacenar mensajes y rutas
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: smsgateway2024
+      MYSQL_DATABASE: smsgateway
+      MYSQL_USER: smsuser
+      MYSQL_PASSWORD: smspass2024
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - sms_network
+
+  # Kannel - SMS Gateway principal
+  kannel:
+    build: ./kannel
+    volumes:
+      - ./kannel/kannel.conf:/etc/kannel/kannel.conf
+      - ./logs:/var/log/kannel
+      - /dev:/dev
+    privileged: true
+    ports:
+      - "13000:13000"  # Admin
+      - "13001:13001"  # SMS box
+      - "13013:13013"  # Send SMS
+    depends_on:
+      - mysql
+    networks:
+      - sms_network
+    restart: unless-stopped
+
+  # PlaySMS - Web interface y API
+  playsms:
+    build: ./playsms
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=smsgateway
+      - MYSQL_USER=smsuser
+      - MYSQL_PASSWORD=smspass2024
+    volumes:
+      - ./playsms/config.php:/var/www/html/config.php
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+      - kannel
+    networks:
+      - sms_network
+
+  # API Gateway personalizado
+  api_gateway:
+    build: ./api
+    environment:
+      - DB_HOST=mysql
+      - DB_NAME=smsgateway
+      - DB_USER=smsuser
+      - DB_PASS=smspass2024
+      - KANNEL_HOST=kannel
+      - KANNEL_PORT=13013
+      - KANNEL_USER=admin
+      - KANNEL_PASS=admin123
+    ports:
+      - "5000:5000"
+    depends_on:
+      - kannel
+      - mysql
+    networks:
+      - sms_network
+    volumes:
+      - ./api:/app
+
+  # Monitor de módems y SIMs
+  modem_monitor:
+    build: ./monitor
+    volumes:
+      - /dev:/dev
+      - ./monitor/config.json:/app/config.json
+    privileged: true
+    environment:
+      - DB_HOST=mysql
+      - DB_NAME=smsgateway
+    networks:
+      - sms_network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+
+networks:
+  sms_network:
+    driver: bridge
