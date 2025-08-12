@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crypto Exchange 3D</title>
+    <meta name="color-scheme" content="dark light" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://esm.sh" />
+    <link rel="preconnect" href="https://unpkg.com" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">⚡ Crypto 3D</div>
+      <nav>
+        <button class="nav-btn" data-route="home">Home</button>
+        <button class="nav-btn" data-route="markets">Markets</button>
+        <button class="nav-btn" data-route="trade">Trade</button>
+        <button class="nav-btn" data-route="portfolio">Portfolio</button>
+        <button class="nav-btn" data-route="settings">Settings</button>
+      </nav>
+      <div class="footer">v0.1</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="symbol">
+          <select id="symbol-select">
+            <option value="btcusdt">BTC/USDT</option>
+            <option value="ethusdt">ETH/USDT</option>
+            <option value="solusdt">SOL/USDT</option>
+          </select>
+        </div>
+        <div class="price" id="live-price">--</div>
+        <div class="actions">
+          <button id="theme-toggle">Tema</button>
+          <button id="quality-toggle">Calidad 3D</button>
+        </div>
+      </header>
+
+      <section class="stage">
+        <div id="three-root" class="three-root" aria-label="3D Scene"></div>
+        <div id="chart-root" class="chart-root" aria-label="Candles Chart"></div>
+      </section>
+
+      <section class="panels">
+        <div id="orderbook" class="panel"></div>
+        <div id="trades" class="panel"></div>
+        <div id="orders" class="panel"></div>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
