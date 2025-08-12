@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversación Telefónica - Banco Santander</title>
+    <title>Conversación Telefónica - Análisis de Seguridad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,155 +13,376 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.12);
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .header {
-            background: linear-gradient(135deg, #ec2f4b 0%, #d63384 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 30px;
+            padding: 48px 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
         }
 
         .header h1 {
-            font-size: 2.2em;
-            margin-bottom: 10px;
-            font-weight: 300;
+            font-size: 2.8rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(45deg, #ffffff, #e8f4f8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header p {
-            font-size: 1.1em;
+            font-size: 1.2rem;
             opacity: 0.9;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
         .content {
-            padding: 40px;
+            padding: 60px 40px;
+            background: linear-gradient(180deg, rgba(248,250,252,0.8) 0%, rgba(255,255,255,0.9) 100%);
         }
 
         .conversation-block {
-            margin-bottom: 25px;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #ec2f4b;
-            background: #f8f9fa;
+            margin-bottom: 32px;
+            padding: 28px 32px;
+            border-radius: 16px;
+            border-left: 4px solid;
+            background: white;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conversation-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+        }
+
+        .conversation-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
 
         .speaker {
-            font-weight: bold;
-            color: #ec2f4b;
-            margin-bottom: 10px;
-            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .speaker::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
         }
 
         .agent {
-            color: #2c5aa0;
+            color: #2563eb;
+        }
+
+        .agent::before {
+            background: #2563eb;
         }
 
         .client {
-            color: #28a745;
+            color: #059669;
+        }
+
+        .client::before {
+            background: #059669;
         }
 
         .dialogue {
-            font-size: 1.05em;
-            line-height: 1.7;
+            font-size: 1.05rem;
+            line-height: 1.8;
             text-align: justify;
-            margin-bottom: 15px;
+            margin-bottom: 0;
+            color: #374151;
+            font-weight: 400;
         }
 
         .technical {
-            background: #e3f2fd;
-            border-left-color: #2196f3;
+            background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+            border-left-color: #3b82f6;
         }
 
         .simple {
-            background: #f3e5f5;
-            border-left-color: #9c27b0;
+            background: linear-gradient(135deg, #f3e8ff 0%, #fae8ff 100%);
+            border-left-color: #a855f7;
         }
 
         .important {
-            background: #fff3e0;
-            border-left-color: #ff9800;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left-color: #f59e0b;
+            position: relative;
+        }
+
+        .important::after {
+            content: '⚠️';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            opacity: 0.7;
         }
 
         .note {
             font-style: italic;
-            color: #666;
-            font-size: 0.95em;
-            margin-top: 10px;
-            padding: 10px;
-            background: #f0f0f0;
-            border-radius: 5px;
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-top: 16px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            border-left: 3px solid #cbd5e1;
+            position: relative;
+        }
+
+        .note::before {
+            content: '💡';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1rem;
+        }
+
+        .note {
+            padding-left: 50px;
         }
 
         .divider {
-            height: 2px;
-            background: linear-gradient(90deg, #ec2f4b, #d63384);
-            margin: 30px 0;
-            border-radius: 1px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+            margin: 48px 0;
+            position: relative;
+        }
+
+        .divider::after {
+            content: '•';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: #9ca3af;
+            padding: 0 16px;
+            font-size: 1.2rem;
+        }
+
+        .warning-banner {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 1px solid #fca5a5;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 32px 0;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .warning-banner::before {
+            content: '🚨';
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .warning-text {
+            color: #991b1b;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #5a6fd8, #6b42a0);
         }
 
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 12px;
             }
             
             .header {
-                padding: 20px;
+                padding: 32px 24px;
             }
             
             .header h1 {
-                font-size: 1.8em;
+                font-size: 2.2rem;
             }
             
             .content {
-                padding: 20px;
+                padding: 32px 24px;
             }
             
             .conversation-block {
-                padding: 15px;
+                padding: 20px 24px;
+                margin-bottom: 24px;
             }
+
+            .speaker {
+                font-size: 1rem;
+            }
+
+            .dialogue {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .conversation-block {
+                padding: 16px 20px;
+            }
+        }
+
+        /* Animaciones de entrada */
+        .conversation-block {
+            animation: slideInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .conversation-block:nth-child(1) { animation-delay: 0.1s; }
+        .conversation-block:nth-child(2) { animation-delay: 0.2s; }
+        .conversation-block:nth-child(3) { animation-delay: 0.3s; }
+        .conversation-block:nth-child(4) { animation-delay: 0.4s; }
+        .conversation-block:nth-child(5) { animation-delay: 0.5s; }
+        .conversation-block:nth-child(n+6) { animation-delay: 0.6s; }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Efecto de lectura */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            z-index: 1000;
+            transition: width 0.1s ease;
         }
     </style>
 </head>
 <body>
+    <div class="reading-progress" id="readingProgress"></div>
+    
     <div class="container">
         <div class="header">
-            <h1>Conversación Telefónica</h1>
-            <p>Área de Supervisión Operativa y Prevención de Fraude - Banco Santander</p>
+            <div class="header-content">
+                <h1>📞 Conversación Telefónica</h1>
+                <p>Análisis de Técnicas de Ingeniería Social - Área de Prevención de Fraude</p>
+            </div>
         </div>
         
         <div class="content">
+            <div class="warning-banner">
+                <div class="warning-text">
+                    <strong>Aviso Educativo:</strong> Esta conversación es un ejemplo de técnicas de ingeniería social utilizadas por estafadores. El contenido se presenta únicamente con fines educativos y de concienciación sobre seguridad.
+                </div>
+            </div>
+
             <div class="conversation-block important">
-                <div class="speaker">Inicio de la llamada</div>
-                <div class="note">[Inicio de la llamada – tono firme, pausado, profesional]</div>
+                <div class="speaker">🎬 Inicio de la llamada</div>
+                <div class="note">Tono firme, pausado, profesional - El estafador establece autoridad desde el primer momento</div>
             </div>
 
             <div class="conversation-block">
-                <div class="speaker agent">Agente:</div>
+                <div class="speaker agent">👨‍💼 Agente:</div>
                 <div class="dialogue">— Hola, buenos días. ¿Hablo con la señora Alicia [Apellido]?</div>
             </div>
 
             <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
+                <div class="speaker client">👩 Cliente:</div>
                 <div class="dialogue">— Sí, soy yo.</div>
             </div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente:</div>
+                <div class="speaker agent">👨‍💼 Agente:</div>
                 <div class="dialogue">— Le saluda [Nombre completo], responsable del área de Supervisión Operativa y Prevención de Fraude del Banco Santander.
                 Antes de continuar, le informo que esta llamada está siendo grabada desde el primer segundo, conforme a las políticas de seguridad y protección de operaciones digitales que usted aceptó en su contrato con el banco.
 
@@ -170,12 +392,12 @@
             </div>
 
             <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
+                <div class="speaker client">👩 Cliente:</div>
                 <div class="dialogue">— Sí, lo tengo aquí.</div>
             </div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente (tono técnico):</div>
+                <div class="speaker agent">👨‍💼 Agente (tono técnico):</div>
                 <div class="dialogue">— Perfecto. Le explico: en las últimas horas hemos detectado operaciones realizadas desde un dispositivo que no es habitual en su perfil, y que no requirieron validación mediante código SMS ni firma electrónica.
                 Esto ha ocurrido porque ese dispositivo tenía configurado un sistema llamado passkey.
 
@@ -184,18 +406,18 @@
             </div>
 
             <div class="conversation-block simple">
-                <div class="speaker agent">Agente (explicación sencilla):</div>
+                <div class="speaker agent">👨‍💼 Agente (explicación sencilla):</div>
                 <div class="dialogue">— Dicho de forma más clara: es como si hubieran instalado una llave digital en un teléfono que no es suyo.
                 Esa llave hace que el banco crea que ese teléfono es de confianza y deje pasar los pagos directamente, sin preguntarle nada.</div>
             </div>
 
             <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
+                <div class="speaker client">👩 Cliente:</div>
                 <div class="dialogue">— ¿Y cómo se instala eso?</div>
             </div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente (técnico):</div>
+                <div class="speaker agent">👨‍💼 Agente (técnico):</div>
                 <div class="dialogue">— Para activar un passkey es necesario pasar una verificación facial previa.
                 El sistema compara en tiempo real la imagen del solicitante con la fotografía oficial que tenemos archivada de usted.
                 En este caso, esa verificación se pasó con éxito.
@@ -203,7 +425,7 @@
             </div>
 
             <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo):</div>
+                <div class="speaker agent">👨‍💼 Agente (sencillo):</div>
                 <div class="dialogue">— En otras palabras: alguien consiguió engañar al sistema de reconocimiento facial para que pensara que era usted.
                 Por eso, el banco permitió que ese otro dispositivo tuviera acceso total y pudiera hacer operaciones como si fuera usted.</div>
             </div>
@@ -211,52 +433,52 @@
             <div class="divider"></div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente (continúa técnico):</div>
+                <div class="speaker agent">👨‍💼 Agente (continúa técnico):</div>
                 <div class="dialogue">— Desde que se activó ese passkey, detectamos varios movimientos. No voy a darle importes concretos todavía porque estamos verificando cada uno, pero sí le puedo decir que son operaciones de pago y transferencia realizadas desde una ubicación distinta a la suya y a través de redes que no coinciden con las que usted usa habitualmente.</div>
             </div>
 
             <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo):</div>
+                <div class="speaker agent">👨‍💼 Agente (sencillo):</div>
                 <div class="dialogue">— Esto significa que han estado moviendo dinero o intentando moverlo, y que lo han hecho desde fuera de su entorno habitual, incluso fuera de su ciudad.</div>
             </div>
 
             <div class="conversation-block important">
-                <div class="speaker agent">Agente (tono serio, pausado):</div>
+                <div class="speaker agent">👨‍💼 Agente (tono serio, pausado):</div>
                 <div class="dialogue">— Hasta el momento, nuestro sistema automático ha intentado bloquear más transacciones, pero hemos llegado al límite de bloqueos diarios permitidos por seguridad del propio sistema.
                 Por eso, a partir de este punto, las medidas que podamos tomar deben ser manuales.</div>
             </div>
 
             <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
+                <div class="speaker client">👩 Cliente:</div>
                 <div class="dialogue">— ¿Y qué pasa si no hacemos nada?</div>
             </div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente (técnico):</div>
+                <div class="speaker agent">👨‍💼 Agente (técnico):</div>
                 <div class="dialogue">— Si no actuamos de forma inmediata, existe la posibilidad de que se sigan ejecutando cargos o transferencias sin su autorización.
                 El passkey seguirá activo hasta que lo desactivemos manualmente o hasta que invalidemos el acceso del dispositivo que lo tiene configurado.
                 El problema es que, para hacer eso de forma definitiva, tenemos que confirmar presencialmente su identidad.</div>
             </div>
 
             <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo):</div>
+                <div class="speaker agent">👨‍💼 Agente (sencillo):</div>
                 <div class="dialogue">— En pocas palabras: si no hacemos nada, pueden seguir usando su cuenta como si fueran usted, porque el banco cree que ese dispositivo es suyo.
                 Para cortarles el acceso del todo, necesitamos que usted venga a la oficina para que comprobemos que es la verdadera titular y eliminemos esa llave digital falsa.</div>
             </div>
 
             <div class="conversation-block">
-                <div class="speaker agent">Agente:</div>
+                <div class="speaker agent">👨‍💼 Agente:</div>
                 <div class="dialogue">— Por eso, lo primero que vamos a hacer es programar una cita presencial en su oficina habitual.
                 Necesito que me confirme en qué franja horaria podría acudir hoy o mañana.</div>
             </div>
 
             <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
+                <div class="speaker client">👩 Cliente:</div>
                 <div class="dialogue">— Mañana por la mañana podría.</div>
             </div>
 
             <div class="conversation-block">
-                <div class="speaker agent">Agente:</div>
+                <div class="speaker agent">👨‍💼 Agente:</div>
                 <div class="dialogue">— Perfecto. Le voy a reservar un hueco para mañana a las 10:30 en la oficina de [Dirección de oficina].
                 Necesitará llevar su DNI original y, si es posible, el teléfono móvil que utiliza habitualmente para operar con el banco.
                 En esa cita vamos a revisar toda la configuración de seguridad, desactivar el passkey no autorizado y comprobar que no queden accesos externos activos.</div>
@@ -265,18 +487,18 @@
             <div class="divider"></div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente (explicación técnica antes de pasar a medidas temporales):</div>
+                <div class="speaker agent">👨‍💼 Agente (explicación técnica antes de pasar a medidas temporales):</div>
                 <div class="dialogue">— Hasta que llegue ese momento, el problema es que el dispositivo fraudulento sigue teniendo acceso.
                 Las medidas automáticas que ya hemos ejecutado están agotadas, así que necesitamos aplicar una protección adicional para blindar su saldo durante estas horas previas a la cita.</div>
             </div>
 
             <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo):</div>
+                <div class="speaker agent">👨‍💼 Agente (sencillo):</div>
                 <div class="dialogue">— Es decir, tenemos que guardar su dinero en un sitio donde ese otro dispositivo no pueda tocarlo, y que cuando usted venga mañana podamos devolverlo todo a su cuenta normal.</div>
             </div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente (tono técnico):</div>
+                <div class="speaker agent">👨‍💼 Agente (tono técnico):</div>
                 <div class="dialogue">— Bien, señora Alicia, antes de explicarle la medida que vamos a aplicar, quiero que comprenda exactamente por qué es necesaria.
                 En este momento, aunque tenemos control parcial, el passkey activo en ese dispositivo ajeno sigue permitiendo que las órdenes de pago o transferencia se procesen sin la validación que usted conoce:
                 sin SMS, sin clave de firma, y sin la confirmación en la aplicación.
@@ -286,93 +508,90 @@
             </div>
 
             <div class="conversation-block simple">
-                <div class="speaker agent">Agente (explicación sencilla):</div>
+                <div class="speaker agent">👨‍💼 Agente (explicación sencilla):</div>
                 <div class="dialogue">— Básicamente, lo que pasa es que ese otro teléfono ahora está en la "lista blanca" del banco.
                 Es como si lo hubiéramos marcado como suyo, y por eso cada vez que intenta mover dinero, el banco cree que es usted y lo deja pasar sin preguntarle nada.</div>
             </div>
 
             <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
+                <div class="speaker client">👩 Cliente:</div>
                 <div class="dialogue">— Entiendo.</div>
             </div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente (continúa técnico, profundizando):</div>
-                <div class="dialogue">— Además, hemos comprobado que el patrón de acceso de ese dispositivo no coincide con su perfil habitual:<br>
-                · Diferente zona geográfica.<br>
-                · Red de conexión sin cifrado de alta seguridad.<br>
-                · Horarios de operación inusuales para su cuenta.
+                <div class="speaker agent">👨‍💼 Agente (continúa técnico, profundizando):</div>
+                <div class="dialogue">— Además, hemos comprobado que el patrón de acceso de ese dispositivo no coincide con su perfil habitual:<br><br>
+                🌍 Diferente zona geográfica<br>
+                🔒 Red de conexión sin cifrado de alta seguridad<br>
+                ⏰ Horarios de operación inusuales para su cuenta<br><br>
 
                 Todos estos factores juntos nos indican que es un tercero intentando aprovechar el acceso privilegiado que le da el passkey.</div>
             </div>
 
             <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo):</div>
+                <div class="speaker agent">👨‍💼 Agente (sencillo):</div>
                 <div class="dialogue">— En otras palabras: ni está en su ciudad, ni usa su Wi-Fi o su red móvil, ni entra a las horas que usted suele hacerlo.
                 Esto nos confirma que no es usted.</div>
             </div>
 
             <div class="conversation-block important">
-                <div class="speaker agent">Agente (tono serio):</div>
+                <div class="speaker agent">👨‍💼 Agente (tono serio):</div>
                 <div class="dialogue">— Ya hemos agotado las herramientas de bloqueo automático.
                 Eso significa que, si ese dispositivo intenta hacer otra operación ahora mismo, es muy probable que se procese.
                 Y aunque después podamos revertirla, el proceso es más lento y podría dejar su saldo en negativo temporalmente.</div>
             </div>
 
             <div class="conversation-block simple">
-                <div class="speaker agent">Agente (explicación sencilla, pausada):</div>
+                <div class="speaker agent">👨‍💼 Agente (explicación sencilla, pausada):</div>
                 <div class="dialogue">— Es como si hubiera una tubería por la que puede salir agua.
                 Podemos cerrar algunas válvulas, pero todavía hay una abierta.
                 Si no tapamos esa última, el agua —en este caso, su dinero— seguirá saliendo.</div>
             </div>
 
-            <div class="conversation-block">
-                <div class="speaker agent">Agente:</div>
-                <div class="dialogue">— Por eso, la solución que vamos a aplicar hasta que venga mañana a la oficina es lo que llamamos "cartilla segura preventiva".</div>
+            <div class="conversation-block important">
+                <div class="speaker agent">👨‍💼 Agente:</div>
+                <div class="dialogue">— Por eso, la solución que vamos a aplicar hasta que venga mañana a la oficina es lo que llamamos <strong>"cartilla segura preventiva"</strong>.</div>
             </div>
 
             <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
+                <div class="speaker client">👩 Cliente:</div>
                 <div class="dialogue">— ¿Qué es eso?</div>
             </div>
 
             <div class="divider"></div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente (técnico):</div>
+                <div class="speaker agent">👨‍💼 Agente (técnico):</div>
                 <div class="dialogue">— La cartilla segura preventiva es una posición interna del banco, vinculada únicamente a su titularidad, en la que el saldo queda completamente aislado de cualquier orden de pago o transferencia.
                 No es una cuenta comercial ni un producto que se pueda contratar desde fuera: es un contenedor de fondos protegido, sin acceso desde dispositivos externos, ni siquiera si tienen un passkey activo.
 
-                Su funcionamiento se basa en:
+                <strong>Su funcionamiento se basa en:</strong><br><br>
 
-                • Traslado temporal del saldo disponible a esta posición aislada.
-
-                • Imposibilidad total de emitir pagos, transferencias o domiciliaciones desde ella.
-
-                • Visualización en su banca online, para que usted compruebe en todo momento que el saldo está ahí, intacto.
-
-                • Reversión automática al acudir a la oficina, previa validación de identidad.</div>
+                ✅ Traslado temporal del saldo disponible a esta posición aislada<br>
+                🚫 Imposibilidad total de emitir pagos, transferencias o domiciliaciones<br>
+                👁️ Visualización en su banca online para verificar que el saldo está intacto<br>
+                🔄 Reversión automática al acudir a la oficina, previa validación de identidad</div>
             </div>
 
             <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo):</div>
+                <div class="speaker agent">👨‍💼 Agente (sencillo):</div>
                 <div class="dialogue">— En palabras simples: es como si metiéramos su dinero en una caja fuerte del banco, con su nombre, que no se puede abrir de ninguna manera desde fuera.
                 Usted lo verá en su aplicación, pero no se podrá mover hasta que mañana, en la oficina, lo devolvamos a su cuenta normal.</div>
             </div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente (profundizando para alargar):</div>
+                <div class="speaker agent">👨‍💼 Agente (profundizando para alargar):</div>
                 <div class="dialogue">— Este sistema lo usamos muy pocas veces y solo en casos en los que el riesgo es inminente y el acceso del tercero es activo.
                 La clave está en que, aunque alguien tuviera su contraseña, su DNI o incluso acceso a la app, no podría mover nada desde la cartilla segura, porque no tiene canales de salida habilitados.</div>
             </div>
 
             <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
+                <div class="speaker client">👩 Cliente:</div>
                 <div class="dialogue">— ¿Y yo tengo que hacer algo?</div>
             </div>
 
             <div class="conversation-block technical">
-                <div class="speaker agent">Agente (técnico):</div>
+                <div class="speaker agent">👨‍💼 Agente (técnico):</div>
                 <div class="dialogue">— Sí, para poder activar esta protección necesito su autorización expresa durante esta llamada grabada.
                 En cuanto me confirme, iniciaré el procedimiento desde aquí.
                 Consiste en una operación interna de traslado de saldo.
@@ -380,164 +599,61 @@
             </div>
 
             <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo):</div>
+                <div class="speaker agent">👨‍💼 Agente (sencillo):</div>
                 <div class="dialogue">— Dicho de forma fácil: me dice que sí, y yo ahora mismo guardo su dinero en la caja fuerte digital.
                 Mañana, cuando venga a la cita, lo volvemos a sacar y lo ponemos otra vez en su cuenta normal.</div>
             </div>
 
             <div class="conversation-block important">
-                <div class="speaker agent">Agente (serio, insistente):</div>
+                <div class="speaker agent">👨‍💼 Agente (serio, insistente):</div>
                 <div class="dialogue">— Este paso es fundamental porque, aunque mañana cortemos el acceso del dispositivo fraudulento, hoy todavía podría mover fondos.
                 Y eso es lo que queremos evitar.</div>
             </div>
 
             <div class="divider"></div>
 
-            <div class="conversation-block technical">
-                <div class="speaker agent">Agente (tono firme, pausado):</div>
-                <div class="dialogue">— Bien, señora Alicia, vamos a estructurar esto en tres fases para que todo quede perfectamente documentado y seguro:
-
-                1. Verificación final de su identidad en este canal seguro.
-
-                2. Programación de la cita presencial en la oficina.
-
-                3. Activación inmediata de la cartilla segura preventiva.
-
-                Voy a ir paso a paso, sin prisas, para que usted tenga la oportunidad de preguntarme cualquier cosa antes de continuar.</div>
-            </div>
-
-            <div class="conversation-block technical">
-                <div class="speaker agent">Agente (técnico, ampliando):</div>
-                <div class="dialogue">— Empezamos con la verificación.
-                Nuestro sistema ya ha contrastado algunos datos suyos a través de su conexión y de la huella digital del dispositivo que está usando ahora, pero necesito una validación verbal para dejar constancia en la grabación.
-                Esto es importante porque, en casos de fraude activo, se exige que el titular autorice cualquier movimiento preventivo.</div>
-            </div>
-
-            <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo):</div>
-                <div class="dialogue">— En otras palabras, quiero dejar grabado que es usted quien me está diciendo que hagamos esta protección, para que mañana en la oficina sea todo más rápido y sin papeleo extra.</div>
-            </div>
-
-            <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
-                <div class="dialogue">— Vale.</div>
-            </div>
-
-            <div class="conversation-block">
-                <div class="speaker agent">Agente:</div>
-                <div class="dialogue">— Muy bien. ¿Me puede confirmar su nombre completo y la fecha de nacimiento, por favor?</div>
-            </div>
-
-            <div class="conversation-block">
-                <div class="note">(Cliente responde, se confirma)</div>
-            </div>
-
-            <div class="conversation-block">
-                <div class="speaker agent">Agente:</div>
-                <div class="dialogue">— Perfecto. Ya tenemos la coincidencia en el sistema.
-                Ahora vamos con la segunda fase: la programación de la cita.</div>
-            </div>
-
-            <div class="conversation-block technical">
-                <div class="speaker agent">Agente (técnico):</div>
-                <div class="dialogue">— Dado que este es un caso de seguridad, la cita se registra como "atención prioritaria" en el módulo de prevención de fraude.
-                Esto significa que, aunque la sucursal tenga agenda completa, usted tendrá un hueco reservado para mañana.
-                Para gestionarlo, necesito saber su disponibilidad horaria, ya que el bloqueo de acceso al dispositivo fraudulento lo haremos justo después de que usted firme la revisión presencial.</div>
-            </div>
-
-            <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo, alargando):</div>
-                <div class="dialogue">— Es como cuando va al médico con urgencia: le reservamos un hueco aunque haya lista de espera, para que pueda ser atendida sin esperas.</div>
-            </div>
-
-            <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
-                <div class="dialogue">— Pues puedo por la mañana.</div>
-            </div>
-
-            <div class="conversation-block">
-                <div class="speaker agent">Agente:</div>
-                <div class="dialogue">— Perfecto. Le ofrezco dos opciones:<br>
-                · A las 9:30, en la apertura de la oficina.<br>
-                · O a las 11:15, antes del cierre de la mañana.
-
-                ¿Cuál le va mejor?</div>
-            </div>
-
-            <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
-                <div class="dialogue">— A las 9:30.</div>
-            </div>
-
-            <div class="conversation-block">
-                <div class="speaker agent">Agente:</div>
-                <div class="dialogue">— Perfecto, queda registrada la cita para mañana a las 9:30 en su sucursal habitual.
-                Le recomiendo que lleve su documento de identidad original y, si lo tiene, el contrato o cualquier documento que le hayamos entregado sobre su banca online, aunque no es obligatorio.
-                Esto agiliza la revisión de permisos y la desvinculación del passkey fraudulento.</div>
-            </div>
-
-            <div class="conversation-block important">
-                <div class="speaker agent">Agente (pausado, explicativo):</div>
-                <div class="dialogue">— Y aquí quiero explicarle algo importante, porque es clave entenderlo antes de hacer la protección preventiva.</div>
-            </div>
-
-            <div class="conversation-block technical">
-                <div class="speaker agent">Agente (técnico, extenso):</div>
-                <div class="dialogue">— El passkey funciona como una llave digital avanzada que, una vez configurada en un dispositivo, no necesita que el usuario vuelva a introducir contraseñas, SMS o firmas electrónicas para operar.
-                Esto es muy cómodo para quien lo configura legítimamente, pero peligroso si se activa sin el conocimiento del titular.
-
-                En su caso, hemos detectado que la activación de ese passkey vino acompañada de un proceso de verificación facial válido.
-                Eso significa que, desde el punto de vista técnico, el sistema interpretó que era usted quien estaba configurando el acceso.
-                Por eso, inicialmente no saltó ninguna alerta de fraude: la configuración cumplía con todos los parámetros de seguridad.</div>
-            </div>
-
-            <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo):</div>
-                <div class="dialogue">— Dicho de otra forma: quien lo hizo, pasó todas las pruebas como si fuera usted, incluyendo la cámara y el reconocimiento facial.
-                Por eso el banco pensó que todo estaba bien y que no había fraude.</div>
-            </div>
-
-            <div class="conversation-block technical">
-                <div class="speaker agent">Agente (continúa técnico):</div>
-                <div class="dialogue">— Solo cuando empezaron a producirse operaciones fuera de su patrón habitual, y desde ubicaciones no registradas, fue cuando los algoritmos de comportamiento marcaron el acceso como sospechoso.
-                A partir de ahí, se inició el bloqueo progresivo que ya le comenté, pero, como ese passkey está activo, los bloqueos automáticos no son suficientes.</div>
-            </div>
-
-            <div class="conversation-block simple">
-                <div class="speaker agent">Agente (refuerza en sencillo):</div>
-                <div class="dialogue">— Por eso mañana, en la oficina, el primer paso será quitar ese passkey de la lista de dispositivos autorizados, y así cortamos la raíz del problema.
-                Hasta entonces, necesitamos que hoy mismo el dinero esté fuera del alcance de ese acceso.</div>
-            </div>
-
-            <div class="conversation-block">
-                <div class="speaker client">Cliente:</div>
-                <div class="dialogue">— Ya veo…</div>
-            </div>
-
-            <div class="conversation-block important">
-                <div class="speaker agent">Agente (serio):</div>
-                <div class="dialogue">— Exacto. Y aquí es donde entra la tercera fase: la cartilla segura preventiva.
-                Recuerde: no es una cuenta nueva que tenga que aprender a manejar, ni un producto comercial.
-                Es un espacio seguro dentro del banco que solo recibe fondos, no los envía.</div>
-            </div>
-
-            <div class="conversation-block technical">
-                <div class="speaker agent">Agente (técnico, ampliando mucho):</div>
-                <div class="dialogue">— Esta cartilla se crea en un entorno interno que no está expuesto a Internet ni a redes externas.
-                Incluso si un ciberdelincuente conociera el número interno de esta cartilla, no podría hacer nada porque el sistema de órdenes de pago está bloqueado por diseño.
-                Es una medida que no aplicamos a todos los clientes porque requiere intervención manual y supervisión del equipo de prevención de fraude, pero en su caso, dadas las circunstancias, es imprescindible.</div>
-            </div>
-
-            <div class="conversation-block simple">
-                <div class="speaker agent">Agente (sencillo):</div>
-                <div class="dialogue">— Piense en un bolso donde mete su cartera y lo guarda en una caja fuerte del banco.
-                Usted sabe que está ahí, yo puedo verlo desde aquí, pero nadie más puede abrirla ni tocarlo hasta que usted venga mañana con la llave, que en este caso es su DNI y su firma presencial.</div>
-            </div>
-
             <div class="note">
-                <strong>Nota:</strong> Esta es una representación de una conversación telefónica típica utilizada en técnicas de ingeniería social. El contenido mostrado es únicamente para fines educativos y de análisis de seguridad.
+                <strong>🎭 Técnicas de Manipulación Identificadas:</strong><br><br>
+                • <strong>Autoridad falsa:</strong> Se presenta como empleado del banco<br>
+                • <strong>Urgencia artificial:</strong> Crea sensación de peligro inmediato<br>
+                • <strong>Jerga técnica:</strong> Usa términos complejos para confundir<br>
+                • <strong>Explicaciones dobles:</strong> Alterna entre técnico y simple para parecer profesional<br>
+                • <strong>Solución única:</strong> Presenta solo una opción como válida<br>
+                • <strong>Presión temporal:</strong> Limita el tiempo de reflexión de la víctima
+            </div>
+
+            <div class="warning-banner">
+                <div class="warning-text">
+                    <strong>¡IMPORTANTE!</strong> Los bancos NUNCA solicitan por teléfono que muevas tu dinero a "cuentas seguras" o "cartillas preventivas". Si recibes una llamada similar, cuelga inmediatamente y contacta directamente con tu banco.
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Barra de progreso de lectura
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const total = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrolled / total) * 100;
+            document.getElementById('readingProgress').style.width = progress + '%';
+        });
+
+        // Animación suave al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            const blocks = document.querySelectorAll('.conversation-block');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            blocks.forEach(block => {
+                observer.observe(block);
+            });
+        });
+    </script>
 </body>
 </html>
