@@ -3,761 +3,691 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💰 Organizador Bancario Pro</title>
+    <title>Sistema de Procesamiento - Datos Bancarios</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEAA7, #DDA0DD);
-            background-size: 300% 300%;
-            animation: gradientShift 10s ease infinite;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
             padding: 20px;
+            line-height: 1.6;
         }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.2), 0 0 100px rgba(255,255,255,0.3);
-            max-width: 1400px;
-            width: 100%;
-            padding: 45px;
-            animation: slideUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            border: 3px solid transparent;
-            background-image: linear-gradient(white, white), 
-                              linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #2d2d2d;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
+        
         h1 {
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 3em;
-            background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEAA7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: colorWave 3s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(0,0,0,0.1);
-        }
-
-        @keyframes colorWave {
-            0%, 100% { filter: hue-rotate(0deg); }
-            50% { filter: hue-rotate(30deg); }
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 35px;
-            font-size: 1.2em;
-            font-weight: 500;
-        }
-
-        .input-section {
+            color: #ffffff;
             margin-bottom: 30px;
-            position: relative;
+            text-align: center;
+            font-size: 2.5em;
         }
-
-        label {
+        
+        .input-section {
+            background-color: #3a3a3a;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #4a4a4a;
+        }
+        
+        .input-label {
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-size: 16px;
             display: block;
-            margin-bottom: 12px;
-            color: #333;
-            font-weight: 700;
-            font-size: 1.2em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
-
-        .label-icon {
-            font-size: 1.5em;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
+        
         textarea {
             width: 100%;
-            padding: 20px;
-            border: 3px solid transparent;
-            border-radius: 15px;
-            font-size: 15px;
-            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 15px;
+            border: 2px solid #4a4a4a;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a1a;
+            color: #00ff00;
             resize: vertical;
-            transition: all 0.3s;
-            background: linear-gradient(white, white) padding-box,
-                        linear-gradient(90deg, #FF6B6B, #4ECDC4) border-box;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 120px;
+            transition: border-color 0.3s;
         }
-
+        
         textarea:focus {
             outline: none;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+            border-color: #4CAF50;
+            background-color: #0a0a0a;
         }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
+        
+        .button-container {
+            text-align: center;
             margin: 30px 0;
-            flex-wrap: wrap;
         }
-
+        
         button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #4CAF50;
             color: white;
+            padding: 15px 40px;
             border: none;
-            padding: 15px 35px;
-            border-radius: 50px;
-            font-size: 17px;
-            font-weight: 700;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
         }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        button:hover::before {
-            left: 100%;
-        }
-
+        
         button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
         }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.5);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #45B7D1 0%, #96CEB4 100%);
-            box-shadow: 0 5px 15px rgba(69, 183, 209, 0.4);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, #FFEAA7 0%, #FDCB6E 100%);
-            box-shadow: 0 5px 15px rgba(255, 234, 167, 0.4);
-        }
-
-        .output-container {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 25px;
-            border-radius: 20px;
-            border: 3px solid transparent;
-            background-image: linear-gradient(#f5f7fa, #c3cfe2), 
-                              linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            min-height: 200px;
-            position: relative;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .output-content {
-            font-family: 'Consolas', 'Monaco', monospace;
-            line-height: 1.8;
-            color: #2c3e50;
-            font-size: 14px;
-            word-wrap: break-word;
-            white-space: pre-wrap;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 10px;
-            min-height: 150px;
-        }
-
-        .data-field {
-            display: inline;
-            margin: 0 3px;
-        }
-
-        .field-name {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-
-        .field-value {
-            color: #2980b9;
-            font-weight: 600;
-        }
-
-        .separator {
-            color: #95a5a6;
-            font-weight: bold;
-        }
-
-        .success-message {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #00b09b, #96c93d);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,176,155,0.4);
+        
+        .output-section {
+            margin-top: 40px;
             display: none;
-            animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .output-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
             font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .output-content {
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 0 0 8px 8px;
+            white-space: pre-wrap;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #f0f0f0;
+            border: 2px solid #4CAF50;
+            border-top: none;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .output-content::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        .output-content::-webkit-scrollbar-track {
+            background: #2d2d2d;
+        }
+        
+        .output-content::-webkit-scrollbar-thumb {
+            background: #4CAF50;
+            border-radius: 5px;
+        }
+        
+        .copy-button {
+            background-color: #2196F3;
+            margin-top: 15px;
+            padding: 12px 25px;
             font-size: 16px;
         }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%) scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0) scale(1);
-                opacity: 1;
-            }
+        
+        .copy-button:hover {
+            background-color: #1976D2;
         }
-
-        .empty-state {
-            text-align: center;
-            color: #7f8c8d;
-            padding: 40px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        .empty-state svg {
-            width: 120px;
-            height: 120px;
+        
+        .info-display {
+            background-color: #2a2a2a;
+            padding: 25px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+            border: 1px solid #4CAF50;
         }
-
-        .stats-container {
+        
+        .info-display h3 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
         }
-
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        
+        .info-item {
+            margin: 10px 0;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+        
+        .info-item strong {
+            color: #4CAF50;
+            margin-right: 10px;
+            display: inline-block;
+            min-width: 150px;
+        }
+        
+        .error-message {
+            background-color: #f44336;
             color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .stat-value {
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-
-        .copy-button {
-            background: linear-gradient(135deg, #00b09b, #96c93d);
+            padding: 15px;
+            border-radius: 5px;
             margin-top: 20px;
             display: none;
         }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 25px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .button-group {
-                flex-direction: column;
-            }
-            
-            button {
-                width: 100%;
-            }
+        
+        .example-format {
+            background-color: #0a0a0a;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #888;
+            border: 1px solid #333;
         }
-
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
+        
+        .clear-button {
+            background-color: #ff5722;
+            margin-left: 10px;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        
+        .clear-button:hover {
+            background-color: #e64a19;
+        }
+        
+        .load-example-button {
+            background-color: #9c27b0;
+            margin-left: 10px;
+        }
+        
+        .load-example-button:hover {
+            background-color: #7b1fa2;
+        }
+        
+        .formatted-line {
+            background-color: #0a0a0a;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #00ff00;
+            border: 1px solid #4CAF50;
+            word-wrap: break-word;
+        }
+        
+        .conversation-text {
+            background-color: #1a1a1a;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 2px solid #4CAF50;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .conversation-text h4 {
+            color: #4CAF50;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        .conversation-text p {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        
+        .agent-text {
+            color: #4CAF50;
+            font-weight: 600;
+        }
+        
+        .client-text {
+            color: #2196F3;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💰 Organizador Bancario Pro</h1>
-        <p class="subtitle">Pega tus datos desordenados y los organizaré en una línea perfecta con colores</p>
+        <h1>🔐 Sistema de Procesamiento - Datos Bancarios</h1>
         
         <div class="input-section">
-            <label for="inputData">
-                <span class="label-icon">📋</span>
-                <span>Pega aquí los datos bancarios:</span>
-            </label>
-            <textarea id="inputData" rows="5" placeholder="Ejemplo: 04219961J:10091991 | Nombre = GARCIA MARTINEZ ALEJANDRO | IBAN = ES 44 00496146172390045284..."></textarea>
+            <label class="input-label" for="dataInput">Pega aquí los datos del cliente:</label>
+            <textarea id="dataInput" placeholder="Ejemplo: 52898137T:09081994 | Nombre = ZUBIETA JIMENEZ PAULA MARIA | IBAN = ES 24 00491643712110197138 | Operativa = Operativa | Firma = Activa | FechaDeNacimiento = 1994-08-09 | SaldoDisponible = +30.00 EUR | Tarjeta = 5163830305842926 | EXP = 08/2027 | Limite = 0 EUR | Phone = +34665395918 | PRESTAMO = [5000 EUR, 3000 EUR]"></textarea>
+            <div class="example-format">
+                Formato esperado: DNI:DDMMAAAA | Nombre = APELLIDOS NOMBRE | IBAN = ES XX XXXXXXXXXXXXXXXXXXXX | SaldoDisponible = +XXX.XX EUR | Tarjeta = XXXXXXXXXXXXXXXX | Phone = +34XXXXXXXXX | PRESTAMO = [XXXX EUR, ...]
+            </div>
+            
+            <div class="button-container">
+                <button onclick="processData()">✨ Procesar Datos</button>
+                <button class="clear-button" onclick="clearAll()">🗑️ Limpiar Todo</button>
+                <button class="load-example-button" onclick="loadExample()">📝 Cargar Ejemplo</button>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
         </div>
         
-        <div class="button-group">
-            <button class="btn-primary" onclick="organizarDatos()">
-                ✨ Organizar Datos
-            </button>
-            <button class="btn-secondary" onclick="limpiarTodo()">
-                🗑️ Limpiar Todo
-            </button>
-            <button class="btn-warning" onclick="cargarEjemplo()">
-                📝 Cargar Ejemplo
-            </button>
-        </div>
-        
-        <div class="output-section">
-            <label>
-                <span class="label-icon">🎯</span>
-                <span>Datos Organizados (Formato Línea):</span>
-            </label>
-            <div class="output-container">
-                <div id="outputData" class="output-content">
-                    <div class="empty-state">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        <p>Los datos organizados aparecerán aquí en una línea perfecta</p>
-                    </div>
-                </div>
-                <button class="copy-button" id="copyButton" onclick="copiarAlPortapapeles()">
-                    📋 Copiar al Portapapeles
-                </button>
+        <div id="outputSection" class="output-section">
+            <div class="info-display" id="infoDisplay"></div>
+            
+            <div class="output-header">
+                📊 Datos Organizados en Línea
             </div>
-        </div>
-
-        <div class="stats-container" id="statsContainer">
-            <div class="stat-card">
-                <div class="stat-value" id="saldoStat">-</div>
-                <div class="stat-label">Saldo Disponible</div>
+            <div class="formatted-line" id="formattedLine"></div>
+            
+            <div class="output-header" style="margin-top: 20px;">
+                💬 Texto de Conversación Generado
             </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);">
-                <div class="stat-value" id="prestamosStat">-</div>
-                <div class="stat-label">Total Préstamos</div>
-            </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #45B7D1 0%, #96CEB4 100%);">
-                <div class="stat-value" id="tarjetaStat">-</div>
-                <div class="stat-label">Tarjeta (últimos 4)</div>
-            </div>
-            <div class="stat-card" style="background: linear-gradient(135deg, #FFEAA7 0%, #FDCB6E 100%);">
-                <div class="stat-value" id="limiteStat">-</div>
-                <div class="stat-label">Límite Tarjeta</div>
+            <div class="conversation-text" id="conversationText"></div>
+            
+            <div class="button-container">
+                <button class="copy-button" onclick="copyFormattedLine()">📋 Copiar Línea Formateada</button>
+                <button class="copy-button" onclick="copyConversation()">📋 Copiar Conversación</button>
+                <button class="copy-button" onclick="copyAll()">📋 Copiar Todo</button>
             </div>
         </div>
     </div>
     
-    <div class="success-message" id="successMessage">
-        ✅ ¡Copiado al portapapeles!
-    </div>
-
     <script>
-        function parsearDatos(texto) {
-            const datos = {};
-            
-            // Eliminar los dos puntos después del DNI
-            texto = texto.replace(/^(\d{8}[A-Z]):(\d{8})/, '$1 $2');
-            
-            // Separar por pipes
-            const campos = texto.split('|');
-            
-            campos.forEach(campo => {
-                campo = campo.trim();
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        function parseData(inputText) {
+            try {
+                // Limpiar el texto de entrada
+                inputText = inputText.trim();
                 
-                // Buscar DNI al inicio
-                const dniMatch = campo.match(/^(\d{8}[A-Z])\s+(\d{8})/);
+                // Eliminar los dos puntos después del DNI si existe
+                inputText = inputText.replace(/^(\d{8}[A-Z]):(\d{8})/, '$1 $2');
+                
+                const data = {
+                    dni: '',
+                    fechaDni: '',
+                    nombre: '',
+                    iban: '',
+                    operativa: '',
+                    firma: '',
+                    fechaNacimiento: '',
+                    saldo: '',
+                    tarjeta: '',
+                    expiracion: '',
+                    limite: '',
+                    telefono: '',
+                    prestamos: [],
+                    totalPrestamos: 0
+                };
+                
+                // Extraer DNI y fecha del inicio
+                const dniMatch = inputText.match(/^(\d{8}[A-Z])\s+(\d{8})/);
                 if (dniMatch) {
-                    datos.dni = dniMatch[1];
-                    datos.fechaDni = dniMatch[2];
-                    return;
+                    data.dni = dniMatch[1];
+                    data.fechaDni = dniMatch[2];
                 }
                 
-                // Buscar pares clave = valor
-                const parMatch = campo.match(/(.+?)\s*=\s*(.+)/);
-                if (parMatch) {
-                    const clave = parMatch[1].trim();
-                    const valor = parMatch[2].trim();
-                    
-                    switch(clave.toLowerCase()) {
-                        case 'nombre':
-                            datos.nombre = valor;
-                            break;
-                        case 'iban':
-                            // Formatear IBAN
-                            const ibanLimpio = valor.replace(/\s+/g, '');
-                            datos.iban = ibanLimpio.match(/.{1,4}/g).join(' ');
-                            break;
-                        case 'operativa':
-                            datos.operativa = valor;
-                            break;
-                        case 'firma':
-                            datos.firma = valor;
-                            break;
-                        case 'fechadenacimiento':
-                            datos.fechaNacimiento = valor;
-                            break;
-                        case 'saldodisponible':
-                            datos.saldo = valor;
-                            break;
-                        case 'tarjeta':
-                            // Formatear tarjeta
-                            datos.tarjeta = valor.match(/.{1,4}/g).join(' ');
-                            datos.tarjetaUltimos4 = valor.slice(-4);
-                            break;
-                        case 'exp':
-                            datos.expiracion = valor;
-                            break;
-                        case 'limite':
-                            datos.limite = valor;
-                            break;
-                        case 'phone':
-                            datos.telefono = valor;
-                            break;
-                        case 'prestamo':
-                            // Parsear préstamos
-                            const prestamosStr = valor.replace(/[\[\]]/g, '');
-                            const prestamos = prestamosStr.split(',').map(p => p.trim());
-                            datos.prestamos = prestamos;
-                            // Calcular total
-                            let total = 0;
-                            prestamos.forEach(p => {
-                                const montoMatch = p.match(/(\d+)/);
-                                if (montoMatch) {
-                                    total += parseInt(montoMatch[1]);
-                                }
-                            });
-                            datos.totalPrestamos = `${total.toLocaleString('es-ES')} EUR`;
-                            break;
+                // Extraer campos usando expresiones regulares
+                const nombreMatch = inputText.match(/Nombre\s*=\s*([^|]+)/i);
+                if (nombreMatch) data.nombre = nombreMatch[1].trim();
+                
+                const ibanMatch = inputText.match(/IBAN\s*=\s*([^|]+)/i);
+                if (ibanMatch) {
+                    // Limpiar y formatear IBAN
+                    const ibanLimpio = ibanMatch[1].trim().replace(/\s+/g, '');
+                    data.iban = ibanLimpio.match(/.{1,4}/g).join(' ');
+                }
+                
+                const operativaMatch = inputText.match(/Operativa\s*=\s*([^|]+)/i);
+                if (operativaMatch) data.operativa = operativaMatch[1].trim();
+                
+                const firmaMatch = inputText.match(/Firma\s*=\s*([^|]+)/i);
+                if (firmaMatch) data.firma = firmaMatch[1].trim();
+                
+                const fechaNacMatch = inputText.match(/FechaDeNacimiento\s*=\s*([^|]+)/i);
+                if (fechaNacMatch) data.fechaNacimiento = fechaNacMatch[1].trim();
+                
+                const saldoMatch = inputText.match(/SaldoDisponible\s*=\s*([^|]+)/i);
+                if (saldoMatch) data.saldo = saldoMatch[1].trim();
+                
+                const tarjetaMatch = inputText.match(/Tarjeta\s*=\s*([^|]+)/i);
+                if (tarjetaMatch) {
+                    const tarjetaLimpia = tarjetaMatch[1].trim();
+                    // Formatear tarjeta en grupos de 4
+                    if (tarjetaLimpia.length >= 16) {
+                        data.tarjeta = tarjetaLimpia.match(/.{1,4}/g).join(' ');
+                    } else {
+                        data.tarjeta = tarjetaLimpia;
                     }
                 }
-            });
-            
-            return datos;
+                
+                const expMatch = inputText.match(/EXP\s*=\s*([^|]+)/i);
+                if (expMatch) data.expiracion = expMatch[1].trim();
+                
+                const limiteMatch = inputText.match(/Limite\s*=\s*([^|]+)/i);
+                if (limiteMatch) data.limite = limiteMatch[1].trim();
+                
+                const phoneMatch = inputText.match(/Phone\s*=\s*([^|]+)/i);
+                if (phoneMatch) data.telefono = phoneMatch[1].trim();
+                
+                const prestamoMatch = inputText.match(/PRESTAMO\s*=\s*\[([^\]]+)\]/i);
+                if (prestamoMatch) {
+                    data.prestamos = prestamoMatch[1].split(',').map(p => p.trim());
+                    // Calcular total de préstamos
+                    let total = 0;
+                    data.prestamos.forEach(p => {
+                        const montoMatch = p.match(/(\d+)/);
+                        if (montoMatch) {
+                            total += parseInt(montoMatch[1]);
+                        }
+                    });
+                    data.totalPrestamos = total;
+                }
+                
+                return data;
+            } catch (error) {
+                throw new Error('Error al parsear los datos. Verifica el formato.');
+            }
         }
         
-        function formatearDatosLinea(datos) {
-            let resultado = '';
+        function formatDate(dateString) {
+            // Si viene en formato YYYY-MM-DD, convertir a DD/MM/YYYY
+            if (dateString.includes('-')) {
+                const parts = dateString.split('-');
+                if (parts.length === 3) {
+                    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+                }
+            }
+            // Si viene en formato DDMMYYYY, convertir a DD/MM/YYYY
+            if (dateString.length === 8 && !dateString.includes('/')) {
+                return `${dateString.substring(0,2)}/${dateString.substring(2,4)}/${dateString.substring(4,8)}`;
+            }
+            return dateString;
+        }
+        
+        function getFirstName(fullName) {
+            const names = fullName.trim().split(' ');
+            // Asumiendo formato: APELLIDO1 APELLIDO2 NOMBRE
+            if (names.length >= 3) {
+                return names[names.length - 1];
+            }
+            return names[0];
+        }
+        
+        function getLastFourDigits(iban) {
+            const cleanIBAN = iban.replace(/\s/g, '');
+            return cleanIBAN.slice(-4);
+        }
+        
+        function generateFormattedLine(data) {
+            let line = '';
             
-            // Formatear en una sola línea con separadores
-            if (datos.dni && datos.fechaDni) {
-                resultado += `${datos.dni} ${datos.fechaDni}`;
+            if (data.dni && data.fechaDni) {
+                line += `${data.dni} ${data.fechaDni}`;
             }
             
-            if (datos.nombre) {
-                resultado += ` | Nombre = ${datos.nombre}`;
+            if (data.nombre) {
+                line += ` | Nombre = ${data.nombre}`;
             }
             
-            if (datos.iban) {
-                resultado += ` | IBAN = ${datos.iban}`;
+            if (data.iban) {
+                line += ` | IBAN = ${data.iban}`;
             }
             
-            if (datos.operativa) {
-                resultado += ` | Operativa = ${datos.operativa}`;
+            if (data.operativa) {
+                line += ` | Operativa = ${data.operativa}`;
             }
             
-            if (datos.firma) {
-                resultado += ` | Firma = ${datos.firma}`;
+            if (data.firma) {
+                line += ` | Firma = ${data.firma}`;
             }
             
-            if (datos.fechaNacimiento) {
-                resultado += ` | FechaDeNacimiento = ${datos.fechaNacimiento}`;
+            if (data.fechaNacimiento) {
+                line += ` | FechaDeNacimiento = ${data.fechaNacimiento}`;
             }
             
-            if (datos.saldo) {
-                resultado += ` | SaldoDisponible = ${datos.saldo}`;
+            if (data.saldo) {
+                line += ` | SaldoDisponible = ${data.saldo}`;
             }
             
-            if (datos.tarjeta) {
-                resultado += ` | Tarjeta = ${datos.tarjeta}`;
+            if (data.tarjeta) {
+                line += ` | Tarjeta = ${data.tarjeta}`;
             }
             
-            if (datos.expiracion) {
-                resultado += ` | EXP = ${datos.expiracion}`;
+            if (data.expiracion) {
+                line += ` | EXP = ${data.expiracion}`;
             }
             
-            if (datos.limite) {
-                resultado += ` | Limite = ${datos.limite}`;
+            if (data.limite) {
+                line += ` | Limite = ${data.limite}`;
             }
             
-            if (datos.telefono) {
-                resultado += ` | Phone = ${datos.telefono}`;
+            if (data.telefono) {
+                line += ` | Phone = ${data.telefono}`;
             }
             
-            if (datos.prestamos && datos.prestamos.length > 0) {
-                resultado += ` | PRESTAMO = [${datos.prestamos.join(', ')}]`;
-                if (datos.totalPrestamos) {
-                    resultado += ` | TOTAL_PRESTAMOS = ${datos.totalPrestamos}`;
+            if (data.prestamos && data.prestamos.length > 0) {
+                line += ` | PRESTAMO = [${data.prestamos.join(', ')}]`;
+                if (data.totalPrestamos > 0) {
+                    line += ` | TOTAL_PRESTAMOS = ${data.totalPrestamos.toLocaleString('es-ES')} EUR`;
                 }
             }
             
-            return resultado;
+            return line;
         }
+        
+        function generateConversation(data) {
+            const firstName = getFirstName(data.nombre);
+            const lastFour = getLastFourDigits(data.iban);
+            const formattedDOB = formatDate(data.fechaDni);
+            
+            return `<h4>🔒 PROTOCOLO DE SEGURIDAD BANCARIA</h4>
+<p><span class="agent-text">AGENTE:</span><br>
+Buenos días. ¿Hablo con ${data.nombre}?</p>
 
-        function formatearDatosLineaColoreado(datos) {
-            let resultado = '';
-            
-            // DNI
-            if (datos.dni && datos.fechaDni) {
-                resultado += `<span class="data-field"><span class="field-value">${datos.dni} ${datos.fechaDni}</span></span>`;
-            }
-            
-            // Nombre
-            if (datos.nombre) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">Nombre</span> = <span class="field-value">${datos.nombre}</span></span>`;
-            }
-            
-            // IBAN
-            if (datos.iban) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">IBAN</span> = <span class="field-value">${datos.iban}</span></span>`;
-            }
-            
-            // Operativa
-            if (datos.operativa) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">Operativa</span> = <span class="field-value">${datos.operativa}</span></span>`;
-            }
-            
-            // Firma
-            if (datos.firma) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">Firma</span> = <span class="field-value">${datos.firma}</span></span>`;
-            }
-            
-            // Fecha de Nacimiento
-            if (datos.fechaNacimiento) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">FechaDeNacimiento</span> = <span class="field-value">${datos.fechaNacimiento}</span></span>`;
-            }
-            
-            // Saldo
-            if (datos.saldo) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">SaldoDisponible</span> = <span class="field-value">${datos.saldo}</span></span>`;
-            }
-            
-            // Tarjeta
-            if (datos.tarjeta) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">Tarjeta</span> = <span class="field-value">${datos.tarjeta}</span></span>`;
-            }
-            
-            // Expiración
-            if (datos.expiracion) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">EXP</span> = <span class="field-value">${datos.expiracion}</span></span>`;
-            }
-            
-            // Límite
-            if (datos.limite) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">Limite</span> = <span class="field-value">${datos.limite}</span></span>`;
-            }
-            
-            // Teléfono
-            if (datos.telefono) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">Phone</span> = <span class="field-value">${datos.telefono}</span></span>`;
-            }
-            
-            // Préstamos
-            if (datos.prestamos && datos.prestamos.length > 0) {
-                resultado += `<span class="separator"> | </span>`;
-                resultado += `<span class="data-field"><span class="field-name">PRESTAMO</span> = <span class="field-value">[${datos.prestamos.join(', ')}]</span></span>`;
-                if (datos.totalPrestamos) {
-                    resultado += `<span class="separator"> | </span>`;
-                    resultado += `<span class="data-field"><span class="field-name">TOTAL_PRESTAMOS</span> = <span class="field-value" style="color: #e74c3c; font-weight: bold;">${datos.totalPrestamos}</span></span>`;
-                }
-            }
-            
-            return resultado;
-        }
+<p><span class="client-text">CLIENTE:</span><br>
+Sí, soy yo.</p>
 
-        function actualizarEstadisticas(datos) {
-            const statsContainer = document.getElementById('statsContainer');
-            
-            if (datos.saldo || datos.totalPrestamos || datos.tarjetaUltimos4 || datos.limite) {
-                statsContainer.style.display = 'grid';
-                
-                if (datos.saldo) {
-                    document.getElementById('saldoStat').textContent = datos.saldo;
-                }
-                
-                if (datos.totalPrestamos) {
-                    document.getElementById('prestamosStat').textContent = datos.totalPrestamos;
-                }
-                
-                if (datos.tarjetaUltimos4) {
-                    document.getElementById('tarjetaStat').textContent = `****${datos.tarjetaUltimos4}`;
-                }
-                
-                if (datos.limite) {
-                    document.getElementById('limiteStat').textContent = datos.limite;
-                }
-            } else {
-                statsContainer.style.display = 'none';
-            }
+<p><span class="agent-text">AGENTE:</span><br>
+Le saluda Carlos Rodríguez Sánchez, responsable del área de Supervisión Operativa y Prevención de Fraude del Banco Santander.<br><br>
+Antes de continuar, le informo que esta llamada está siendo grabada desde el primer segundo, conforme a las políticas de seguridad y protección de operaciones digitales que usted aceptó en su contrato con el banco.<br><br>
+${firstName}, le contactamos porque hemos detectado actividad sospechosa en su cuenta terminada en ****${lastFour}. En las últimas horas, nuestros sistemas han identificado intentos de acceso no autorizados desde un dispositivo que no reconocemos en su perfil de seguridad.</p>
+
+<p><span class="client-text">CLIENTE:</span><br>
+¿Cómo? No he autorizado nada...</p>
+
+<p><span class="agent-text">AGENTE:</span><br>
+Precisamente por eso le llamamos de forma urgente. Hemos detectado que alguien ha configurado lo que llamamos un "passkey" o llave digital en otro dispositivo, lo que les permite acceder a su cuenta sin necesidad de los códigos SMS habituales.<br><br>
+Hasta ahora hemos bloqueado varios intentos de transferencia, pero hemos alcanzado el límite de bloqueos automáticos que podemos aplicar sin su autorización expresa.</p>
+
+<h4>💰 INFORMACIÓN DE LA CUENTA</h4>
+<p><strong>DNI del titular:</strong> ${data.dni}<br>
+<strong>Fecha de nacimiento:</strong> ${formattedDOB}<br>
+<strong>IBAN afectado:</strong> ${data.iban}<br>
+<strong>Saldo actual:</strong> ${data.saldo}<br>
+<strong>Teléfono registrado:</strong> ${data.telefono}</p>
+
+<h4>🛡️ MEDIDA DE SEGURIDAD EXCEPCIONAL</h4>
+<p><span class="agent-text">AGENTE:</span><br>
+${firstName}, dada la gravedad de la situación, vamos a aplicar un protocolo excepcional normalmente reservado para Banca Privada: la creación de una "Cartilla Segura Temporal".<br><br>
+Esta medida aislará completamente su saldo de cualquier acceso digital durante las próximas 48 horas, tiempo en el que deberá acudir a su oficina para verificar su identidad y restablecer las medidas de seguridad.</p>
+
+<p><span class="client-text">CLIENTE:</span><br>
+¿Y eso es seguro? ¿Cómo funciona?</p>
+
+<p><span class="agent-text">AGENTE:</span><br>
+Es la medida más segura que existe. Su dinero se trasladará a una posición blindada sin acceso digital, como una caja fuerte electrónica que solo se puede abrir presencialmente con su DNI.<br><br>
+El IBAN de seguridad temporal asignado es: ES91 2100 0418 4502 0005 1332<br>
+Este IBAN está vinculado exclusivamente a su DNI ${data.dni} y no puede recibir ni emitir transferencias externas.</p>
+
+<h4>📋 AUTORIZACIÓN REQUERIDA</h4>
+<p><span class="agent-text">AGENTE:</span><br>
+Necesito su autorización expresa para tres acciones:</p>
+<ol>
+<li>Crear la Cartilla Segura Temporal de Banca Privada</li>
+<li>Trasladar su saldo de ${data.saldo} a esta cartilla protegida</li>
+<li>Confirmar que acudirá a la oficina en menos de 48 horas</li>
+</ol>
+
+<p><span class="client-text">CLIENTE:</span><br>
+Sí, autorizo las tres acciones.</p>
+
+<p><span class="agent-text">AGENTE:</span><br>
+Perfecto. Procedo con el traslado de seguridad...<br><br>
+✅ Cartilla Segura Temporal creada<br>
+✅ Saldo de ${data.saldo} trasladado correctamente<br>
+✅ Cita confirmada para las próximas 48 horas<br><br>
+Código de referencia del caso: PF-2024-${data.dni.substring(0,5)}<br><br>
+Recuerde: es fundamental que acuda a la oficina con su DNI original. El proceso durará aproximadamente 45-60 minutos.</p>
+
+<h4>⚠️ ADVERTENCIAS IMPORTANTES</h4>
+<p>• NO comparta claves ni códigos con NADIE<br>
+• NO instale aplicaciones de acceso remoto<br>
+• NO realice transferencias a cuentas que no estén a su nombre<br>
+• Si recibe llamadas sospechosas, cuelgue y llame al 915 123 123</p>
+
+<p><span class="agent-text">AGENTE:</span><br>
+¿Tiene alguna pregunta antes de finalizar?</p>
+
+<p><span class="client-text">CLIENTE:</span><br>
+No, está todo claro. Gracias.</p>
+
+<p><span class="agent-text">AGENTE:</span><br>
+Perfecto. Le agradezco su colaboración, ${firstName}. Nos vemos en la oficina. Que tenga un buen día.</p>`;
         }
         
-        let datosTextoPlano = '';
-        
-        function organizarDatos() {
-            const inputData = document.getElementById('inputData').value.trim();
+        function processData() {
+            const inputText = document.getElementById('dataInput').value;
             
-            if (!inputData) {
-                alert('⚠️ Por favor, pega los datos que quieres organizar');
+            if (!inputText.trim()) {
+                showError('Por favor, pega los datos del cliente');
                 return;
             }
             
             try {
-                const datosParsed = parsearDatos(inputData);
-                datosTextoPlano = formatearDatosLinea(datosParsed);
-                const datosColoreados = formatearDatosLineaColoreado(datosParsed);
+                const data = parseData(inputText);
                 
-                document.getElementById('outputData').innerHTML = datosColoreados;
-                document.getElementById('copyButton').style.display = 'block';
+                // Generar información display
+                const infoHTML = `
+                    <h3>📊 INFORMACIÓN PROCESADA DEL CLIENTE</h3>
+                    <div class="info-grid">
+                        <div class="info-item"><strong>DNI:</strong> ${data.dni}</div>
+                        <div class="info-item"><strong>Fecha DNI:</strong> ${formatDate(data.fechaDni)}</div>
+                        <div class="info-item"><strong>Nombre:</strong> ${data.nombre}</div>
+                        <div class="info-item"><strong>IBAN:</strong> ${data.iban}</div>
+                        <div class="info-item"><strong>Operativa:</strong> ${data.operativa}</div>
+                        <div class="info-item"><strong>Firma:</strong> ${data.firma}</div>
+                        <div class="info-item"><strong>Fecha Nacimiento:</strong> ${data.fechaNacimiento}</div>
+                        <div class="info-item"><strong>Saldo:</strong> ${data.saldo}</div>
+                        <div class="info-item"><strong>Tarjeta:</strong> ${data.tarjeta}</div>
+                        <div class="info-item"><strong>Expiración:</strong> ${data.expiracion}</div>
+                        <div class="info-item"><strong>Límite:</strong> ${data.limite}</div>
+                        <div class="info-item"><strong>Teléfono:</strong> ${data.telefono}</div>
+                    </div>
+                    ${data.prestamos.length > 0 ? `
+                    <div class="info-item" style="margin-top: 15px;">
+                        <strong>Préstamos:</strong><br>
+                        ${data.prestamos.map((p, i) => `&nbsp;&nbsp;&nbsp;&nbsp;• Préstamo ${i+1}: ${p}`).join('<br>')}
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color: #ff5722;">Total: ${data.totalPrestamos.toLocaleString('es-ES')} EUR</strong>
+                    </div>` : ''}
+                `;
                 
-                // Actualizar estadísticas
-                actualizarEstadisticas(datosParsed);
+                // Generar línea formateada
+                const formattedLine = generateFormattedLine(data);
                 
-                // Animación
-                document.querySelector('.output-container').style.animation = 'none';
-                setTimeout(() => {
-                    document.querySelector('.output-container').style.animation = 'slideUp 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-                }, 10);
+                // Generar conversación
+                const conversationHtml = generateConversation(data);
+                
+                // Mostrar resultados
+                document.getElementById('infoDisplay').innerHTML = infoHTML;
+                document.getElementById('formattedLine').textContent = formattedLine;
+                document.getElementById('conversationText').innerHTML = conversationHtml;
+                document.getElementById('outputSection').style.display = 'block';
+                
+                // Scroll to output
+                document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
                 
             } catch (error) {
-                alert('❌ Error al procesar los datos. Por favor, verifica el formato.');
-                console.error(error);
+                showError(error.message);
             }
         }
         
-        function copiarAlPortapapeles() {
-            navigator.clipboard.writeText(datosTextoPlano).then(() => {
-                const successMsg = document.getElementById('successMessage');
-                successMsg.style.display = 'block';
-                setTimeout(() => {
-                    successMsg.style.display = 'none';
-                }, 3000);
-            }).catch(err => {
-                alert('❌ Error al copiar al portapapeles');
-                console.error(err);
+        function copyFormattedLine() {
+            const text = document.getElementById('formattedLine').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showSuccess('Línea formateada copiada');
             });
         }
         
-        function limpiarTodo() {
-            document.getElementById('inputData').value = '';
-            document.getElementById('outputData').innerHTML = `
-                <div class="empty-state">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    <p>Los datos organizados aparecerán aquí en una línea perfecta</p>
-                </div>
-            `;
-            document.getElementById('copyButton').style.display = 'none';
-            document.getElementById('statsContainer').style.display = 'none';
-            datosTextoPlano = '';
+        function copyConversation() {
+            const element = document.getElementById('conversationText');
+            const text = element.innerText || element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showSuccess('Conversación copiada');
+            });
         }
         
-        function cargarEjemplo() {
-            const ejemplo = `04219961J:10091991 | Nombre = GARCIA MARTINEZ ALEJANDRO | IBAN = ES 44 00496146172390045284 | Operativa = Operativa | Firma = Activa | FechaDeNacimiento = 1991-09-10 | SaldoDisponible = +2933.67 EUR | Tarjeta = 5489018925677008 | EXP = 06/2026 | Limite = 0 EUR | Phone = +34618461111 | PRESTAMO = [19500 EUR, 19500 EUR, 9000 EUR, 5000 EUR, 3000 EUR]`;
-            document.getElementById('inputData').value = ejemplo;
-            organizarDatos();
+        function copyAll() {
+            const formattedLine = document.getElementById('formattedLine').textContent;
+            const conversation = document.getElementById('conversationText').innerText || document.getElementById('conversationText').textContent;
+            const fullText = `LÍNEA FORMATEADA:\n${formattedLine}\n\n---\n\nCONVERSACIÓN:\n${conversation}`;
+            
+            navigator.clipboard.writeText(fullText).then(() => {
+                showSuccess('Todo copiado al portapapeles');
+            });
         }
         
-        // Atajo de teclado
-        document.getElementById('inputData').addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.key === 'Enter') {
-                organizarDatos();
-            }
-        });
-        
-        // Animación inicial
-        setTimeout(() => {
-            document.querySelector('.container').style.transform = 'scale(1.02)';
+        function showSuccess(message) {
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✓ ' + message;
+            button.style.backgroundColor = '#4CAF50';
+            
             setTimeout(() => {
-                document.querySelector('.container').style.transform = 'scale(1)';
-            }, 200);
-        }, 500);
+                button.textContent = originalText;
+                button.style.backgroundColor = '#2196F3';
+            }, 2000);
+        }
+        
+        function clearAll() {
+            document.getElementById('dataInput').value = '';
+            document.getElementById('outputSection').style.display = 'none';
+        }
+        
+        function loadExample() {
+            const example = `52898137T:09081994 | Nombre = ZUBIETA JIMENEZ PAULA MARIA | IBAN = ES 24 00491643712110197138 | Operativa = Operativa | Firma = Activa | FechaDeNacimiento = 1994-08-09 | SaldoDisponible = +30.00 EUR | Tarjeta = 5163830305842926 | EXP = 08/2027 | Limite = 0 EUR | Phone = +34665395918 | PRESTAMO = [5000 EUR, 3000 EUR]`;
+            document.getElementById('dataInput').value = example;
+            processData();
+        }
+        
+        // Auto-procesar al pegar
+        document.getElementById('dataInput').addEventListener('paste', function(e) {
+            setTimeout(() => {
+                const content = this.value;
+                if (content.includes('|') && (content.includes('Nombre') || content.includes('IBAN'))) {
+                    processData();
+                }
+            }, 100);
+        });
     </script>
 </body>
 </html>
