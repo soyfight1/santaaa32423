@@ -1,0 +1,33 @@
+=====================================
+INFORMACIÓN PERSONAL Y BANCARIA
+=====================================
+
+DNI: 52898137T 09081994
+Nombre: ZUBIETA JIMENEZ PAULA MARIA
+Fecha de Nacimiento: 09/08/1994
+Teléfono: +34 665 395 918
+
+=====================================
+INFORMACIÓN BANCARIA
+=====================================
+
+IBAN: ES24 0049 1643 7121 1019 7138
+Saldo Disponible: +30.00 EUR
+Estado Operativa: Operativa
+Estado Firma: Activa
+
+=====================================
+INFORMACIÓN DE TARJETA
+=====================================
+
+Número de Tarjeta: 5163 8303 0584 2926
+Fecha de Expiración: 08/2027
+Límite: 0 EUR
+
+=====================================
+PRÉSTAMOS
+=====================================
+
+Préstamo 1: 5,000 EUR
+Préstamo 2: 3,000 EUR
+Total Préstamos: 8,000 EUR
