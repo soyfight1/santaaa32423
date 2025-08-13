@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Procesamiento - Datos Bancarios</title>
+    <title>Organizador de Datos</title>
     <style>
         * {
             margin: 0;
@@ -12,681 +12,209 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #1a1a1a;
-            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            background-color: #000;
+            color: #0f0;
             padding: 20px;
-            line-height: 1.6;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background-color: #2d2d2d;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
         
         h1 {
-            color: #ffffff;
-            margin-bottom: 30px;
+            color: #0f0;
             text-align: center;
-            font-size: 2.5em;
-        }
-        
-        .input-section {
-            background-color: #3a3a3a;
-            padding: 25px;
-            border-radius: 8px;
             margin-bottom: 30px;
-            border: 1px solid #4a4a4a;
-        }
-        
-        .input-label {
-            font-weight: 600;
-            color: #4CAF50;
-            margin-bottom: 10px;
-            font-size: 16px;
-            display: block;
+            font-size: 2em;
         }
         
         textarea {
             width: 100%;
+            height: 150px;
+            background: #111;
+            color: #0f0;
+            border: 2px solid #0f0;
             padding: 15px;
-            border: 2px solid #4a4a4a;
-            border-radius: 5px;
-            font-size: 14px;
             font-family: 'Courier New', monospace;
-            background-color: #1a1a1a;
-            color: #00ff00;
-            resize: vertical;
-            min-height: 120px;
-            transition: border-color 0.3s;
-        }
-        
-        textarea:focus {
-            outline: none;
-            border-color: #4CAF50;
-            background-color: #0a0a0a;
-        }
-        
-        .button-container {
-            text-align: center;
-            margin: 30px 0;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
         
         button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 40px;
+            background: #0f0;
+            color: #000;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: 600;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+            margin-right: 10px;
+            margin-bottom: 20px;
         }
         
         button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+            background: #0a0;
         }
         
-        .output-section {
-            margin-top: 40px;
-            display: none;
-        }
-        
-        .output-header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            border-radius: 8px 8px 0 0;
-            font-weight: 600;
-            font-size: 18px;
-        }
-        
-        .output-content {
-            background-color: #1a1a1a;
-            padding: 30px;
-            border-radius: 0 0 8px 8px;
-            white-space: pre-wrap;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.8;
-            color: #f0f0f0;
-            border: 2px solid #4CAF50;
-            border-top: none;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        
-        .output-content::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        .output-content::-webkit-scrollbar-track {
-            background: #2d2d2d;
-        }
-        
-        .output-content::-webkit-scrollbar-thumb {
-            background: #4CAF50;
-            border-radius: 5px;
-        }
-        
-        .copy-button {
-            background-color: #2196F3;
-            margin-top: 15px;
-            padding: 12px 25px;
-            font-size: 16px;
-        }
-        
-        .copy-button:hover {
-            background-color: #1976D2;
-        }
-        
-        .info-display {
-            background-color: #2a2a2a;
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #4CAF50;
-        }
-        
-        .info-display h3 {
-            color: #4CAF50;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-        }
-        
-        .info-item {
-            margin: 10px 0;
-            color: #e0e0e0;
-            font-size: 16px;
-        }
-        
-        .info-item strong {
-            color: #4CAF50;
-            margin-right: 10px;
-            display: inline-block;
-            min-width: 150px;
-        }
-        
-        .error-message {
-            background-color: #f44336;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .example-format {
-            background-color: #0a0a0a;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            color: #888;
-            border: 1px solid #333;
-        }
-        
-        .clear-button {
-            background-color: #ff5722;
-            margin-left: 10px;
-        }
-        
-        .clear-button:hover {
-            background-color: #e64a19;
-        }
-        
-        .load-example-button {
-            background-color: #9c27b0;
-            margin-left: 10px;
-        }
-        
-        .load-example-button:hover {
-            background-color: #7b1fa2;
-        }
-        
-        .formatted-line {
-            background-color: #0a0a0a;
+        #resultado {
+            background: #111;
+            border: 2px solid #0f0;
             padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            color: #00ff00;
-            border: 1px solid #4CAF50;
-            word-wrap: break-word;
-        }
-        
-        .conversation-text {
-            background-color: #1a1a1a;
-            padding: 25px;
-            border-radius: 8px;
             margin-top: 20px;
-            border: 2px solid #4CAF50;
-            max-height: 600px;
-            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            min-height: 100px;
         }
         
-        .conversation-text h4 {
-            color: #4CAF50;
-            margin: 20px 0 10px 0;
-            font-size: 1.2em;
-        }
-        
-        .conversation-text p {
-            margin: 10px 0;
-            line-height: 1.8;
-        }
-        
-        .agent-text {
-            color: #4CAF50;
-            font-weight: 600;
-        }
-        
-        .client-text {
-            color: #2196F3;
-            font-weight: 600;
+        .error {
+            color: #f00;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔐 Sistema de Procesamiento - Datos Bancarios</h1>
+        <h1>ORGANIZADOR DE DATOS BANCARIOS</h1>
         
-        <div class="input-section">
-            <label class="input-label" for="dataInput">Pega aquí los datos del cliente:</label>
-            <textarea id="dataInput" placeholder="Ejemplo: 52898137T:09081994 | Nombre = ZUBIETA JIMENEZ PAULA MARIA | IBAN = ES 24 00491643712110197138 | Operativa = Operativa | Firma = Activa | FechaDeNacimiento = 1994-08-09 | SaldoDisponible = +30.00 EUR | Tarjeta = 5163830305842926 | EXP = 08/2027 | Limite = 0 EUR | Phone = +34665395918 | PRESTAMO = [5000 EUR, 3000 EUR]"></textarea>
-            <div class="example-format">
-                Formato esperado: DNI:DDMMAAAA | Nombre = APELLIDOS NOMBRE | IBAN = ES XX XXXXXXXXXXXXXXXXXXXX | SaldoDisponible = +XXX.XX EUR | Tarjeta = XXXXXXXXXXXXXXXX | Phone = +34XXXXXXXXX | PRESTAMO = [XXXX EUR, ...]
-            </div>
-            
-            <div class="button-container">
-                <button onclick="processData()">✨ Procesar Datos</button>
-                <button class="clear-button" onclick="clearAll()">🗑️ Limpiar Todo</button>
-                <button class="load-example-button" onclick="loadExample()">📝 Cargar Ejemplo</button>
-            </div>
-            
-            <div class="error-message" id="errorMessage"></div>
+        <textarea id="entrada" placeholder="Pega aquí los datos: 52898137T:09081994 | Nombre = ZUBIETA JIMENEZ PAULA MARIA | IBAN = ES 24 00491643712110197138..."></textarea>
+        
+        <div>
+            <button onclick="procesar()">ORGANIZAR DATOS</button>
+            <button onclick="limpiar()">LIMPIAR</button>
+            <button onclick="copiar()">COPIAR RESULTADO</button>
+            <button onclick="ejemplo()">CARGAR EJEMPLO</button>
         </div>
         
-        <div id="outputSection" class="output-section">
-            <div class="info-display" id="infoDisplay"></div>
-            
-            <div class="output-header">
-                📊 Datos Organizados en Línea
-            </div>
-            <div class="formatted-line" id="formattedLine"></div>
-            
-            <div class="output-header" style="margin-top: 20px;">
-                💬 Texto de Conversación Generado
-            </div>
-            <div class="conversation-text" id="conversationText"></div>
-            
-            <div class="button-container">
-                <button class="copy-button" onclick="copyFormattedLine()">📋 Copiar Línea Formateada</button>
-                <button class="copy-button" onclick="copyConversation()">📋 Copiar Conversación</button>
-                <button class="copy-button" onclick="copyAll()">📋 Copiar Todo</button>
-            </div>
-        </div>
+        <div id="error" class="error"></div>
+        
+        <div id="resultado"></div>
     </div>
-    
+
     <script>
-        function showError(message) {
-            const errorDiv = document.getElementById('errorMessage');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-            setTimeout(() => {
-                errorDiv.style.display = 'none';
-            }, 5000);
-        }
-        
-        function parseData(inputText) {
-            try {
-                // Limpiar el texto de entrada
-                inputText = inputText.trim();
-                
-                // Eliminar los dos puntos después del DNI si existe
-                inputText = inputText.replace(/^(\d{8}[A-Z]):(\d{8})/, '$1 $2');
-                
-                const data = {
-                    dni: '',
-                    fechaDni: '',
-                    nombre: '',
-                    iban: '',
-                    operativa: '',
-                    firma: '',
-                    fechaNacimiento: '',
-                    saldo: '',
-                    tarjeta: '',
-                    expiracion: '',
-                    limite: '',
-                    telefono: '',
-                    prestamos: [],
-                    totalPrestamos: 0
-                };
-                
-                // Extraer DNI y fecha del inicio
-                const dniMatch = inputText.match(/^(\d{8}[A-Z])\s+(\d{8})/);
-                if (dniMatch) {
-                    data.dni = dniMatch[1];
-                    data.fechaDni = dniMatch[2];
-                }
-                
-                // Extraer campos usando expresiones regulares
-                const nombreMatch = inputText.match(/Nombre\s*=\s*([^|]+)/i);
-                if (nombreMatch) data.nombre = nombreMatch[1].trim();
-                
-                const ibanMatch = inputText.match(/IBAN\s*=\s*([^|]+)/i);
-                if (ibanMatch) {
-                    // Limpiar y formatear IBAN
-                    const ibanLimpio = ibanMatch[1].trim().replace(/\s+/g, '');
-                    data.iban = ibanLimpio.match(/.{1,4}/g).join(' ');
-                }
-                
-                const operativaMatch = inputText.match(/Operativa\s*=\s*([^|]+)/i);
-                if (operativaMatch) data.operativa = operativaMatch[1].trim();
-                
-                const firmaMatch = inputText.match(/Firma\s*=\s*([^|]+)/i);
-                if (firmaMatch) data.firma = firmaMatch[1].trim();
-                
-                const fechaNacMatch = inputText.match(/FechaDeNacimiento\s*=\s*([^|]+)/i);
-                if (fechaNacMatch) data.fechaNacimiento = fechaNacMatch[1].trim();
-                
-                const saldoMatch = inputText.match(/SaldoDisponible\s*=\s*([^|]+)/i);
-                if (saldoMatch) data.saldo = saldoMatch[1].trim();
-                
-                const tarjetaMatch = inputText.match(/Tarjeta\s*=\s*([^|]+)/i);
-                if (tarjetaMatch) {
-                    const tarjetaLimpia = tarjetaMatch[1].trim();
-                    // Formatear tarjeta en grupos de 4
-                    if (tarjetaLimpia.length >= 16) {
-                        data.tarjeta = tarjetaLimpia.match(/.{1,4}/g).join(' ');
-                    } else {
-                        data.tarjeta = tarjetaLimpia;
-                    }
-                }
-                
-                const expMatch = inputText.match(/EXP\s*=\s*([^|]+)/i);
-                if (expMatch) data.expiracion = expMatch[1].trim();
-                
-                const limiteMatch = inputText.match(/Limite\s*=\s*([^|]+)/i);
-                if (limiteMatch) data.limite = limiteMatch[1].trim();
-                
-                const phoneMatch = inputText.match(/Phone\s*=\s*([^|]+)/i);
-                if (phoneMatch) data.telefono = phoneMatch[1].trim();
-                
-                const prestamoMatch = inputText.match(/PRESTAMO\s*=\s*\[([^\]]+)\]/i);
-                if (prestamoMatch) {
-                    data.prestamos = prestamoMatch[1].split(',').map(p => p.trim());
-                    // Calcular total de préstamos
-                    let total = 0;
-                    data.prestamos.forEach(p => {
-                        const montoMatch = p.match(/(\d+)/);
-                        if (montoMatch) {
-                            total += parseInt(montoMatch[1]);
-                        }
-                    });
-                    data.totalPrestamos = total;
-                }
-                
-                return data;
-            } catch (error) {
-                throw new Error('Error al parsear los datos. Verifica el formato.');
-            }
-        }
-        
-        function formatDate(dateString) {
-            // Si viene en formato YYYY-MM-DD, convertir a DD/MM/YYYY
-            if (dateString.includes('-')) {
-                const parts = dateString.split('-');
-                if (parts.length === 3) {
-                    return `${parts[2]}/${parts[1]}/${parts[0]}`;
-                }
-            }
-            // Si viene en formato DDMMYYYY, convertir a DD/MM/YYYY
-            if (dateString.length === 8 && !dateString.includes('/')) {
-                return `${dateString.substring(0,2)}/${dateString.substring(2,4)}/${dateString.substring(4,8)}`;
-            }
-            return dateString;
-        }
-        
-        function getFirstName(fullName) {
-            const names = fullName.trim().split(' ');
-            // Asumiendo formato: APELLIDO1 APELLIDO2 NOMBRE
-            if (names.length >= 3) {
-                return names[names.length - 1];
-            }
-            return names[0];
-        }
-        
-        function getLastFourDigits(iban) {
-            const cleanIBAN = iban.replace(/\s/g, '');
-            return cleanIBAN.slice(-4);
-        }
-        
-        function generateFormattedLine(data) {
-            let line = '';
+        function procesar() {
+            const entrada = document.getElementById('entrada').value.trim();
+            const resultado = document.getElementById('resultado');
+            const error = document.getElementById('error');
             
-            if (data.dni && data.fechaDni) {
-                line += `${data.dni} ${data.fechaDni}`;
-            }
-            
-            if (data.nombre) {
-                line += ` | Nombre = ${data.nombre}`;
-            }
-            
-            if (data.iban) {
-                line += ` | IBAN = ${data.iban}`;
-            }
-            
-            if (data.operativa) {
-                line += ` | Operativa = ${data.operativa}`;
-            }
-            
-            if (data.firma) {
-                line += ` | Firma = ${data.firma}`;
-            }
-            
-            if (data.fechaNacimiento) {
-                line += ` | FechaDeNacimiento = ${data.fechaNacimiento}`;
-            }
-            
-            if (data.saldo) {
-                line += ` | SaldoDisponible = ${data.saldo}`;
-            }
-            
-            if (data.tarjeta) {
-                line += ` | Tarjeta = ${data.tarjeta}`;
-            }
-            
-            if (data.expiracion) {
-                line += ` | EXP = ${data.expiracion}`;
-            }
-            
-            if (data.limite) {
-                line += ` | Limite = ${data.limite}`;
-            }
-            
-            if (data.telefono) {
-                line += ` | Phone = ${data.telefono}`;
-            }
-            
-            if (data.prestamos && data.prestamos.length > 0) {
-                line += ` | PRESTAMO = [${data.prestamos.join(', ')}]`;
-                if (data.totalPrestamos > 0) {
-                    line += ` | TOTAL_PRESTAMOS = ${data.totalPrestamos.toLocaleString('es-ES')} EUR`;
-                }
-            }
-            
-            return line;
-        }
-        
-        function generateConversation(data) {
-            const firstName = getFirstName(data.nombre);
-            const lastFour = getLastFourDigits(data.iban);
-            const formattedDOB = formatDate(data.fechaDni);
-            
-            return `<h4>🔒 PROTOCOLO DE SEGURIDAD BANCARIA</h4>
-<p><span class="agent-text">AGENTE:</span><br>
-Buenos días. ¿Hablo con ${data.nombre}?</p>
-
-<p><span class="client-text">CLIENTE:</span><br>
-Sí, soy yo.</p>
-
-<p><span class="agent-text">AGENTE:</span><br>
-Le saluda Carlos Rodríguez Sánchez, responsable del área de Supervisión Operativa y Prevención de Fraude del Banco Santander.<br><br>
-Antes de continuar, le informo que esta llamada está siendo grabada desde el primer segundo, conforme a las políticas de seguridad y protección de operaciones digitales que usted aceptó en su contrato con el banco.<br><br>
-${firstName}, le contactamos porque hemos detectado actividad sospechosa en su cuenta terminada en ****${lastFour}. En las últimas horas, nuestros sistemas han identificado intentos de acceso no autorizados desde un dispositivo que no reconocemos en su perfil de seguridad.</p>
-
-<p><span class="client-text">CLIENTE:</span><br>
-¿Cómo? No he autorizado nada...</p>
-
-<p><span class="agent-text">AGENTE:</span><br>
-Precisamente por eso le llamamos de forma urgente. Hemos detectado que alguien ha configurado lo que llamamos un "passkey" o llave digital en otro dispositivo, lo que les permite acceder a su cuenta sin necesidad de los códigos SMS habituales.<br><br>
-Hasta ahora hemos bloqueado varios intentos de transferencia, pero hemos alcanzado el límite de bloqueos automáticos que podemos aplicar sin su autorización expresa.</p>
-
-<h4>💰 INFORMACIÓN DE LA CUENTA</h4>
-<p><strong>DNI del titular:</strong> ${data.dni}<br>
-<strong>Fecha de nacimiento:</strong> ${formattedDOB}<br>
-<strong>IBAN afectado:</strong> ${data.iban}<br>
-<strong>Saldo actual:</strong> ${data.saldo}<br>
-<strong>Teléfono registrado:</strong> ${data.telefono}</p>
-
-<h4>🛡️ MEDIDA DE SEGURIDAD EXCEPCIONAL</h4>
-<p><span class="agent-text">AGENTE:</span><br>
-${firstName}, dada la gravedad de la situación, vamos a aplicar un protocolo excepcional normalmente reservado para Banca Privada: la creación de una "Cartilla Segura Temporal".<br><br>
-Esta medida aislará completamente su saldo de cualquier acceso digital durante las próximas 48 horas, tiempo en el que deberá acudir a su oficina para verificar su identidad y restablecer las medidas de seguridad.</p>
-
-<p><span class="client-text">CLIENTE:</span><br>
-¿Y eso es seguro? ¿Cómo funciona?</p>
-
-<p><span class="agent-text">AGENTE:</span><br>
-Es la medida más segura que existe. Su dinero se trasladará a una posición blindada sin acceso digital, como una caja fuerte electrónica que solo se puede abrir presencialmente con su DNI.<br><br>
-El IBAN de seguridad temporal asignado es: ES91 2100 0418 4502 0005 1332<br>
-Este IBAN está vinculado exclusivamente a su DNI ${data.dni} y no puede recibir ni emitir transferencias externas.</p>
-
-<h4>📋 AUTORIZACIÓN REQUERIDA</h4>
-<p><span class="agent-text">AGENTE:</span><br>
-Necesito su autorización expresa para tres acciones:</p>
-<ol>
-<li>Crear la Cartilla Segura Temporal de Banca Privada</li>
-<li>Trasladar su saldo de ${data.saldo} a esta cartilla protegida</li>
-<li>Confirmar que acudirá a la oficina en menos de 48 horas</li>
-</ol>
-
-<p><span class="client-text">CLIENTE:</span><br>
-Sí, autorizo las tres acciones.</p>
-
-<p><span class="agent-text">AGENTE:</span><br>
-Perfecto. Procedo con el traslado de seguridad...<br><br>
-✅ Cartilla Segura Temporal creada<br>
-✅ Saldo de ${data.saldo} trasladado correctamente<br>
-✅ Cita confirmada para las próximas 48 horas<br><br>
-Código de referencia del caso: PF-2024-${data.dni.substring(0,5)}<br><br>
-Recuerde: es fundamental que acuda a la oficina con su DNI original. El proceso durará aproximadamente 45-60 minutos.</p>
-
-<h4>⚠️ ADVERTENCIAS IMPORTANTES</h4>
-<p>• NO comparta claves ni códigos con NADIE<br>
-• NO instale aplicaciones de acceso remoto<br>
-• NO realice transferencias a cuentas que no estén a su nombre<br>
-• Si recibe llamadas sospechosas, cuelgue y llame al 915 123 123</p>
-
-<p><span class="agent-text">AGENTE:</span><br>
-¿Tiene alguna pregunta antes de finalizar?</p>
-
-<p><span class="client-text">CLIENTE:</span><br>
-No, está todo claro. Gracias.</p>
-
-<p><span class="agent-text">AGENTE:</span><br>
-Perfecto. Le agradezco su colaboración, ${firstName}. Nos vemos en la oficina. Que tenga un buen día.</p>`;
-        }
-        
-        function processData() {
-            const inputText = document.getElementById('dataInput').value;
-            
-            if (!inputText.trim()) {
-                showError('Por favor, pega los datos del cliente');
+            if (!entrada) {
+                error.textContent = 'PEGA LOS DATOS PRIMERO';
+                resultado.textContent = '';
                 return;
             }
             
+            error.textContent = '';
+            
             try {
-                const data = parseData(inputText);
+                // Quitar los : después del DNI
+                let datos = entrada.replace(/^(\d{8}[A-Z]):(\d{8})/, '$1 $2');
                 
-                // Generar información display
-                const infoHTML = `
-                    <h3>📊 INFORMACIÓN PROCESADA DEL CLIENTE</h3>
-                    <div class="info-grid">
-                        <div class="info-item"><strong>DNI:</strong> ${data.dni}</div>
-                        <div class="info-item"><strong>Fecha DNI:</strong> ${formatDate(data.fechaDni)}</div>
-                        <div class="info-item"><strong>Nombre:</strong> ${data.nombre}</div>
-                        <div class="info-item"><strong>IBAN:</strong> ${data.iban}</div>
-                        <div class="info-item"><strong>Operativa:</strong> ${data.operativa}</div>
-                        <div class="info-item"><strong>Firma:</strong> ${data.firma}</div>
-                        <div class="info-item"><strong>Fecha Nacimiento:</strong> ${data.fechaNacimiento}</div>
-                        <div class="info-item"><strong>Saldo:</strong> ${data.saldo}</div>
-                        <div class="info-item"><strong>Tarjeta:</strong> ${data.tarjeta}</div>
-                        <div class="info-item"><strong>Expiración:</strong> ${data.expiracion}</div>
-                        <div class="info-item"><strong>Límite:</strong> ${data.limite}</div>
-                        <div class="info-item"><strong>Teléfono:</strong> ${data.telefono}</div>
-                    </div>
-                    ${data.prestamos.length > 0 ? `
-                    <div class="info-item" style="margin-top: 15px;">
-                        <strong>Préstamos:</strong><br>
-                        ${data.prestamos.map((p, i) => `&nbsp;&nbsp;&nbsp;&nbsp;• Préstamo ${i+1}: ${p}`).join('<br>')}
-                        <br>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color: #ff5722;">Total: ${data.totalPrestamos.toLocaleString('es-ES')} EUR</strong>
-                    </div>` : ''}
-                `;
+                // Parsear los datos
+                const campos = {};
                 
-                // Generar línea formateada
-                const formattedLine = generateFormattedLine(data);
+                // DNI y fecha
+                const dniMatch = datos.match(/^(\d{8}[A-Z])\s+(\d{8})/);
+                if (dniMatch) {
+                    campos.dni = dniMatch[1];
+                    campos.fechaDni = dniMatch[2];
+                }
                 
-                // Generar conversación
-                const conversationHtml = generateConversation(data);
+                // Resto de campos
+                const partes = datos.split('|');
+                partes.forEach(parte => {
+                    if (parte.includes('=')) {
+                        const [clave, valor] = parte.split('=').map(s => s.trim());
+                        campos[clave.toLowerCase().replace(/\s/g, '')] = valor;
+                    }
+                });
                 
-                // Mostrar resultados
-                document.getElementById('infoDisplay').innerHTML = infoHTML;
-                document.getElementById('formattedLine').textContent = formattedLine;
-                document.getElementById('conversationText').innerHTML = conversationHtml;
-                document.getElementById('outputSection').style.display = 'block';
+                // Formatear IBAN si existe
+                if (campos.iban) {
+                    const ibanLimpio = campos.iban.replace(/\s+/g, '');
+                    campos.iban = ibanLimpio.match(/.{1,4}/g).join(' ');
+                }
                 
-                // Scroll to output
-                document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+                // Formatear tarjeta si existe
+                if (campos.tarjeta) {
+                    const tarjetaLimpia = campos.tarjeta.replace(/\s+/g, '');
+                    if (tarjetaLimpia.length >= 16) {
+                        campos.tarjeta = tarjetaLimpia.match(/.{1,4}/g).join(' ');
+                    }
+                }
                 
-            } catch (error) {
-                showError(error.message);
+                // Calcular total préstamos si existe
+                let totalPrestamos = 0;
+                if (campos.prestamo) {
+                    const prestamos = campos.prestamo.replace(/[\[\]]/g, '').split(',');
+                    prestamos.forEach(p => {
+                        const match = p.match(/(\d+)/);
+                        if (match) totalPrestamos += parseInt(match[1]);
+                    });
+                }
+                
+                // Construir línea organizada
+                let linea = '';
+                
+                if (campos.dni && campos.fechaDni) {
+                    linea = `${campos.dni} ${campos.fechaDni}`;
+                }
+                
+                if (campos.nombre) linea += ` | Nombre = ${campos.nombre}`;
+                if (campos.iban) linea += ` | IBAN = ${campos.iban}`;
+                if (campos.operativa) linea += ` | Operativa = ${campos.operativa}`;
+                if (campos.firma) linea += ` | Firma = ${campos.firma}`;
+                if (campos.fechadenacimiento) linea += ` | FechaDeNacimiento = ${campos.fechadenacimiento}`;
+                if (campos.saldodisponible) linea += ` | SaldoDisponible = ${campos.saldodisponible}`;
+                if (campos.tarjeta) linea += ` | Tarjeta = ${campos.tarjeta}`;
+                if (campos.exp) linea += ` | EXP = ${campos.exp}`;
+                if (campos.limite) linea += ` | Limite = ${campos.limite}`;
+                if (campos.phone) linea += ` | Phone = ${campos.phone}`;
+                if (campos.prestamo) {
+                    linea += ` | PRESTAMO = ${campos.prestamo}`;
+                    if (totalPrestamos > 0) {
+                        linea += ` | TOTAL = ${totalPrestamos.toLocaleString('es-ES')} EUR`;
+                    }
+                }
+                
+                // Mostrar resultado
+                resultado.textContent = linea;
+                
+            } catch (e) {
+                error.textContent = 'ERROR AL PROCESAR LOS DATOS';
+                console.error(e);
             }
         }
         
-        function copyFormattedLine() {
-            const text = document.getElementById('formattedLine').textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                showSuccess('Línea formateada copiada');
-            });
+        function limpiar() {
+            document.getElementById('entrada').value = '';
+            document.getElementById('resultado').textContent = '';
+            document.getElementById('error').textContent = '';
         }
         
-        function copyConversation() {
-            const element = document.getElementById('conversationText');
-            const text = element.innerText || element.textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                showSuccess('Conversación copiada');
-            });
+        function copiar() {
+            const resultado = document.getElementById('resultado').textContent;
+            if (resultado) {
+                navigator.clipboard.writeText(resultado).then(() => {
+                    document.getElementById('error').textContent = '';
+                    alert('COPIADO AL PORTAPAPELES');
+                }).catch(() => {
+                    alert('ERROR AL COPIAR');
+                });
+            } else {
+                document.getElementById('error').textContent = 'NO HAY NADA QUE COPIAR';
+            }
         }
         
-        function copyAll() {
-            const formattedLine = document.getElementById('formattedLine').textContent;
-            const conversation = document.getElementById('conversationText').innerText || document.getElementById('conversationText').textContent;
-            const fullText = `LÍNEA FORMATEADA:\n${formattedLine}\n\n---\n\nCONVERSACIÓN:\n${conversation}`;
-            
-            navigator.clipboard.writeText(fullText).then(() => {
-                showSuccess('Todo copiado al portapapeles');
-            });
+        function ejemplo() {
+            document.getElementById('entrada').value = '52898137T:09081994 | Nombre = ZUBIETA JIMENEZ PAULA MARIA | IBAN = ES 24 00491643712110197138 | Operativa = Operativa | Firma = Activa | FechaDeNacimiento = 1994-08-09 | SaldoDisponible = +30.00 EUR | Tarjeta = 5163830305842926 | EXP = 08/2027 | Limite = 0 EUR | Phone = +34665395918 | PRESTAMO = [5000 EUR, 3000 EUR]';
+            procesar();
         }
         
-        function showSuccess(message) {
-            const button = event.target;
-            const originalText = button.textContent;
-            button.textContent = '✓ ' + message;
-            button.style.backgroundColor = '#4CAF50';
-            
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.backgroundColor = '#2196F3';
-            }, 2000);
-        }
-        
-        function clearAll() {
-            document.getElementById('dataInput').value = '';
-            document.getElementById('outputSection').style.display = 'none';
-        }
-        
-        function loadExample() {
-            const example = `52898137T:09081994 | Nombre = ZUBIETA JIMENEZ PAULA MARIA | IBAN = ES 24 00491643712110197138 | Operativa = Operativa | Firma = Activa | FechaDeNacimiento = 1994-08-09 | SaldoDisponible = +30.00 EUR | Tarjeta = 5163830305842926 | EXP = 08/2027 | Limite = 0 EUR | Phone = +34665395918 | PRESTAMO = [5000 EUR, 3000 EUR]`;
-            document.getElementById('dataInput').value = example;
-            processData();
-        }
-        
-        // Auto-procesar al pegar
-        document.getElementById('dataInput').addEventListener('paste', function(e) {
-            setTimeout(() => {
-                const content = this.value;
-                if (content.includes('|') && (content.includes('Nombre') || content.includes('IBAN'))) {
-                    processData();
-                }
-            }, 100);
+        // Procesar automáticamente al pegar
+        document.getElementById('entrada').addEventListener('paste', function() {
+            setTimeout(procesar, 100);
         });
     </script>
 </body>
