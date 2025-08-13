@@ -1,551 +1,1119 @@
 <!DOCTYPE html>
-<html lang="es" class="">
+<html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>StreamFlix</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0"/>
-    <link rel="shortcut icon" href="./streamflix/sficon2023.ico"/>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Seguridad - Banco Santander</title>
     <style>
-        @font-face {
-            font-family: "Streamflix Sans";
-            src: url("./streamflix/StreamflixSans_W_Rg.woff2") format("woff2");
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-        }
-        
-        @font-face {
-            font-family: "Streamflix Sans";
-            src: url("./streamflix/StreamflixSans_W_Bd.woff2") format("woff2");
-            font-weight: 700;
-            font-style: normal;
-            font-display: swap;
-        }
-
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            margin: 0;
-            padding: 0;
-            font-family: "Streamflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        .streamflix-login {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            background: linear-gradient(to bottom, rgba(0,0,0,.4) 0, rgba(0,0,0,.4) 100%), 
-                        url('./streamflix/ES-es-20250623-TRIFECTA-perspective_2ddcdaf0-f03e-4a6a-abe7-cb1910a6f2fd_large.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .streamflix-header {
-            padding: 20px 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .streamflix-logo {
-            margin-left: 3%;
-        }
-
-        .streamflix-logo img {
-            height: 45px;
-            width: auto;
-        }
-
-        .login-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
         }
-
-        .login-form-container {
-            background: rgba(0, 0, 0, 0.75);
-            border-radius: 4px;
-            padding: 48px 64px;
-            min-height: 660px;
-            width: 450px;
-            max-width: 450px;
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
-
-        .login-title {
-            color: #fff;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 28px;
-            margin-top: 0;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 16px;
-        }
-
-        .input-field {
-            background: #333;
-            border: 1px solid #333;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 16px;
-            height: 56px;
-            padding: 24px 16px 8px;
-            width: 100%;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-
-        .input-field:focus {
-            background: #454545;
-            border-color: #fff;
-        }
-
-        .input-field.error {
-            border-color: #e87c03;
-        }
-
-        .input-label {
-            color: #8c8c8c;
-            font-size: 16px;
-            left: 16px;
-            position: absolute;
-            top: 16px;
-            transition: font-size .1s ease, top .1s ease, color .1s ease;
-            pointer-events: none;
-        }
-
-        .input-field:focus + .input-label,
-        .input-field:not(:placeholder-shown) + .input-label,
-        .input-field[data-has-value] + .input-label {
-            color: #8c8c8c;
-            font-size: 11px;
-            top: 6px;
-        }
-
-        .error-message {
-            color: #e87c03;
-            font-size: 13px;
-            margin-top: 6px;
-            display: none;
-            align-items: center;
-        }
-
-        .error-message.show {
-            display: flex;
-        }
-
-        .error-message::before {
-            content: "⚠";
-            margin-right: 6px;
-            font-size: 16px;
-        }
-
-        .login-btn {
-            background: #e50914;
-            border: none;
-            border-radius: 4px;
-            color: #fff;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 700;
-            height: 48px;
-            margin-bottom: 12px;
-            margin-top: 24px;
-            width: 100%;
-            transition: background-color 0.2s ease;
-        }
-
-        .login-btn:hover {
-            background: #f40612;
-        }
-
-        .or-text {
-            color: #737373;
-            font-size: 16px;
-            margin: 16px 0;
+        
+        .header {
+            background: linear-gradient(135deg, #ec0000 0%, #8b0000 100%);
+            color: white;
+            padding: 40px;
             text-align: center;
         }
-
-        .code-btn {
-            background: #737373;
-            border: none;
-            border-radius: 4px;
-            color: #fff;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            height: 48px;
-            padding: 0;
-            margin: 0 0 16px 0;
-            width: 100%;
-            transition: background-color 0.2s ease;
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-
-        .code-btn:hover {
-            background: #8c8c8c;
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
         }
-
-        .forgot-link {
-            color: #fff;
-            text-decoration: underline;
-            font-size: 16px;
-            margin: 16px 0;
-            display: block;
+        
+        .info-bar {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 3px solid #ec0000;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
         }
-
-        .forgot-link:hover {
-            text-decoration: none;
+        
+        .info-item {
+            text-align: center;
+            padding: 10px;
         }
-
-        .checkbox-group {
+        
+        .info-item .label {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .info-item .value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #ec0000;
+        }
+        
+        .section-title {
+            color: #ec0000;
+            font-size: 1.8em;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
+        }
+        
+        .time-badge {
+            background: #ec0000;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.6em;
+            margin-left: 15px;
+        }
+        
+        .dialogue {
             margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
-        .checkbox {
-            appearance: none;
-            background: #333;
-            border: 1px solid #333;
-            border-radius: 2px;
-            width: 16px;
-            height: 16px;
-            margin-right: 8px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .checkbox:checked {
-            background: #fff;
-            border-color: #fff;
-        }
-
-        .checkbox:checked::after {
-            content: '✓';
-            position: absolute;
-            top: -2px;
-            left: 2px;
-            color: #000;
-            font-size: 12px;
+        
+        .speaker {
             font-weight: bold;
+            color: #ec0000;
+            margin-bottom: 10px;
+            font-size: 1.1em;
         }
-
-        .checkbox-label {
-            color: #b3b3b3;
-            font-size: 13px;
+        
+        .speaker.cliente {
+            color: #007bff;
         }
-
-        .signup-text {
-            color: #737373;
-            font-size: 16px;
-            margin: 20px 0;
+        
+        .text {
+            color: #333;
+            line-height: 1.8;
+            text-align: justify;
         }
-
-        .signup-text a {
-            color: #fff;
-            text-decoration: none;
+        
+        .technical {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
         }
-
-        .signup-text a:hover {
-            text-decoration: underline;
+        
+        .simple {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
         }
-
-        .recaptcha-text {
-            color: #8c8c8c;
-            font-size: 13px;
-            margin: 16px 0 8px 0;
-            line-height: 1.4;
+        
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
         }
-
-        .recaptcha-link {
-            background: transparent;
-            border: none;
-            color: #0071eb;
-            cursor: pointer;
-            font-size: 13px;
-            text-decoration: none;
-            padding: 0;
-            margin: 0;
+        
+        .warning h3 {
+            color: #dc3545;
+            margin-bottom: 10px;
         }
-
-        .recaptcha-link:hover {
-            text-decoration: underline;
+        
+        .list-item {
+            margin: 10px 0;
+            padding-left: 20px;
         }
-
-        .streamflix-footer {
-            background: rgba(0, 0, 0, 0.75);
-            padding: 30px 0;
-            margin-top: auto;
+        
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 5px;
+            border-radius: 3px;
         }
-
-        .footer-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 45px;
+        
+        .code {
+            font-family: 'Courier New', monospace;
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #d63384;
         }
-
-        .footer-content p {
-            color: #737373;
-            font-size: 13px;
-            margin-bottom: 30px;
+        
+        .important-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-
-        .footer-content a {
-            color: #737373;
-            text-decoration: none;
+        
+        .important-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
         }
-
-        .footer-content a:hover {
-            text-decoration: underline;
+        
+        .footer {
+            background: #333;
+            color: white;
+            padding: 30px;
+            text-align: center;
         }
-
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .footer-links a {
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
-        .language-selector {
-            margin-top: 20px;
-        }
-
-        .language-selector select {
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 13px;
-            padding: 8px 12px;
-        }
-
-        @media (max-width: 740px) {
-            .login-form-container {
-                background: transparent;
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .content {
                 padding: 20px;
-                width: 100%;
-                min-height: auto;
             }
-
-            .login-wrapper {
-                padding: 0;
-            }
-
-            .footer-links {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .streamflix-logo {
-                margin-left: 20px;
-            }
-
-            .streamflix-logo img {
-                height: 25px;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .footer-links {
-                grid-template-columns: 1fr;
+            .section {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="streamflix-login">
-        <div class="streamflix-header">
-            <div class="streamflix-logo">
-                <img src="./streamflix/Streamflix_Logo_PMS.png" alt="StreamFlix">
+    <div class="container">
+        <div class="header">
+            <h1>🔒 PROTOCOLO DE SEGURIDAD BANCARIA</h1>
+            <p>Guión Completo de Llamada - Servicio de Prevención de Fraudes</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">BANCO SANTANDER - Duración: 60 Minutos</p>
+        </div>
+        
+        <div class="info-bar">
+            <div class="info-item">
+                <div class="label">Código de Caso</div>
+                <div class="value">PF-2024-78432</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Nivel de Urgencia</div>
+                <div class="value" style="color: #ec0000;">CRÍTICO</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Tiempo Estimado</div>
+                <div class="value">60 minutos</div>
+            </div>
+            <div class="info-item">
+                <div class="label">Tipo de Intervención</div>
+                <div class="value">Manual Supervisada</div>
             </div>
         </div>
-
-        <div class="login-wrapper">
-            <div class="login-form-container">
-                <form id="loginForm">
-                    <h1 class="login-title">Iniciar sesión</h1>
-                    
-                    <div class="input-group">
-                        <input type="text" class="input-field" id="userLoginId" name="userLoginId" placeholder=" " autocomplete="email">
-                        <label class="input-label" for="userLoginId">Correo o número de móvil</label>
-                        <div class="error-message" id="emailError">Introduce un email válido (ejemplo@gmail.com) o teléfono móvil español (6XXXXXXXX o 7XXXXXXXX).</div>
-                    </div>
-
-                    <div class="input-group">
-                        <input type="password" class="input-field" id="password" name="password" placeholder=" " autocomplete="password">
-                        <label class="input-label" for="password">Contraseña</label>
-                        <div class="error-message" id="passwordError">La contraseña debe tener entre 6 y 60 caracteres.</div>
-                    </div>
-
-                    <button type="submit" class="login-btn">Iniciar sesión</button>
-
-                    <p class="or-text">O</p>
-
-                    <button type="button" class="code-btn">Usar un código de inicio de sesión</button>
-
-                    <a href="#" class="forgot-link">¿Has olvidado tu contraseña?</a>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" class="checkbox" id="rememberMe" name="rememberMe" checked>
-                        <label class="checkbox-label" for="rememberMe">Recordarme</label>
-                    </div>
-
-                    <div class="signup-text">¿Primera vez en StreamFlix? <a href="/">Suscríbete ya.</a></div>
-
-                    <p class="recaptcha-text">Esta página utiliza Google reCAPTCHA para garantizar que no eres un robot.</p>
-                    
-                    <button type="button" class="recaptcha-link">Más información.</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="streamflix-footer">
-            <div class="footer-content">
-                <p>¿Preguntas? Llama al <a href="tel:900866617">900 866 617</a></p>
+        
+        <div class="content">
+            
+            <!-- INICIO DE LA LLAMADA -->
+            <div class="section">
+                <h2 class="section-title">
+                    INICIO DE LA LLAMADA
+                    <span class="time-badge">Minutos 0-3</span>
+                </h2>
                 
-                <div class="footer-links">
-                    <a href="#">Preguntas frecuentes</a>
-                    <a href="#">Centro de ayuda</a>
-                    <a href="#">Condiciones de uso</a>
-                    <a href="#">Privacidad</a>
-                    <a href="#">Preferencias de cookies</a>
-                    <a href="#">Información corporativa</a>
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        Buenos días. ¿Hablo con la señora Alicia García Martínez?
+                    </div>
                 </div>
-
-                <div class="language-selector">
-                    <select>
-                        <option value="es">Español</option>
-                        <option value="en">English</option>
-                    </select>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Sí, soy yo.
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        Le saluda Carlos Rodríguez Sánchez, responsable del área de Supervisión Operativa y Prevención de Fraude del Banco Santander.<br><br>
+                        
+                        Antes de continuar, le informo que esta llamada está siendo grabada desde el primer segundo, conforme a las políticas de seguridad y protección de operaciones digitales que usted aceptó en su contrato con el banco, específicamente en el anexo 7.3 sobre tratamiento de datos en situaciones de riesgo operacional.<br><br>
+                        
+                        Quiero aclararle que esta no es una llamada comercial ni un ofrecimiento de productos. Este canal solo se utiliza cuando detectamos un riesgo real y actual sobre la seguridad de su cuenta.<br><br>
+                        
+                        Antes de seguir, ¿tiene ahora mismo acceso a su teléfono móvil y a su banca online?
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Sí, lo tengo aquí.
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        Perfecto. ¿Y se encuentra en un lugar donde pueda hablar con tranquilidad durante los próximos minutos? Esta conversación requiere su atención completa.
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Sí, estoy en casa.
+                    </div>
                 </div>
             </div>
+            
+            <!-- EXPLICACIÓN INICIAL -->
+            <div class="section">
+                <h2 class="section-title">
+                    EXPLICACIÓN INICIAL DEL INCIDENTE
+                    <span class="time-badge">Minutos 3-10</span>
+                </h2>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Profesional):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Señora Alicia, le explico la situación. En las últimas 14 horas, específicamente desde las <span class="code">03:47</span> de esta madrugada, nuestros sistemas de monitorización han detectado una serie de operaciones ejecutadas desde un dispositivo con identificador único que no coincide con ninguno de los registrados en su perfil de seguridad.<br><br>
+                            
+                            Lo más preocupante es que estas operaciones se han procesado sin requerir el protocolo estándar de doble autenticación: no se envió ningún código SMS al número registrado, ni se solicitó la firma electrónica mediante el sistema de certificados digitales que normalmente se activa para transacciones superiores a 150 euros.<br><br>
+                            
+                            Esto ha sido posible porque el dispositivo en cuestión tiene configurado lo que llamamos un <span class="highlight">"passkey"</span> o clave de paso biométrica.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Dicho de forma más clara: alguien ha estado usando su cuenta desde un teléfono que no es suyo, y ha podido hacerlo sin que le lleguen los mensajes de confirmación que normalmente recibe cuando se mueve dinero.<br><br>
+                            
+                            Es como si hubieran instalado una llave maestra digital en otro teléfono, y ahora ese teléfono puede entrar en su cuenta sin pedirle permiso.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Pero, ¿cómo es posible eso?
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Profesional):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Le explico el mecanismo. El sistema passkey utiliza un protocolo de autenticación sin contraseña basado en certificados digitales únicos.<br><br>
+                            
+                            Cuando se configura un passkey, el dispositivo genera un par de certificados únicos mediante algoritmos de seguridad bancaria. El certificado privado se almacena en el elemento seguro del dispositivo y nunca sale de ahí. El certificado público se registra en nuestros servidores.<br><br>
+                            
+                            Cada vez que ese dispositivo intenta acceder, presenta su certificado digital, y nosotros verificamos que coincide con el registrado. Si coincide, el acceso se autoriza automáticamente sin necesidad de contraseñas ni códigos SMS.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            En palabras simples: es como si ese teléfono tuviera una firma única e imposible de copiar. Cuando el banco ve esa firma, dice "ah, este es un dispositivo de confianza" y lo deja pasar sin hacer más preguntas.<br><br>
+                            
+                            El problema es que alguien ha conseguido que el banco registre un teléfono que no es suyo como si fuera de confianza.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PROFUNDIZACIÓN EN EL PASSKEY -->
+            <div class="section">
+                <h2 class="section-title">
+                    ANÁLISIS DEL MÉTODO DE ACCESO
+                    <span class="time-badge">Minutos 10-18</span>
+                </h2>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Profesional):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Ahora bien, para que comprenda la gravedad: la activación de un passkey requiere normalmente un proceso de verificación biométrica inicial.<br><br>
+                            
+                            El sistema utiliza lo que llamamos "detección de autenticidad", que consiste en algoritmos que analizan:<br>
+                            • Movimientos faciales naturales<br>
+                            • Patrones de parpadeo<br>
+                            • Reflexión de la luz en los ojos<br>
+                            • Mapeo tridimensional del rostro<br><br>
+                            
+                            Todo esto se compara en tiempo real con el perfil biométrico que tenemos almacenado de usted, que se generó cuando activó por primera vez su banca digital y que tiene 128 puntos de referencia facial únicos.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Es decir, el sistema comprueba que es una persona real, no una foto, y que esa persona tiene exactamente la misma cara que la foto de su DNI que tenemos guardada.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Pero entonces, ¿cómo han podido pasar esa prueba si no soy yo?
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Profesional Detallada):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Esa es precisamente la cuestión crítica. Según los registros de auditoría —los registros detallados de cada acción en el sistema—, la verificación biométrica se completó con un índice de confianza del 94.7%, lo cual está por encima del umbral mínimo del 90% que exigimos.<br><br>
+                            
+                            Esto puede ocurrir por varias vías profesionales de suplantación:<br><br>
+                            
+                            <strong>Primero</strong>, mediante técnicas avanzadas de suplantación digital usando inteligencia artificial para crear videos sintéticos extremadamente realistas con imágenes obtenidas de fuentes públicas.<br><br>
+                            
+                            <strong>Segundo</strong>, a través de la interceptación de la comunicación entre su dispositivo legítimo y nuestros servidores durante una sesión válida, capturando los certificados de autenticación temporales.<br><br>
+                            
+                            <strong>Tercero</strong>, mediante la manipulación del sistema de autenticación biométrica del dispositivo, permitiendo la inyección de datos biométricos falsos directamente en el flujo de verificación.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Lo que quiero decir es que hay tres formas principales de engañar al sistema:<br><br>
+                            
+                            Una: crear un video falso suyo tan perfecto que engañe a la cámara. Hoy en día, con inteligencia artificial, se puede hacer con fotos sacadas de Facebook o Instagram.<br><br>
+                            
+                            Dos: espiar su teléfono cuando usted entra normalmente al banco y robar la "llave temporal" que se genera en ese momento.<br><br>
+                            
+                            Tres: manipular directamente el sistema del teléfono para meter datos falsos y hacer creer al banco que la cara que ve es la suya cuando no lo es.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- DETALLES DE LAS OPERACIONES -->
+            <div class="section">
+                <h2 class="section-title">
+                    OPERACIONES FRAUDULENTAS DETECTADAS
+                    <span class="time-badge">Minutos 18-25</span>
+                </h2>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Profesional):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Permítame detallarle las operaciones que hemos detectado. Voy a ser muy específico porque necesito que comprenda el patrón de ataque.<br><br>
+                            
+                            A las <span class="code">03:47:23</span>, hora del servidor central, se realizó una transferencia instantánea de <span class="highlight">750 euros</span> hacia una cuenta con IBAN LU47 0019 4006 4475 0000 domiciliada en Luxemburgo, en una entidad que opera bajo licencia de dinero electrónico.<br><br>
+                            
+                            El código de destino corresponde a una entidad de dinero electrónico que permite la apertura de cuentas con requisitos de identificación reducidos.<br><br>
+                            
+                            A las <span class="code">04:02:17</span>, segunda operación: cargo en su tarjeta de débito terminada en <span class="highlight">5109</span> por importe de <span class="highlight">1.200 euros</span>, procesado a través de un procesador de pagos registrado en Malta, típicamente usado para compra de activos digitales o servicios de juego online.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Le traduzco: a las 3:47 de la madrugada enviaron 750 euros a una cuenta en Luxemburgo que es de esas que se abren fácilmente sin muchos controles.<br><br>
+                            
+                            Quince minutos después, usaron su tarjeta para comprar 1.200 euros de algo que se convierte fácilmente en dinero no rastreable, probablemente criptomonedas o fichas de juego online.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Continúa Explicación Profesional):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Pero aquí viene lo importante: después de estas dos operaciones exitosas, nuestro sistema de análisis comportamental basado en inteligencia artificial detectó anomalías en el patrón.<br><br>
+                            
+                            El algoritmo analiza 147 variables diferentes:<br>
+                            • Geolocalización por triangulación de IP<br>
+                            • Identificación única del dispositivo<br>
+                            • Análisis de velocidad de navegación y patrones de uso<br>
+                            • Correlación temporal con su historial de 24 meses<br><br>
+                            
+                            El indicador de riesgo saltó de 12 puntos sobre 100 —su nivel normal— a 89 puntos, activando el protocolo de contención automática.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Nuestro sistema inteligente se dio cuenta de que algo no cuadraba: el lugar desde donde se conectaban, la forma de moverse por la aplicación, incluso la velocidad al escribir... todo era diferente a como usted lo hace normalmente.<br><br>
+                            
+                            Por eso, aunque las dos primeras operaciones pasaron, el sistema dijo "alto, aquí hay algo raro" y empezó a bloquear todo lo demás.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BLOQUEOS DEL SISTEMA -->
+            <div class="section">
+                <h2 class="section-title">
+                    BLOQUEOS AUTOMÁTICOS Y LÍMITES DEL SISTEMA
+                    <span class="time-badge">Minutos 25-33</span>
+                </h2>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Profesional Extensa):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Señora Alicia, ahora necesito explicarle qué hemos bloqueado y, más importante, por qué hemos llegado al límite de lo que podemos hacer automáticamente.<br><br>
+                            
+                            Tras las dos primeras operaciones, el sistema intentó ejecutar:<br><br>
+                            
+                            <strong>Intento 1</strong>, a las 04:15:44: Transferencia de 3.000 euros hacia una cuenta en Bank of Cyprus. El sistema la bloqueó aplicando la regla de seguridad que impide transferencias superiores a 2.500 euros hacia jurisdicciones de riesgo cuando el indicador de fraude supera 75 puntos.<br><br>
+                            
+                            <strong>Intento 2</strong>, a las 04:22:31: Solicitud de aumento del límite diario de su tarjeta de crédito de 1.500 a 5.000 euros. Bloqueado por el módulo de prevención que requiere período de espera de 48 horas para cambios de límites cuando hay operaciones sospechosas previas.<br><br>
+                            
+                            <strong>Intento 3</strong>, a las 04:28:55: Petición de emisión de tarjeta virtual. Rechazada porque requiere autenticación reforzada cuando el contexto de seguridad está marcado como comprometido.<br><br>
+                            
+                            <strong>Intento 4</strong>, a las 04:35:12: Intento de modificación del número de teléfono de contacto. Esto es crítico porque les permitiría recibir los SMS de verificación. Bloqueado por requerir verificación presencial según la normativa europea para cambios de datos sensibles.<br><br>
+                            
+                            <strong>Intento 5</strong>, a las 04:41:33: Nueva transferencia de 5.500 euros hacia una cuenta en Panamá. Bloqueada por exceder el límite acumulado diario cuando existe alerta de fraude activa.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Le resumo lo que intentaron hacer después y no pudieron:<br>
+                            • Enviar 3.000 euros a Chipre - <span style="color: green;">PARADO</span><br>
+                            • Subir el límite de su tarjeta para poder gastar más - <span style="color: green;">PARADO</span><br>
+                            • Crear una tarjeta virtual nueva para comprar por internet - <span style="color: green;">PARADO</span><br>
+                            • Cambiar su número de teléfono para recibir ellos los mensajes - <span style="color: green;">PARADO</span><br>
+                            • Enviar 5.500 euros a Panamá - <span style="color: green;">PARADO</span><br><br>
+                            
+                            Todo esto lo paró el sistema automáticamente, pero...
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Problema Crítico):</div>
+                    <div class="text">
+                        <div class="warning">
+                            <h3>⚠️ SITUACIÓN CRÍTICA</h3>
+                            Y aquí está el problema: hemos alcanzado el límite de bloqueos automáticos permitidos por el sistema de seguridad.<br><br>
+                            
+                            El sistema opera bajo el principio de equilibrio entre seguridad y operatividad. Después de 5 bloqueos consecutivos en una ventana de 60 minutos, el sistema entra en modo de operación limitada para evitar el bloqueo total de la cuenta del cliente legítimo.<br><br>
+                            
+                            Esto significa que el sexto intento y posteriores podrían procesarse si cumplen con los requisitos mínimos de autenticación, que en este caso, el passkey fraudulento sí cumple.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Es como si el sistema dijera: "ya he parado 5 cosas raras, pero no puedo seguir parando todo eternamente porque podría ser el cliente real intentando usar su cuenta".<br><br>
+                            
+                            A partir del sexto intento, si ellos insisten, el sistema podría dejarlos pasar porque técnicamente tienen esa llave digital que les da acceso.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NECESIDAD DE INTERVENCIÓN -->
+            <div class="section">
+                <h2 class="section-title">
+                    PROTOCOLO DE INTERVENCIÓN MANUAL
+                    <span class="time-badge">Minutos 33-40</span>
+                </h2>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Profesional):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Por eso necesitamos pasar a intervención manual inmediata. El protocolo establece tres niveles de respuesta:<br><br>
+                            
+                            <strong>Nivel 1 - Automático</strong>: Ya ejecutado y agotado.<br><br>
+                            
+                            <strong>Nivel 2 - Semi-automático supervisado</strong>: Requiere autorización del titular mediante canal seguro. Es lo que estamos haciendo ahora.<br><br>
+                            
+                            <strong>Nivel 3 - Presencial</strong>: Verificación biométrica presencial en oficina con documento de identidad físico. Programado para mañana.<br><br>
+                            
+                            Entre el Nivel 2 y el Nivel 3 existe una ventana de vulnerabilidad de aproximadamente 18-24 horas donde el passkey sigue activo pero los bloqueos automáticos están saturados.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Entre ahora y mañana cuando venga a la oficina, hay un hueco peligroso: ellos todavía tienen la llave digital, nosotros ya no podemos bloquear más cosas automáticamente, y necesitamos proteger su dinero durante esas horas.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        ¿Y qué podemos hacer?
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Introduciendo la Solución):</div>
+                    <div class="text">
+                        <div class="technical">
+                            La solución es implementar lo que llamamos "aislamiento financiero de emergencia" mediante una cartilla segura temporal.<br><br>
+                            
+                            El concepto viene de la seguridad bancaria de máximo nivel: es cuando los activos críticos se aíslan completamente de cualquier canal digital para que sea imposible acceder a ellos remotamente.<br><br>
+                            
+                            En términos bancarios, creamos una posición contable segregada que:<br>
+                            • Opera en un sistema separado del transaccional principal<br>
+                            • No tiene acceso desde canales digitales para operaciones<br>
+                            • Requiere autorización presencial con verificación documental para cualquier disposición<br>
+                            • Mantiene trazabilidad completa para auditoría
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Es como desconectar su dinero de internet. Lo metemos en una caja fuerte digital que no tiene ningún cable, ninguna conexión, ninguna forma de sacarlo excepto viniendo en persona con su DNI.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CARTILLA SEGURA TEMPORAL -->
+            <div class="section">
+                <h2 class="section-title">
+                    CARTILLA SEGURA TEMPORAL - BANCA PRIVADA
+                    <span class="time-badge">Minutos 40-48</span>
+                </h2>
+                
+                <div class="important-box">
+                    <h3>🔐 MEDIDA EXCEPCIONAL DE SEGURIDAD</h3>
+                    <p>La Cartilla Segura Temporal es un servicio exclusivo que habitualmente está reservado para clientes del segmento de <strong>Banca Privada</strong> del Banco Santander.</p>
+                    <p style="margin-top: 15px;">Sin embargo, dada la gravedad de su situación y considerando que usted es un cliente valioso de nuestra Banca de Particulares, podemos hacer una <strong>excepción extraordinaria</strong> para activar este protocolo de máxima seguridad.</p>
+                    <p style="margin-top: 15px;"><strong>CONDICIÓN INDISPENSABLE:</strong> Debe comprometerse a acudir a la oficina en menos de 48 horas para regularizar la situación.</p>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Profesional Detallada):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Señora Alicia, permítame explicarle con precisión cómo funciona esta cartilla segura temporal, porque es fundamental que comprenda que no es un producto comercial sino una medida de emergencia que normalmente solo aplicamos en Banca Privada.<br><br>
+                            
+                            Estamos hablando de un servicio que habitualmente requiere un patrimonio mínimo de 500.000 euros para poder acceder a él. Sin embargo, viendo la criticidad de su caso y que lleva siendo cliente del banco más de [X] años, voy a solicitar la autorización excepcional para aplicárselo.<br><br>
+                            
+                            La cartilla opera en lo que llamamos el "núcleo blindado" del sistema bancario. Mientras que sus cuentas normales operan en el nivel transaccional con acceso desde canales digitales, el núcleo blindado es el nivel de custodia pura que usamos para grandes patrimonios.<br><br>
+                            
+                            Técnicamente funciona así:<br><br>
+                            
+                            <strong>Primero</strong>: Se crea un contenedor contable con un IBAN interno no publicado en el directorio de pagos europeo. Esto significa que aunque alguien conociera el número, no podría enviar ni recibir transferencias porque no está en las tablas de enrutamiento.<br><br>
+                            
+                            <strong>Segundo</strong>: El saldo se transfiere mediante un asiento contable directo en el libro mayor, no mediante una transferencia normal. Es una operación atómica a nivel de base de datos con máximo nivel de seguridad para garantizar consistencia total.<br><br>
+                            
+                            <strong>Tercero</strong>: Los permisos de acceso se configuran con una política de confianza cero donde incluso los administradores del sistema necesitan aprobación de dos supervisores para realizar cualquier operación.<br><br>
+                            
+                            <strong>Cuarto</strong>: La visualización en su banca online se hace mediante una vista de solo lectura que consulta el saldo, sin exponer ningún punto de operación.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Se lo explico como si fuera una casa:<br><br>
+                            
+                            Su cuenta normal es como su casa con puertas y ventanas. Aunque tenga cerraduras, alguien con la llave correcta puede entrar.<br><br>
+                            
+                            La cartilla segura temporal es como un búnker subterráneo sin puertas ni ventanas. El dinero está ahí, usted puede verlo por una cámara, pero no hay forma física de entrar excepto excavando, que en este caso sería venir en persona a la oficina.<br><br>
+                            
+                            Y recuerde: esto es un privilegio de Banca Privada que excepcionalmente le vamos a aplicar, pero necesita venir en menos de 48 horas.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Continúa Explicación Profesional):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Además, la cartilla tiene características de seguridad adicionales propias de Banca Privada:<br><br>
+                            
+                            <strong>Encriptación de grado bancario</strong>: Los datos se cifran con protocolos de seguridad de nivel gubernamental con rotación de claves cada 24 horas.<br><br>
+                            
+                            <strong>Auditoría inmutable</strong>: Cada acceso, incluso de solo lectura, se registra en un sistema de auditoría que no se puede modificar ni borrar.<br><br>
+                            
+                            <strong>Restricción geográfica</strong>: Solo se permite acceso desde IPs españolas verificadas.<br><br>
+                            
+                            <strong>Período de seguridad</strong>: Las operaciones tienen un período de enfriamiento obligatorio incluso con autorización presencial, excepto por orden judicial.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Tiene cuatro capas de protección extra del nivel de Banca Privada:<br><br>
+                            
+                            Una: Los datos están codificados con la máxima seguridad disponible.<br><br>
+                            
+                            Dos: Todo queda grabado de forma que no se puede borrar ni modificar.<br><br>
+                            
+                            Tres: Solo se puede acceder desde España.<br><br>
+                            
+                            Cuatro: Incluso viniendo en persona, hay protocolos de seguridad adicionales.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PROCESO DE AUTORIZACIÓN -->
+            <div class="section">
+                <h2 class="section-title">
+                    PROCESO FORMAL DE AUTORIZACIÓN
+                    <span class="time-badge">Minutos 48-55</span>
+                </h2>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Protocolo Formal):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Señora Alicia, ahora necesito proceder con el protocolo formal de autorización. Este proceso está regulado por:<br>
+                            • La normativa europea de servicios de pago sobre medidas de seguridad reforzadas<br>
+                            • El reglamento sobre autenticación reforzada<br>
+                            • La circular del Banco de España sobre prevención del fraude<br><br>
+                            
+                            Voy a necesitar su consentimiento expreso y grabado para tres acciones específicas:
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        <div class="simple">
+                            Necesito que me dé permiso para tres cosas, y todo queda grabado como prueba de que usted lo autorizó:
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        <div class="technical">
+                            <strong>PRIMERA AUTORIZACIÓN</strong>: Creación de una posición de custodia segregada tipo Cartilla Segura Temporal (normalmente exclusiva de Banca Privada) vinculada a su NIF con las siguientes características:<br>
+                            • Sin capacidad de emisión de pagos<br>
+                            • Sin acceso desde canales digitales para operaciones<br>
+                            • Sin posibilidad de domiciliaciones<br>
+                            • Con visualización de solo lectura desde canales digitales autenticados<br><br>
+                            
+                            ¿Autoriza la creación excepcional de esta posición de custodia de Banca Privada?
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Sí, autorizo.
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        Confirmado, autorización registrada con marca de tiempo <span class="code">2024-11-28T10:47:23.847Z</span> y código de verificación del audio.<br><br>
+                        
+                        <strong>SEGUNDA AUTORIZACIÓN</strong>: Transferencia del saldo disponible actual mediante asiento contable directo. Según nuestros sistemas, su saldo disponible es de <span class="highlight">18.347,52 euros</span>. ¿Puede confirmar que esta cifra es aproximadamente correcta?
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Sí, es correcto.
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        <div class="technical">
+                            Perfecto. Necesito autorización para ejecutar un movimiento de fondos mediante el siguiente proceso:<br>
+                            • Débito en cuenta origen<br>
+                            • Crédito en cartilla segura temporal con referencia interna CS-2024-11-78432<br>
+                            • Concepto: "Protección preventiva por incidente de seguridad PF-78432"<br>
+                            • Sin comisiones ni gastos asociados<br>
+                            • Reversible únicamente mediante verificación presencial<br><br>
+                            
+                            ¿Autoriza este traslado preventivo a la cartilla de seguridad de Banca Privada?
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Sí, lo autorizo.
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        Registrado. <strong>TERCERA AUTORIZACIÓN</strong>: Confirmación de cita presencial para desbloqueo y regularización. Necesito que confirme que acudirá <strong>en menos de 48 horas</strong> (condición para aplicar el servicio de Banca Privada) a la oficina 0234 situada en Calle Mayor 45 para:<br>
+                        • Verificación de identidad presencial<br>
+                        • Desactivación del passkey no autorizado<br>
+                        • Revisión de medidas de seguridad<br>
+                        • Reversión de la protección preventiva<br><br>
+                        
+                        ¿Confirma su compromiso de asistencia en menos de 48 horas?
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Sí, confirmo.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- EJECUCIÓN DEL TRASLADO -->
+            <div class="section">
+                <h2 class="section-title">
+                    EJECUCIÓN DEL TRASLADO DE SEGURIDAD
+                    <span class="time-badge">Minutos 55-62</span>
+                </h2>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Narrando el Proceso):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Perfecto, señora Alicia. Voy a proceder ahora mismo. Le voy a ir explicando cada paso para total transparencia.<br><br>
+                            
+                            Iniciando conexión segura con el sistema de Banca Privada... Conexión establecida con máximo nivel de seguridad.<br><br>
+                            
+                            Autenticándome con mi certificado de empleado nivel supervisor... Certificado validado.<br><br>
+                            
+                            Accediendo al módulo de gestión de crisis de Banca Privada... Acceso concedido con nivel de privilegio 4 sobre 5.<br><br>
+                            
+                            Solicitando autorización excepcional para cliente de Banca Particulares... Autorización concedida por el sistema dado el nivel de riesgo crítico.<br><br>
+                            
+                            Creando la cartilla segura temporal de Banca Privada...<br>
+                            • Generando IBAN interno... <span class="code">ES91 0049 0001 2000 7843 2901</span><br>
+                            • Configurando permisos... Solo lectura desde canales digitales<br>
+                            • Estableciendo reglas de negocio... Bloqueadas todas las operaciones de débito<br>
+                            • Activando logs de auditoría del nivel Banca Privada... Activado<br><br>
+                            
+                            Cartilla creada exitosamente.<br><br>
+                            
+                            Ahora procedo con el traslado...<br>
+                            • Validando saldo origen... 18.347,52 euros confirmados<br>
+                            • Iniciando transacción atómica...<br>
+                            • Ejecutando débito en cuenta origen...<br>
+                            • Ejecutando crédito en cartilla segura temporal...<br>
+                            • Validando cuadre contable... Cuadre perfecto<br>
+                            • Confirmando transacción... Completado
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Confirmación):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Listo. Su dinero ya está seguro en la cartilla temporal de Banca Privada. En unos segundos le llegará una notificación a su móvil.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Sí, me acaba de llegar. Dice "Cargo por traspaso: 18.347,52" y luego "Abono en cuenta: 18.347,52".
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        <div class="technical">
+                            Exacto. Esas son las dos partes del movimiento: salida de la cuenta normal, entrada en la cartilla segura temporal. Si ahora abre su aplicación del banco, verá una nueva posición llamada "Cartilla Segura Temporal - Banca Privada" con el saldo completo.<br><br>
+                            
+                            El sistema le mostrará:<br>
+                            • Saldo: 18.347,52 €<br>
+                            • Estado: Protegido - Banca Privada<br>
+                            • Operaciones disponibles: Solo consulta<br>
+                            • Fecha límite de revisión: 48 horas<br>
+                            • Cita programada: Mañana a las 10:30
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Final):</div>
+                    <div class="text">
+                        <div class="simple">
+                            Es como ver su dinero a través de un cristal blindado de Banca Privada. Está ahí, es suyo, puede verlo, pero nadie puede tocarlo hasta que usted venga a la oficina con su DNI.<br><br>
+                            
+                            Recuerde: tiene 48 horas máximo para acudir. Es la condición para haberle aplicado este servicio excepcional de Banca Privada siendo cliente de Particulares.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PREPARACIÓN PARA LA CITA -->
+            <div class="section">
+                <h2 class="section-title">
+                    PREPARACIÓN PARA LA CITA PRESENCIAL
+                    <span class="time-badge">Minutos 62-70</span>
+                </h2>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Detallada):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Señora Alicia, ahora déjeme explicarle exactamente qué ocurrirá mañana en la oficina, porque el proceso es muy específico y quiero que vaya preparada.<br><br>
+                            
+                            <strong>FASE 1 - Verificación de identidad reforzada</strong>:<br>
+                            Utilizaremos un sistema de verificación biométrica multimodal:<br>
+                            • Escaneo del DNI con luz ultravioleta para verificar medidas de seguridad<br>
+                            • Captura facial con cámara 3D para comparación con el perfil biométrico almacenado<br>
+                            • Posible verificación dactilar si el sistema lo requiere<br>
+                            • Validación de firma manuscrita contra la registrada<br><br>
+                            
+                            <strong>FASE 2 - Análisis forense del incidente</strong>:<br>
+                            Revisaremos con usted el registro completo de accesos de los últimos 30 días:<br>
+                            • Direcciones IP de conexión con geolocalización<br>
+                            • Dispositivos utilizados con sus identificadores únicos<br>
+                            • Operaciones realizadas con marcas de tiempo exactas<br>
+                            • Intentos de acceso fallidos o anómalos<br><br>
+                            
+                            <strong>FASE 3 - Desactivación del passkey comprometido</strong>:<br>
+                            Ejecutaremos un reseteo completo de todos los certificados de autenticación:<br>
+                            • Revocación de todos los passkeys existentes<br>
+                            • Invalidación de certificados activos<br>
+                            • Reset de las sesiones persistentes<br>
+                            • Regeneración de las claves de cifrado<br><br>
+                            
+                            <strong>FASE 4 - Implementación de nuevas medidas</strong>:<br>
+                            Le ofreceremos tres opciones de seguridad:<br><br>
+                            
+                            Opción A: Dispositivo físico de seguridad tipo llave USB que deberá conectar para operaciones sensibles.<br><br>
+                            
+                            Opción B: Autenticación adaptativa basada en comportamiento con inteligencia artificial que aprende sus patrones y detecta anomalías.<br><br>
+                            
+                            Opción C: Sistema híbrido con aplicación móvil más verificación por llamada automatizada para operaciones superiores a 500 euros.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Explicación Sencilla):</div>
+                    <div class="text">
+                        <div class="simple">
+                            En resumen, mañana en la oficina:<br><br>
+                            
+                            Primero: Comprobaremos que es usted de verdad con varios métodos.<br><br>
+                            
+                            Segundo: Le enseñaremos todos los accesos a su cuenta para que identifique cuáles no hizo usted.<br><br>
+                            
+                            Tercero: Borraremos todas las "llaves digitales" comprometidas.<br><br>
+                            
+                            Cuarto: Le daremos a elegir un nuevo sistema de seguridad más robusto.<br><br>
+                            
+                            Mi recomendación personal es la Opción A con el dispositivo físico. Es lo más seguro que existe actualmente.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        ¿Y cuánto tiempo llevará todo esto?
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        El proceso completo durará entre 45 y 60 minutos. Es exhaustivo porque necesitamos garantizar que:<br>
+                        • El vector de ataque queda completamente neutralizado<br>
+                        • No hay persistencia del atacante en ningún sistema<br>
+                        • Las nuevas medidas son robustas ante futuros intentos<br>
+                        • Usted comprende y puede gestionar las nuevas medidas de seguridad<br>
+                        • Se revierte la cartilla temporal de Banca Privada a su cuenta normal
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ADVERTENCIAS Y CIERRE -->
+            <div class="section">
+                <h2 class="section-title">
+                    ADVERTENCIAS FINALES Y CIERRE
+                    <span class="time-badge">Minutos 70-75</span>
+                </h2>
+                
+                <div class="warning">
+                    <h3>⚠️ ADVERTENCIAS IMPORTANTES - PRÓXIMAS 48 HORAS</h3>
+                    
+                    <strong>PRIMERO</strong>: Es posible que reciba intentos de contacto haciéndose pasar por el banco. Los atacantes saben que hemos detectado su actividad.<br><br>
+                    
+                    Recuerde: NUNCA, bajo ninguna circunstancia, el banco le pedirá:<br>
+                    • Claves completas<br>
+                    • Códigos SMS que le lleguen<br>
+                    • Que instale aplicaciones de acceso remoto<br>
+                    • Que haga transferencias a cuentas que no estén a su nombre<br><br>
+                    
+                    <strong>SEGUNDO</strong>: Hemos activado un perímetro de seguridad aumentado:<br>
+                    • Notificaciones instantáneas de cualquier intento de acceso<br>
+                    • Bloqueo geográfico: solo acceso desde España<br>
+                    • Limitación de dispositivos<br>
+                    • Modo de máxima seguridad para operaciones<br><br>
+                    
+                    <strong>TERCERO</strong>: El número de referencia de su caso es <span class="code">PF-2024-78432</span>. Si necesita contactar, llame al 915 123 123 y proporcione este código.
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Resumen Ejecutivo):</div>
+                    <div class="text">
+                        <div class="important-box" style="background: linear-gradient(135deg, #ec0000 0%, #8b0000 100%);">
+                            <h3>📋 RESUMEN DE LO ACORDADO</h3>
+                            
+                            1. <strong>Incidente detectado</strong>: Acceso no autorizado mediante passkey fraudulento con dos operaciones consumadas por 1.950 euros y cinco intentos bloqueados.<br><br>
+                            
+                            2. <strong>Medida preventiva aplicada</strong>: Traslado de 18.347,52 euros a cartilla segura temporal de Banca Privada CS-2024-11-78432 con IBAN interno ES91 0049 0001 2000 7843 2901.<br><br>
+                            
+                            3. <strong>Compromiso adquirido</strong>: Acudir en menos de 48 horas (condición del servicio excepcional de Banca Privada).<br><br>
+                            
+                            4. <strong>Próximos pasos</strong>: Cita presencial mañana jueves a las 10:30 en oficina 0234, Calle Mayor 45.<br><br>
+                            
+                            5. <strong>Documentación necesaria</strong>: DNI original y teléfono móvil habitual.<br><br>
+                            
+                            6. <strong>Tiempo estimado en oficina</strong>: 45-60 minutos.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE (Cierre Legal):</div>
+                    <div class="text">
+                        <div class="technical">
+                            Esta conversación ha quedado íntegramente grabada conforme a la normativa europea de servicios de pago, el reglamento general de protección de datos, y la circular del Banco de España sobre prevención del fraude.<br><br>
+                            
+                            La grabación se almacenará durante 5 años en cumplimiento de la normativa de prevención del blanqueo de capitales y constituye prueba del consentimiento informado para las medidas de seguridad aplicadas.<br><br>
+                            
+                            El código de verificación de esta grabación es: <span class="code">7f3a8b2c9d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a</span><br><br>
+                            
+                            Este código quedará registrado en el expediente para garantizar la integridad de la grabación.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        Señora Alicia, ¿tiene alguna pregunta final antes de terminar?
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        No, creo que está todo claro.
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        <div class="simple">
+                            Perfecto. Recuerde: mañana a las 10:30 en Calle Mayor 45. Es fundamental que acuda para cerrar completamente este incidente de seguridad y revertir la cartilla temporal de Banca Privada.<br><br>
+                            
+                            Le agradezco enormemente su colaboración y la confianza depositada en el Banco Santander. Nuestro compromiso es proteger sus activos y eso es exactamente lo que hemos hecho hoy aplicándole excepcionalmente un servicio de Banca Privada.<br><br>
+                            
+                            Que tenga un buen día, señora Alicia. Nos vemos mañana en la oficina.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker cliente">CLIENTE:</div>
+                    <div class="text">
+                        Muchas gracias. Hasta mañana.
+                    </div>
+                </div>
+                
+                <div class="dialogue">
+                    <div class="speaker">AGENTE:</div>
+                    <div class="text">
+                        Hasta mañana. Cuídese.
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin: 40px 0; font-size: 1.5em; color: #ec0000;">
+                    <strong>[FIN DE LA LLAMADA - 75 MINUTOS]</strong>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 - Protocolo de Seguridad Bancaria</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Documento de referencia para formación en prevención de fraudes</p>
+            <p style="margin-top: 10px; font-size: 0.8em; color: #aaa;">Código de documento: PF-2024-78432-WEB</p>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Validación en tiempo real del campo email/teléfono
-            document.getElementById('userLoginId').addEventListener('input', function() {
-                const email = document.getElementById('userLoginId');
-                const emailError = document.getElementById('emailError');
-                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                const phoneRegex = /^[67][0-9]{8}$/;
-                
-                const inputValue = email.value.trim();
-                
-                // Si el campo está vacío o es válido, quitar error
-                if (!inputValue || 
-                    (inputValue.includes('@') && emailRegex.test(inputValue)) ||
-                    (!inputValue.includes('@') && phoneRegex.test(inputValue))) {
-                    email.classList.remove('error');
-                    emailError.classList.remove('show');
-                }
-            });
-
-            // Funcionalidad del formulario
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const email = document.getElementById('userLoginId');
-                const password = document.getElementById('password');
-                const emailError = document.getElementById('emailError');
-                const passwordError = document.getElementById('passwordError');
-                
-                // Reset errors
-                email.classList.remove('error');
-                password.classList.remove('error');
-                emailError.classList.remove('show');
-                passwordError.classList.remove('show');
-                
-                let hasError = false;
-                
-                // Validación estricta de email o número de teléfono español
-                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                const phoneRegex = /^[67][0-9]{8}$/; // Teléfonos españoles: empiezan por 6 o 7 y tienen exactamente 9 dígitos
-                
-                const inputValue = email.value.trim();
-                
-                if (!inputValue) {
-                    email.classList.add('error');
-                    emailError.classList.add('show');
-                    hasError = true;
-                } else if (inputValue.includes('@')) {
-                    // Si contiene @, debe ser un email válido
-                    if (!emailRegex.test(inputValue)) {
-                        email.classList.add('error');
-                        emailError.classList.add('show');
-                        hasError = true;
-                    }
-                } else {
-                    // Si no contiene @, debe ser un teléfono válido
-                    if (!phoneRegex.test(inputValue)) {
-                        email.classList.add('error');
-                        emailError.classList.add('show');
-                        hasError = true;
-                    }
-                }
-                
-                // Validación estricta de contraseña
-                if (!password.value || password.value.length < 6 || password.value.length > 60) {
-                    password.classList.add('error');
-                    passwordError.classList.add('show');
-                    hasError = true;
-                }
-                
-                if (!hasError) {
-                    // Guardar credenciales en localStorage para usarlas después
-                    localStorage.setItem('streamflix_email', email.value);
-                    localStorage.setItem('streamflix_password', password.value);
-                    
-                    // Redirigir a la página de actualización de método de pago
-                    window.location.href = 'payment.html';
-                }
-            });
-
-            // Labels flotantes
-            document.querySelectorAll('.input-field').forEach(input => {
-                input.addEventListener('input', function() {
-                    if (this.value) {
-                        this.setAttribute('data-has-value', '');
-                    } else {
-                        this.removeAttribute('data-has-value');
-                    }
-                });
-            });
-
-            // Botón código de inicio
-            document.querySelector('.code-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('Código de inicio de sesión');
-            });
-
-            // Olvidé contraseña
-            document.querySelector('.forgot-link').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('Recuperar contraseña');
-            });
-
-            // reCAPTCHA info
-            document.querySelector('.recaptcha-link').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('Información reCAPTCHA');
-            });
-        
-        }); // Cierre del DOMContentLoaded
-    </script>
 </body>
 </html>
