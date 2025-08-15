@@ -1,0 +1,19 @@
+# Nmap 7.95 scan initiated Fri Aug 15 20:39:23 2025 as: nmap -sV -sC -p- --min-rate=5000 -oN nmap_full.txt 217.75.225.91
+Nmap scan report for az-integra.com (217.75.225.91)
+Host is up (0.16s latency).
+Not shown: 65533 filtered tcp ports (no-response)
+PORT    STATE SERVICE    VERSION
+80/tcp  open  tcpwrapped
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+443/tcp open  tcpwrapped
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=library.netplusdental.com
+| Subject Alternative Name: DNS:library.netplusdental.com
+| Not valid before: 2025-07-12T21:30:16
+|_Not valid after:  2025-10-10T21:30:15
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+| tls-alpn: 
+|_  http/1.1
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Fri Aug 15 20:41:27 2025 -- 1 IP address (1 host up) scanned in 123.89 seconds
