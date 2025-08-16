@@ -1,0 +1,49 @@
+{
+  "vulnerabilities": [
+    "Method CONNECT allowed: 400",
+    [
+      "sqli",
+      "'"
+    ],
+    [
+      "sqli",
+      "\""
+    ],
+    [
+      "sqli",
+      "' OR '1'='1"
+    ],
+    [
+      "sqli",
+      "\" OR \"1\"=\"1"
+    ],
+    [
+      "sqli",
+      "' OR 1=1--"
+    ],
+    [
+      "sqli",
+      "admin'--"
+    ],
+    [
+      "sqli",
+      "' UNION SELECT NULL--"
+    ],
+    [
+      "sqli",
+      "1' AND '1'='2"
+    ],
+    [
+      "sqli",
+      "1 AND 1=2"
+    ]
+  ],
+  "paths": [],
+  "parameters": [],
+  "headers": [],
+  "cookies": [],
+  "forms": [],
+  "javascript": [],
+  "api_endpoints": [],
+  "bypass_methods": []
+}
