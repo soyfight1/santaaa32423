@@ -1,0 +1,8 @@
+AuthUserFile /var/www/secret/.htpasswd_super
+AuthGroupFile /dev/null
+AuthName "Private area - superadmin only"
+AuthType Basic
+
+<Limit GET POST>
+	require valid-user
+</Limit>

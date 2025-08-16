@@ -1,0 +1,7 @@
+<Files *>
+	AuthUserFile /var/www/secret/.htpasswd
+	AuthGroupFile /dev/null
+	AuthName "Private area"
+	AuthType Basic
+	require valid-user
+</Files>
