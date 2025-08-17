@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /
+
+RewriteRule ^page/(.+)$ /index.php?page=$1.php [NC,L]
