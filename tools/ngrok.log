@@ -1,0 +1,4 @@
+t=2025-08-14T22:33:33+0000 lvl=info msg="no configuration paths supplied"
+t=2025-08-14T22:33:33+0000 lvl=warn msg="ngrok config file found at legacy location, move to XDG location" xdg_path=/home/ubuntu/.config/ngrok/ngrok.yml legacy_path=/home/ubuntu/.ngrok2/ngrok.yml
+t=2025-08-14T22:33:33+0000 lvl=info msg="using configuration at default config path" path=/home/ubuntu/.ngrok2/ngrok.yml
+t=2025-08-14T22:33:33+0000 lvl=info msg="open config file" path=/home/ubuntu/.ngrok2/ngrok.yml err=nil
