@@ -1,0 +1,150 @@
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+OUTPUT_FILE: /workspace/dirb_scan.txt
+START_TIME: Fri Aug  8 19:21:04 2025
+URL_BASE: https://hispachan.in/
+WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+EXTENSIONS_LIST: (.php,.bak,.old,.txt,.sql,.zip,.tar,.gz,.conf,.config,.log) | (.php)(.bak)(.old)(.txt)(.sql)(.zip)(.tar)(.gz)(.conf)(.config)(.log) [NUM = 11]
+
+-----------------
+
+GENERATED WORDS: 4612
+
+---- Scanning URL: https://hispachan.in/ ----
+==> DIRECTORY: https://hispachan.in/~adm.txt/
+==> DIRECTORY: https://hispachan.in/~admin.txt/
+==> DIRECTORY: https://hispachan.in/~administrator.txt/
+==> DIRECTORY: https://hispachan.in/~amanda.txt/
+==> DIRECTORY: https://hispachan.in/~apache.txt/
+==> DIRECTORY: https://hispachan.in/~bin.txt/
+==> DIRECTORY: https://hispachan.in/~ftp.txt/
+==> DIRECTORY: https://hispachan.in/~guest.txt/
+==> DIRECTORY: https://hispachan.in/~http.txt/
+==> DIRECTORY: https://hispachan.in/~httpd.txt/
+==> DIRECTORY: https://hispachan.in/~log.txt/
+==> DIRECTORY: https://hispachan.in/~logs.txt/
+==> DIRECTORY: https://hispachan.in/~lp.txt/
+==> DIRECTORY: https://hispachan.in/~mail.txt/
+==> DIRECTORY: https://hispachan.in/~nobody.txt/
+==> DIRECTORY: https://hispachan.in/~operator.txt/
+==> DIRECTORY: https://hispachan.in/~root.txt/
+==> DIRECTORY: https://hispachan.in/~sys.txt/
+==> DIRECTORY: https://hispachan.in/~sysadm.txt/
+==> DIRECTORY: https://hispachan.in/~sysadmin.txt/
+==> DIRECTORY: https://hispachan.in/~test.txt/
+==> DIRECTORY: https://hispachan.in/~tmp.txt/
+==> DIRECTORY: https://hispachan.in/~user.txt/
+==> DIRECTORY: https://hispachan.in/~webmaster.txt/
+==> DIRECTORY: https://hispachan.in/~www.txt/
++ https://hispachan.in/banned.php (CODE:200|SIZE:3350)
++ https://hispachan.in/check.php (CODE:200|SIZE:166)
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~adm.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~admin.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~administrator.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~amanda.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~apache.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~bin.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~ftp.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~guest.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~http.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~httpd.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~log.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~logs.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~lp.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~mail.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~nobody.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~operator.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~root.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~sys.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~sysadm.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~sysadmin.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~test.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~tmp.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~user.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~webmaster.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: https://hispachan.in/~www.txt/ ----
+(!) WARNING: All responses for this directory seem to be CODE = 403.
+    (Use mode '-w' if you want to scan it anyway)
+
+-----------------
+END_TIME: Fri Aug  8 19:37:09 2025
+DOWNLOADED: 13286 - FOUND: 2

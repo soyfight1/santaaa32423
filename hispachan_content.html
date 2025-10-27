@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1a1a1a">
+<title>Hispachan - Imageboard Anónimo en Español - Comunidad Anónima en Español</title>
+<meta name="description" content="Hispachan es el imageboard anónimo en español más popular. Boards de anime, gaming, memes, creatividad y más. ¡Participa sin registro!">
+<meta name="keywords" content="Hispachan, imageboard, foro anónimo, anime, gaming, memes, creatividad, comunidad, boards, threads, posts, español, latino">
+<link rel="canonical" href="https://hispachan.in/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hispachan.in/">
+<meta property="og:site_name" content="Hispachan - Imageboard Anónimo en Español">
+<meta property="og:locale" content="es">
+<meta property="og:image" content="https://hispachan.in/assets/logo.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Hispachan - Imageboard Anónimo en Español - Comunidad Anónima en Español">
+<meta property="og:title" content="Hispachan - Imageboard Anónimo en Español - Comunidad Anónima en Español">
+<meta property="og:description" content="Hispachan es el imageboard anónimo en español más popular. Boards de anime, gaming, memes, creatividad y más. ¡Participa sin registro!">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@hispachanr">
+<meta name="twitter:image" content="https://hispachan.in/assets/logo.png">
+<meta name="twitter:title" content="Hispachan - Imageboard Anónimo en Español - Comunidad Anónima en Español">
+<meta name="twitter:description" content="Hispachan es el imageboard anónimo en español más popular. Boards de anime, gaming, memes, creatividad y más. ¡Participa sin registro!">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://hispachan.in","name":"Hispachan - Imageboard Anónimo en Español","description":"Hispachan es el imageboard anónimo en español más popular. Boards de anime, gaming, memes, creatividad y más. ¡Participa sin registro!","inLanguage":"es","potentialAction":{"@type":"SearchAction","target":"https://hispachan.in/search.php?q={search_term_string}","query-input":"required name=search_term_string"},"keywords":"Hispachan, imageboard, foro anónimo, anime, gaming, memes, creatividad, comunidad, boards, threads, posts, español, latino"}</script>
+
+<style>
+/* CSS crítico inline para mejorar First Contentful Paint */
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+.header-content { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; }
+.site-name { font-size: 1.5rem; font-weight: bold; }
+.search-bar { display: flex; align-items: center; }
+.search-bar input { padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; margin-right: 0.5rem; }
+.search-bar button { padding: 0.5rem 1rem; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+</style>
+<!-- Preload critical resources -->
+<link rel="preload" href="assets/styles/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="assets/js/main.js" as="script">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" as="style" crossorigin>
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="//www.googletagmanager.com">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<script>
+// Optimizaciones de JavaScript para mejorar Core Web Vitals
+document.addEventListener("DOMContentLoaded", function() {
+    // Defer non-critical JavaScript
+    setTimeout(function() {
+        // Cargar scripts no críticos
+        var scripts = document.querySelectorAll("script[data-defer]");
+        scripts.forEach(function(script) {
+            var newScript = document.createElement("script");
+            newScript.src = script.src;
+            document.head.appendChild(newScript);
+        });
+    }, 1000);
+    
+    // Optimizar eventos de scroll
+    let ticking = false;
+    function updateOnScroll() {
+        // Tu código de scroll aquí
+        ticking = false;
+    }
+    
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateOnScroll);
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener("scroll", requestTick);
+});
+</script>
+<script>
+// Lazy loading para imágenes
+document.addEventListener("DOMContentLoaded", function() {
+    var lazyImages = [].slice.call(document.querySelectorAll("img[data-src]"));
+    
+    if ("IntersectionObserver" in window) {
+        let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    let lazyImage = entry.target;
+                    lazyImage.src = lazyImage.dataset.src;
+                    lazyImage.classList.remove("lazy");
+                    lazyImageObserver.unobserve(lazyImage);
+                }
+            });
+        });
+        
+        lazyImages.forEach(function(lazyImage) {
+            lazyImageObserver.observe(lazyImage);
+        });
+    }
+});
+</script><link rel="icon" type="image/x-icon" href="https://hispachan.in/assets/favicon.png">
+    <link rel="stylesheet" href="assets/styles/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
+    <script src="assets/js/main.js" defer></script>
+    <script src="/assets/js/theme-switcher.js" defer></script>
+    <link rel="stylesheet" href="/assets/styles/classic-theme.css">
+</head>
+
+<body>
+
+
+    
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="site-brand">
+                <!-- <div class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div> -->
+                <img src="https://hispachan.in/assets/logo_hispachan.png" alt="hispachan_logo" width="200">
+                <!-- <span class="site-name">Hispachan</span> -->
+            </div>
+            <!-- 
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar en todo el sitio...">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        width="18" height="18">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+            </div>
+            -->
+        </div>
+    </div>
+</header>    <main class="container">
+        
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><ol class="breadcrumb-list"><li class="breadcrumb-item active"><span class="breadcrumb-text">Inicio</span></li></ol></nav>
+        <style>
+        .breadcrumbs {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .breadcrumb-link {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .breadcrumb-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        
+        .breadcrumb-text {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 0.5rem;
+            color: #6c757d;
+        }
+        
+        .breadcrumb-item.active .breadcrumb-text {
+            color: #495057;
+        }
+        
+        /* Estilos para móvil */
+        .mobile-breadcrumb {
+            display: none;
+            align-items: center;
+            margin: 0.5rem 0;
+            font-size: 0.85rem;
+        }
+        
+        .mobile-breadcrumb-home {
+            color: #007bff;
+            text-decoration: none;
+            padding: 0.25rem;
+        }
+        
+        .mobile-breadcrumb-separator {
+            margin: 0 0.25rem;
+            color: #6c757d;
+        }
+        
+        .mobile-breadcrumb-current {
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .breadcrumbs {
+                display: none;
+            }
+            
+            .mobile-breadcrumb {
+                display: flex;
+            }
+        }
+        </style>
+
+
+        <div class="welcome-card">
+    <h1>Bautizo DDoS: ya nos quieren</h1>
+                        <p>Nos tiran botcitos. Mitigación activa (CDN + rate limit). Si ves 502/lentitud: Ctrl+F5 o espera 1–2 min. Seguimos posteando.</p>
+                <!-- <div class="links">
+        <a href="rules.php">Reglas (sí, aunque no lo creas hay)</a>
+        <a href="faq.php">FAQ (porque la ignorancia no es excusa)</a>
+    </div>
+    -->
+</div>
+        <section class="category-section">
+    <div class="section-header">
+        <h2>Tablones</h2>
+    </div>
+
+    <div class="boards-grid">
+        <div class="board-category"><h3 class="category-title">Entretenimiento</h3><div class="board-list"><div class="board-item"><a href="/an/" class="board-link"><i class="bi-book board-icon"></i> Anime y Manga</a></div><div class="board-item"><a href="/tv/" class="board-link"><i class="bi-tv board-icon"></i> Cine y TV</a></div><div class="board-item"><a href="/legacy/" class="board-link"><i class="bi-list-columns-reverse board-icon"></i> Legado</a></div><div class="board-item"><a href="/mu/" class="board-link"><i class="bi-music-note-beamed board-icon"></i> Música</a></div><div class="board-item"><a href="/v/" class="board-link"><i class="bi-controller board-icon"></i> Videojuegos</a></div></div></div><div class="board-category"><h3 class="category-title">Interés general</h3><div class="board-list"><div class="board-item"><a href="/anuncios/" class="board-link"><i class="bi-patch-check-fill board-icon"></i> Anuncios</a></div><div class="board-item"><a href="/c/" class="board-link"><i class="bi-c-circle board-icon"></i> Consejos</a></div><div class="board-item"><a href="/feed/" class="board-link"><i class="bi-question-lg board-icon"></i> Feedback</a></div><div class="board-item"><a href="/g/" class="board-link"><i class="bi-chat-dots board-icon"></i> General</a></div><div class="board-item"><a href="/pol/" class="board-link"><i class="bi-flag board-icon"></i> Política</a></div><div class="board-item"><a href="/soc/" class="board-link"><i class="bi-people board-icon"></i> Sociedad</a></div></div></div><div class="board-category"><h3 class="category-title">NSFW</h3><div class="board-list"><div class="board-item"><a href="/18/" class="board-link"><i class="bi-shield-lock board-icon"></i> +18</a></div><div class="board-item"><a href="/fh/" class="board-link"><i class=" board-icon"></i> Fetiches</a></div><div class="board-item"><a href="/fun/" class="board-link"><i class=" board-icon"></i> Funposting</a></div><div class="board-item"><a href="/h/" class="board-link"><i class="bi-explicit board-icon"></i> Hentai</a></div></div></div><div class="board-category"><h3 class="category-title">Países</h3><div class="board-list"><div class="board-item"><a href="/arg/" class="board-link"><i class="bi-flag board-icon"></i> Argentina</a></div><div class="board-item"><a href="/cc/" class="board-link"><i class="bi-flag board-icon"></i> Centro América</a></div><div class="board-item"><a href="/chl/" class="board-link"><i class="bi-flag board-icon"></i> Chile</a></div><div class="board-item"><a href="/col/" class="board-link"><i class="bi-flag board-icon"></i> Colombia</a></div><div class="board-item"><a href="/esp/" class="board-link"><i class="bi-flag board-icon"></i> España</a></div><div class="board-item"><a href="/int/" class="board-link"><i class="bi-globe-americas board-icon"></i> Internacional</a></div><div class="board-item"><a href="/mx/" class="board-link"><i class="bi-flag board-icon"></i> México</a></div><div class="board-item"><a href="/peru/" class="board-link"><i class="bi-flag board-icon"></i> Perú</a></div><div class="board-item"><a href="/vnlz/" class="board-link"><i class="bi-flag board-icon"></i> Venezuela</a></div></div></div><div class="board-category"><h3 class="category-title">Subculturas</h3><div class="board-list"><div class="board-item"><a href="/a/" class="board-link"><i class="bi-palette board-icon"></i> Arte y Diseño</a></div><div class="board-item"><a href="/diy/" class="board-link"><i class="bi-hammer board-icon"></i> Hazlo tú mismo</a></div><div class="board-item"><a href="/lgbt/" class="board-link"><i class="bi-rainbow board-icon"></i> LGBT+</a></div><div class="board-item"><a href="/x/" class="board-link"><i class="bi-eye board-icon"></i> Misterios</a></div></div></div><div class="board-category"><h3 class="category-title">Tecnología y Cultura</h3><div class="board-list"><div class="board-item"><a href="/sci/" class="board-link"><i class="bi-lightbulb board-icon"></i> Ciencia</a></div><div class="board-item"><a href="/his/" class="board-link"><i class="bi-clock-history board-icon"></i> Historia</a></div><div class="board-item"><a href="/lit/" class="board-link"><i class="bi-journal-text board-icon"></i> Literatura</a></div><div class="board-item"><a href="/tech/" class="board-link"><i class="bi-cpu board-icon"></i> Tecnología</a></div></div></div>    </div> <!-- cierre boards-grid -->
+</section>
+
+        <section class="trending-section">
+    <div class="section-header">
+        <div class="section-title">
+            <i class="bi bi-clock-history"></i>
+            ÚLTIMAS PUBLICACIONES
+        </div>
+        <div class="section-subtitle">Posts recientes</div>
+    </div>
+    
+    <div class="dynamic-content-block">
+        <div class="stats-column">
+            <div class="dynamic-title">ESTADÍSTICAS</div>
+            <div class="stats-box">
+                                <p>👥 ONLINE: 25</p>
+                <p>📊 POSTS HOY: 14</p>
+                <p>💬 TOTAL POSTS: 585</p>
+                <div class="stats-gif"><img src="https://hispachan.in/assets/hispaperro.gif" alt="hispaperro"></div>
+            </div>
+        </div>
+        
+        <div class="posts-column">
+            <div class="dynamic-title">ÚLTIMOS POSTS</div>
+            <div class="posts-box">
+                <div class="latest-post-line">  <span class="post-time">5h</span>  <a href="/tv/594" class="post-link">    <span class="board-name">/tv/</span>    <span class="post-snippet">hola</span>  </a></div><div class="latest-post-line">  <span class="post-time">1d</span>  <a href="/feed/480" class="post-link">    <span class="board-name">/feed/</span>    <span class="post-snippet">Idea para generar shekels a hispachan</span>  </a></div><div class="latest-post-line">  <span class="post-time">5h</span>  <a href="/g/588" class="post-link">    <span class="board-name">/g/</span>    <span class="post-snippet">cULOS</span>  </a></div><div class="latest-post-line">  <span class="post-time">1d</span>  <a href="/chl/446" class="post-link">    <span class="board-name">/chl/</span>    <span class="post-snippet">Revivan mis xanxitos de la /cl/oaca</span>  </a></div><div class="latest-post-line">  <span class="post-time">5h</span>  <a href="/an/586" class="post-link">    <span class="board-name">/an/</span>    <span class="post-snippet">Es Monster el mejor Seinen jamas creado?</span>  </a></div><div class="latest-post-line">  <span class="post-time">5h</span>  <a href="/cc/585" class="post-link">    <span class="board-name">/cc/</span>    <span class="post-snippet">Tablón reclamado por Cen-chan</span>  </a></div><div class="latest-post-line">  <span class="post-time">5h</span>  <a href="/his/584" class="post-link">    <span class="board-name">/his/</span>    <span class="post-snippet">hilo dedicado a la Madre de Dios</span>  </a></div><div class="latest-post-line">  <span class="post-time">5h</span>  <a href="/18/582" class="post-link">    <span class="board-name">/18/</span>    <span class="post-snippet">la arqueologia me excita</span>  </a></div><div class="latest-post-line">  <span class="post-time">5h</span>  <a href="/g/578" class="post-link">    <span class="board-name">/g/</span>    <span class="post-snippet">rance es mierda</span>  </a></div><div class="latest-post-line">  <span class="post-time">2d</span>  <a href="/an/378" class="post-link">    <span class="board-name">/an/</span>    <span class="post-snippet">80 años de la Bomba Atómica.</span>  </a></div>            </div>
+        </div>
+        
+        <div class="images-column">
+            <div class="dynamic-title">IMÁGENES RECIENTES</div>
+            <div class="images-box">
+                <div class="recent-image">  <a href="/tv/594">    <img src="/uploads/threads/a75cd24515afa09e.png" alt="hola" loading="lazy">    <div class="image-overlay">      <span class="image-board">/tv/</span>    </div>  </a></div><div class="recent-image">  <a href="/feed/480">    <img src="/uploads/threads/77bd0c64e484981e.png" alt="Idea para generar shekels a hispachan" loading="lazy">    <div class="image-overlay">      <span class="image-board">/feed/</span>    </div>  </a></div><div class="recent-image">  <a href="/g/588">    <img src="/uploads/threads/8ca9ae280c98f4af.jpg" alt="cULOS" loading="lazy">    <div class="image-overlay">      <span class="image-board">/g/</span>    </div>  </a></div>            </div>
+        </div>
+    </div>
+</section>
+        <span>Estadísticas</span>
+<br><br>
+
+<section class="stats-section">
+
+<div class="stats-content"><div class="stat-item"><div class="stat-value">585</div><div class="stat-label">Posts Totales</div></div><div class="stat-item"><div class="stat-value">25</div><div class="stat-label">Usuarios Activos</div></div><div class="stat-item"><div class="stat-value">14</div><div class="stat-label">Hilos Hoy</div></div><div class="stat-item"><div class="stat-value">18</div><div class="stat-label">Imágenes Subidas</div></div></div>
+</section>
+
+        <footer>
+        <div class="container footer-content">
+            <div class="footer-links">
+                <a href="https://hispachan.in/rules.php">Reglas</a>
+                <a href="https://hispachan.in/faq.php">FAQ</a>
+                <a href="/cdn-cgi/l/email-protection#325b5c545d725a5b414253515a535c1c5b5c">Contacto</a>
+            </div>
+            <div class="copyright">
+                Hispachan © 2025. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+    <!-- Global Search System -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/theme-switcher.js"></script>
+    <script src="assets/js/global-search.js"></script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c156edac208694',t:'MTc1NDY4MDQ5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"96c156edac208694","version":"2025.7.0","r":1,"token":"97f4dc9c09bc4faf8fe903536fceba94","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+</body>
+
+</html>
